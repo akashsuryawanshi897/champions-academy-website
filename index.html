@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE CHAMPIONS ACADEMY - Police & Defense Training</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="THE CHAMPIONS ACADEMY is a premier educational institute focused on competitive exam preparation for police and defense services since 2018.">
+    <meta name="keywords" content="The Champions Academy, Police Training, Defense Training, PSI preparation, STI, ASO, Government Exam Prep">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF9933',
+                        secondary: '#138808',
+                        navy: '#000080',
+                        dark: '#1A1A2E',
+                        slate: '#0F172A',
+                        'off-white': '#FAFAFA',
+                    },
+                    fontFamily: {
+                        heading: ['Outfit', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                        mono: ['Space Grotesk', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- Modern Defense UI CSS -->
+    <style>
+        /* ===== MODERN DEFENSE UI - GLOBAL DESIGN SYSTEM ===== */
+        
+        /* Base Typography */
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Outfit', sans-serif; }
+        
+        /* Scroll Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-right.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-scale.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+        
+        /* Stagger children */
+        .stagger-children > * {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .stagger-children.active > *:nth-child(1) { transition-delay: 0ms; opacity: 1; transform: translateY(0); }
+        .stagger-children.active > *:nth-child(2) { transition-delay: 100ms; opacity: 1; transform: translateY(0); }
+        .stagger-children.active > *:nth-child(3) { transition-delay: 200ms; opacity: 1; transform: translateY(0); }
+        .stagger-children.active > *:nth-child(4) { transition-delay: 300ms; opacity: 1; transform: translateY(0); }
+        .stagger-children.active > *:nth-child(5) { transition-delay: 400ms; opacity: 1; transform: translateY(0); }
+        .stagger-children.active > *:nth-child(6) { transition-delay: 500ms; opacity: 1; transform: translateY(0); }
+        
+        /* Marquee */
+        @keyframes marquee {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+        .marquee-container { overflow: hidden; white-space: nowrap; }
+        .marquee-content { display: inline-block; animation: marquee 25s linear infinite; }
+        
+        /* Premium Global Navbar Redesign */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            border-bottom: 1px border rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 50px -10px rgba(0, 0, 128, 0.05);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 4px 0;
+        }
+        .glass-nav.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 15px 40px -15px rgba(0, 0, 128, 0.12);
+            padding: 0;
+        }
+        .nav-link { 
+            position: relative; 
+            padding: 8px 0;
+            color: #1A1A2E;
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover { color: #FF9933; }
+        .nav-link::after {
+            content: ''; position: absolute; width: 0; height: 3px;
+            bottom: -4px; left: 0; background: linear-gradient(90deg, #FF9933, #FFD700);
+            transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 10px;
+        }
+        .nav-link:hover::after { width: 100%; }
+
+        .auth-btn {
+            background: transparent;
+            color: #1A1A2E;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(0, 0, 128, 0.1);
+        }
+        .auth-btn:hover {
+            background: #F8FAFC;
+            border-color: #FF9933;
+            color: #FF9933;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -10px rgba(255, 153, 51, 0.3);
+        }
+        .auth-icon { font-size: 14px; }
+        
+        /* Modern Course Cards */
+        .course-card {
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .course-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 128, 0.15);
+        }
+        
+        /* Speciality Cards */
+        .speciality-card {
+            border-radius: 16px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(0,0,0,0.06);
+            background: white;
+        }
+        .speciality-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px -12px rgba(255, 153, 51, 0.2);
+            border-color: #FF9933;
+        }
+        
+        /* Hero */
+        .hero-slider { height: 80vh; min-height: 400px; position: relative; }
+        
+        /* Parallax Stats */
+        .stat-banner {
+            background-image: url('assets/images/slider-1.jpg');
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .stat-banner::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(26, 26, 46, 0.92) 0%, rgba(0, 0, 128, 0.88) 100%);
+        }
+        
+        /* Animated Counter */
+        .counter-value {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: inherit;
+            background: linear-gradient(135deg, #FF9933, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        /* Testimonial Cards */
+        .testimonial-card {
+            border-radius: 16px;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+        .testimonial-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 128, 0.1);
+        }
+        
+        /* Glowing CTA Button */
+        .btn-glow {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+        .btn-glow::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            box-shadow: 0 0 20px rgba(255, 153, 51, 0.4);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .btn-glow:hover::after {
+            opacity: 1;
+        }
+        .btn-glow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -8px rgba(255, 153, 51, 0.5);
+        }
+        
+        /* Tiranga Divider */
+        .tiranga-divider {
+            height: 4px;
+            background: linear-gradient(90deg, #FF9933 33%, #FFFFFF 33%, #FFFFFF 66%, #138808 66%);
+            border-radius: 2px;
+        }
+        
+        /* Section Headings */
+        .section-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #FF9933;
+            margin-bottom: 0.5rem;
+        }
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            text-transform: uppercase;
+            line-height: 1.1;
+        }
+        
+        /* Smooth scrolling */
+        html { scroll-behavior: smooth; }
+        
+        /* Scrolled header */
+        .scrolled-header { box-shadow: 0 10px 30px -10px rgba(0,0,128,0.15); }
+        
+        /* Dark section pattern */
+        .dark-section {
+            background: linear-gradient(180deg, #1A1A2E 0%, #0F172A 100%);
+            color: white;
+        }
+    
+        /* Advanced Nav Animations */
+        .nav-link { position: relative; padding-bottom: 4px; }
+        .nav-link::after {
+            content: ''; position: absolute; width: 0; height: 2px;
+            bottom: 0; left: 0; background-color: #FF9933; transition: width 0.3s ease;
+        }
+        .nav-link:hover::after { width: 100%; }
+        
+        .dropdown-link { display: block; padding: 10px 24px; transition: all 0.3s ease; position: relative; border-left: 3px solid transparent; }
+        .dropdown-link:hover { color: #FF9933; background: #FFF4EA; border-left-color: #FF9933; transform: translateX(4px); }
+        .reveal.active { transform: translateY(0) scale(1); filter: blur(0); }
+        .reveal { filter: blur(4px); transform: translateY(40px) scale(0.98); transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1); }
+
+    </style>
+</head>
+<body class="text-gray-800 font-body bg-[#FAFAFA] min-h-screen pt-[140px]">
+
+    <div class="fixed top-0 left-0 w-full z-50">
+        <!-- Top Bar with Marquee -->
+        <div class="bg-gradient-to-r from-primary to-secondary text-white py-2 marquee-container font-medium relative shadow-md">
+            <div class="marquee-content">
+                Discover your true potential with our free expert counseling today. • Admissions Open for 2026 Batches! • Join the most successful Police training academy! • Special Physical Training classes started. •  • .
+            </div>
+        </div>
+
+        <!-- Header / Navigation -->
+        <header class="glass-nav transition-all duration-300 border-b border-gray-100 bg-white/95 backdrop-blur-md" id="main-header">
+        <div class="container mx-auto px-4 py-2 flex justify-between items-center">
+            <a href="index.html" class="flex items-center">
+                <img src="assets/images/logo.png" alt="The Champions Academy" class="h-10 md:h-12 lg:h-16 object-contain" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
+            </a>
+            
+            <!-- Desktop Nav -->
+            <nav class="hidden xl:flex gap-8 font-bold items-center text-sm uppercase tracking-wider text-navy hover:text-primary">
+                <a href="index.html" class="nav-link hover:text-primary transition">Home</a>
+                <div class="relative group">
+                    <button class="nav-link hover:text-primary transition flex items-center gap-1 uppercase">ABOUT <span class="text-[8px]">▼</span></button>
+                    <div class="absolute left-0 top-full bg-white shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-400 border-t-4 border-primary transform translate-y-4 group-hover:translate-y-0 py-2 uppercase tracking-wide">
+                        <a href="about.html" class="dropdown-link text-sm font-semibold text-gray-700">About Us</a>
+                        <a href="facilities.html" class="dropdown-link text-sm font-semibold text-gray-700">Facilities</a>
+                        <a href="eligibility-criteria.html" class="dropdown-link text-sm font-semibold text-gray-700">Eligibility Criteria</a>
+                        <a href="exam.html" class="dropdown-link text-sm font-semibold text-gray-700">Exam</a>
+                        <a href="exam-pattern.html" class="dropdown-link text-sm font-semibold text-gray-700">Exam Pattern</a>
+                    </div>
+                </div>
+                <div class="relative group">
+                    <button class="nav-link hover:text-primary transition flex items-center gap-1 uppercase">COURSES <span class="text-[8px]">▼</span></button>
+                    <div class="absolute left-0 top-full bg-white shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-400 border-t-4 border-primary transform translate-y-4 group-hover:translate-y-0 py-2 uppercase tracking-wide max-h-[80vh] overflow-y-auto">
+                        <a href="psi-2.html" class="dropdown-link text-sm font-semibold text-gray-700">PSI</a>
+                        <a href="sti.html" class="dropdown-link text-sm font-semibold text-gray-700">STI</a>
+                        <a href="aso.html" class="dropdown-link text-sm font-semibold text-gray-700">ASO</a>
+                        <a href="sprf.html" class="dropdown-link text-sm font-semibold text-gray-700">SPRF</a>
+                        <a href="cprf.html" class="dropdown-link text-sm font-semibold text-gray-700">CPRF</a>
+                        <a href="ibti.html" class="dropdown-link text-sm font-semibold text-gray-700">ITBT</a>
+                        <a href="rpf.html" class="dropdown-link text-sm font-semibold text-gray-700">RPF</a>
+                        <a href="bsf.html" class="dropdown-link text-sm font-semibold text-gray-700">BSF</a>
+                        <div class="px-6 py-2 bg-gray-50 font-bold uppercase text-[10px] tracking-widest mt-1 text-primary">State Govt Exam Courses</div>
+                        <a href="gramsevak-recruitment.html" class="dropdown-link text-sm font-semibold text-gray-700">Gramsevak Recruitment</a>
+                        <a href="talathi-recruitment-training-program.html" class="dropdown-link text-sm font-semibold text-gray-700">Talathi Recruitment</a>
+                        <a href="clerk-typist-recruitment.html" class="dropdown-link text-sm font-semibold text-gray-700">Clerk / Typist Recruitment</a>
+                        <div class="px-6 py-2 bg-gray-50 font-bold uppercase text-[10px] tracking-widest mt-1 text-primary">Direct Recruitment Courses</div>
+                        <a href="police-recruitment.html" class="dropdown-link text-sm font-semibold text-gray-700">Police Recruitment</a>
+                        <a href="army-recruitment.html" class="dropdown-link text-sm font-semibold text-gray-700">Army Recruitment (Army Bharti)</a>
+                        <a href="railway-recruitment.html" class="dropdown-link text-sm font-semibold text-gray-700">Railway Recruitment</a>
+                        <a href="forest-service-recruitment.html" class="dropdown-link text-sm font-semibold text-gray-700">Forest Service (Vanrakshak)</a>
+                        <div class="h-px bg-gray-100 my-1"></div>
+                        <a href="school-scholarship-exam-courses.html" class="dropdown-link text-sm font-bold text-gray-800">School & Scholarship Exam Courses</a>
+                    </div>
+                </div>
+                <a href="facilities.html" class="nav-link hover:text-primary transition">Facilities</a>
+                <a href="gallery.html" class="nav-link hover:text-primary transition">Gallery</a>
+                <a href="contact.html" class="nav-link hover:text-primary transition">Contact Us</a>
+            </nav>
+            
+            <div class="flex items-center gap-3 md:gap-6">
+                <!-- Consolidated Auth/Account Section -->
+                <div id="account-section" class="hidden lg:flex items-center">
+                    <div id="auth-links">
+                        <a href="login.html" class="btn-glow bg-secondary text-white px-6 py-3 rounded-xl font-bold uppercase text-[10px] tracking-widest hover:bg-primary transition-all shadow-xl shadow-blue-500/20">
+                            🔑 Login
+                        </a>
+                    </div>
+                    <div id="user-info" class="hidden items-center gap-4">
+                        <a href="dashboard.html" class="auth-btn bg-navy/5">
+                            <span class="auth-icon text-primary">👤</span> My Dashboard
+                        </a>
+                    </div>
+                </div>
+
+                <a href="admission.html" class="btn-glow bg-primary text-white px-5 md:px-8 py-2 md:py-3 rounded-xl font-bold uppercase text-[10px] md:text-xs tracking-widest hover:bg-navy transition-all duration-300 shadow-lg shadow-primary/20 transform hover:-translate-y-1 hidden sm:block">
+                    Apply Now
+                </a>
+                <button class="xl:hidden text-2xl p-2 h-12 w-12 flex items-center justify-center hover:bg-gray-50 rounded-xl transition-all" id="mobile-menu-btn">☰</button>
+            </div>
+        </div>
+    </header>
+</div>
+
+    
+    <!-- Sidebar Mobile Menu -->
+    <div class="fixed inset-0 bg-dark bg-opacity-80 z-[60] hidden transition-opacity duration-300" id="mobile-overlay"></div>
+    <div class="fixed top-0 left-[-300px] bottom-0 w-[300px] bg-white z-[70] transition-all duration-500 shadow-2xl p-8 flex flex-col overflow-y-auto" id="mobile-sidebar">
+        <button class="self-end text-3xl mb-8 flex-shrink-0" id="close-sidebar-btn">×</button>
+        <nav class="flex flex-col gap-2 font-bold text-base uppercase">
+            <a href="index.html" class="border-b border-gray-100 py-3 hover:text-primary transition">Home</a>
+            <div class="border-b border-gray-100 py-3">
+                <button class="sidebar-accordion flex justify-between items-center w-full uppercase hover:text-primary transition" onclick="this.nextElementSibling.classList.toggle('hidden');this.querySelector('span').textContent=this.nextElementSibling.classList.contains('hidden')?'+':'−'">ABOUT <span>+</span></button>
+                <div class="hidden flex-col pl-4 text-xs uppercase tracking-wider font-semibold gap-2 mt-3">
+                    <a href="about.html" class="py-1 hover:text-primary">About Us</a>
+                    <a href="facilities.html" class="py-1 hover:text-primary">Facilities</a>
+                    <a href="eligibility-criteria.html" class="py-1 hover:text-primary">Eligibility Criteria</a>
+                    <a href="exam.html" class="py-1 hover:text-primary">Exam</a>
+                    <a href="exam-pattern.html" class="py-1 hover:text-primary">Exam Pattern</a>
+                </div>
+            </div>
+            <div class="border-b border-gray-100 py-3">
+                <button class="sidebar-accordion flex justify-between items-center w-full uppercase hover:text-primary transition" onclick="this.nextElementSibling.classList.toggle('hidden');this.querySelector('span').textContent=this.nextElementSibling.classList.contains('hidden')?'+':'−'">COURSES <span>+</span></button>
+                <div class="hidden flex-col pl-4 text-xs uppercase tracking-wider font-semibold gap-2 mt-3">
+                    <a href="psi-2.html" class="py-1 hover:text-primary">PSI</a>
+                    <a href="sti.html" class="py-1 hover:text-primary">STI</a>
+                    <a href="aso.html" class="py-1 hover:text-primary">ASO</a>
+                    <a href="sprf.html" class="py-1 hover:text-primary">SPRF</a>
+                    <a href="cprf.html" class="py-1 hover:text-primary">CPRF</a>
+                    <a href="ibti.html" class="py-1 hover:text-primary">ITBT</a>
+                    <a href="rpf.html" class="py-1 hover:text-primary">RPF</a>
+                    <a href="bsf.html" class="py-1 hover:text-primary">BSF</a>
+                    <span class="text-primary text-[10px] uppercase tracking-widest mt-2 font-bold">State Govt</span>
+                    <a href="gramsevak-recruitment.html" class="py-1 hover:text-primary">Gramsevak</a>
+                    <a href="talathi-recruitment-training-program.html" class="py-1 hover:text-primary">Talathi</a>
+                    <a href="clerk-typist-recruitment.html" class="py-1 hover:text-primary">Clerk / Typist</a>
+                    <span class="text-primary text-[10px] uppercase tracking-widest mt-2 font-bold">Direct Recruitment</span>
+                    <a href="police-recruitment.html" class="py-1 hover:text-primary">Police Recruitment</a>
+                    <a href="army-recruitment.html" class="py-1 hover:text-primary">Army Bharti</a>
+                    <a href="railway-recruitment.html" class="py-1 hover:text-primary">Railway Recruitment</a>
+                    <a href="forest-service-recruitment.html" class="py-1 hover:text-primary">Forest Service</a>
+                    <a href="school-scholarship-exam-courses.html" class="py-1 hover:text-primary font-semibold mt-1">School & Scholarship</a>
+                </div>
+            </div>
+            <a href="facilities.html" class="border-b border-gray-100 py-3 hover:text-primary transition">Facilities</a>
+            <a href="gallery.html" class="border-b border-gray-100 py-3 hover:text-primary transition">Gallery</a>
+            <a href="contact.html" class="border-b border-gray-100 py-3 hover:text-primary transition">Contact Us</a>
+            <div id="mobile-auth-links" class="flex flex-col gap-3 mt-6">
+                <a href="login.html" class="text-center py-4 bg-navy text-white rounded-xl text-sm tracking-widest font-bold uppercase shadow-xl hover:bg-primary transition-all duration-300 flex items-center justify-center gap-2">
+                    <span>Account Login</span> 🔒
+                </a>
+                <p class="text-[10px] text-gray-400 text-center uppercase tracking-widest font-bold mt-2">New student? <a href="register.html" class="text-primary underline">Join academy now</a></p>
+            </div>
+            <a href="admission.html" class="mt-6 bg-secondary text-white text-center py-4 rounded-sm text-sm tracking-widest hover:bg-dark transition uppercase font-bold">Apply Now</a>
+        </nav>
+    </div>
+
+    <main>
+        <!-- Hero Slider - Cinematic -->
+        <section class="hero-slider relative overflow-hidden bg-gray-900">
+            <!-- Slide 1 - Indian Police Training & Recruitment -->
+            <div class="absolute inset-0 slide transition-opacity duration-1000 opacity-100 flex items-center" id="slide-0">
+                <img src="assets/images/hero-police-training.png" alt="Indian Police Training & Recruitment" class="absolute inset-0 w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
+                <div class="container mx-auto px-4 relative z-10">
+                    <div class="max-w-3xl">
+                        <span class="section-label inline-block mb-4 bg-primary/20 backdrop-blur-sm px-4 py-2 rounded-full border border-primary/30">🇮🇳 India's Premier Police Training Academy</span>
+                        <h1 class="text-2xl md:text-3xl lg:text-4xl text-white font-heading font-extrabold uppercase mb-6 leading-[0.95]">Become an<br><span class="text-primary">Indian Police</span> Officer</h1>
+                        <p class="text-sm md:text-base text-gray-300 mb-10 max-w-xl leading-relaxed">Elite police recruitment training with rigorous physical drills, tactical coaching & 100% dedication. Join 10,000+ successful candidates since 2018.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="admission.html" class="btn-glow bg-primary text-white px-10 py-4 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-white hover:text-primary transition-all duration-300">Apply Now →</a>
+                            <button onclick="openCallbackModal()" class="px-10 py-4 rounded-xl font-bold uppercase tracking-widest text-sm border-2 border-white/30 text-white hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">Request Callback</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 2 - Indian Army / Soldier Training & Recruitment -->
+            <div class="absolute inset-0 slide transition-opacity duration-1000 opacity-0 flex items-center" id="slide-1">
+                <img src="assets/images/hero-soldier-training.png" alt="Indian Army Soldier Training & Recruitment" class="absolute inset-0 w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
+                <div class="container mx-auto px-4 relative z-10">
+                    <div class="max-w-3xl">
+                        <span class="section-label inline-block mb-4 bg-primary/20 backdrop-blur-sm px-4 py-2 rounded-full border border-primary/30">🏆 Army Bharti — 100% Success Rate</span>
+                        <h1 class="text-2xl md:text-3xl lg:text-4xl text-white font-heading font-extrabold uppercase mb-6 leading-[0.95]">Train Like an<br><span class="text-primary">Indian Soldier</span></h1>
+                        <p class="text-lg md:text-xl text-gray-300 mb-10 max-w-xl leading-relaxed">Military-grade physical conditioning, tactical drills & recruitment preparation by ex-military professionals. Serve the nation with pride.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="admission.html" class="btn-glow bg-primary text-white px-10 py-4 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-white hover:text-primary transition-all duration-300">Enroll Now →</a>
+                            <a href="facilities.html" class="px-10 py-4 rounded-xl font-bold uppercase tracking-widest text-sm border-2 border-white/30 text-white hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">Our Facilities</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slide 3 - Defense Academy Recruitment Parade -->
+            <div class="absolute inset-0 slide transition-opacity duration-1000 opacity-0 flex items-center" id="slide-2">
+                <img src="assets/images/hero-defense-academy.png" alt="Indian Defense Academy Recruitment" class="absolute inset-0 w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
+                <div class="container mx-auto px-4 relative z-10">
+                    <div class="max-w-3xl">
+                        <span class="section-label inline-block mb-4 bg-primary/20 backdrop-blur-sm px-4 py-2 rounded-full border border-primary/30">💂 Police & Defense Recruitment Excellence</span>
+                        <h1 class="text-2xl md:text-3xl lg:text-4xl text-white font-heading font-extrabold uppercase mb-6 leading-[0.95]">Your Gateway to<br><span class="text-primary">Defense Services</span></h1>
+                        <p class="text-lg md:text-xl text-gray-300 mb-10 max-w-xl leading-relaxed">Comprehensive training for PSI, CRPF, BSF, ITBP, RPF & Army recruitment. World-class facilities, expert mentors, proven results.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="facilities.html" class="btn-glow bg-primary text-white px-10 py-4 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-white hover:text-primary transition-all duration-300">View Facilities →</a>
+                            <a href="contact.html" class="px-10 py-4 rounded-xl font-bold uppercase tracking-widest text-sm border-2 border-white/30 text-white hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">Contact Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pagination Dots -->
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-3 z-20">
+                <button class="w-12 h-1.5 rounded-full bg-primary transition-all duration-300"></button>
+                <button class="w-12 h-1.5 rounded-full bg-white/30 hover:bg-white/60 transition-all duration-300"></button>
+                <button class="w-12 h-1.5 rounded-full bg-white/30 hover:bg-white/60 transition-all duration-300"></button>
+            </div>
+        </section>
+        
+        <!-- Floating Stats Bar -->
+        <section class="relative z-10 my-16">
+            <div class="container mx-auto px-4">
+                <div class="reveal bg-white/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-100 p-8 md:p-10 grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <div class="text-center">
+                        <div class="counter-value text-xl md:text-3xl" data-counter="10000" data-suffix="+">0</div>
+                        <p class="text-xs uppercase font-mono font-semibold tracking-widest text-gray-500 mt-1">Students Trained</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="counter-value text-xl md:text-3xl" data-counter="15" data-suffix="+">0</div>
+                        <p class="text-xs uppercase font-mono font-semibold tracking-widest text-gray-500 mt-1">Expert Courses</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="counter-value text-xl md:text-3xl" data-counter="98" data-suffix="%">0</div>
+                        <p class="text-xs uppercase font-mono font-semibold tracking-widest text-gray-500 mt-1">Success Rate</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="counter-value text-xl md:text-3xl" data-counter="8" data-suffix=" Yrs">0</div>
+                        <p class="text-xs uppercase font-mono font-semibold tracking-widest text-gray-500 mt-1">Years of Trust</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About The Champions Academy Section -->
+        <section class="pt-16 pb-24 bg-white overflow-hidden">
+            <div class="container mx-auto px-4 grid lg:grid-cols-2 gap-16 items-center">
+                <div class="relative reveal-left">
+                    <img src="assets/images/about-img.jpg" alt="Training" class="rounded-2xl shadow-2xl relative z-10 w-full">
+                    <div class="absolute -top-4 -left-4 w-full h-full border-2 border-primary/20 rounded-2xl -z-10"></div>
+                    <div class="absolute -bottom-2 -right-2 w-24 h-24 bg-secondary/10 rounded-full -z-10"></div>
+                </div>
+                <div class="reveal-right">
+                    <span class="section-label">About Us</span>
+                    <h3 class="section-title text-lg md:text-xl lg:text-2xl text-gray-900 mb-4">A Legacy of Excellence<br>in <span class="text-primary">Defence Training</span></h3>
+                    <div class="tiranga-divider w-24 mb-8"></div>
+                    <div class="space-y-5 text-gray-600 leading-relaxed text-base">
+                        <p>The Champions Academy is a trusted and successful competitive exam training institute that has been operating since 2018. Over the years, we have successfully guided thousands of students to secure selection in Police Recruitment, Army Recruitment, NDA, and other government services.</p>
+                        <p>Disciplined training, proper guidance, and consistent practice are our core principles, and our team of experienced and qualified teachers is dedicated to ensuring the success of every student.</p>
+                    </div>
+                    <div class="mt-10 grid grid-cols-2 gap-8">
+                        <div class="flex items-center gap-4 p-4 bg-primary/5 rounded-xl border border-primary/10">
+                            <span class="counter-value text-2xl" data-counter="15" data-suffix="+">0</span>
+                            <span class="text-xs uppercase font-mono font-semibold text-gray-500">Expert<br>Mentors</span>
+                        </div>
+                        <div class="flex items-center gap-4 p-4 bg-secondary/5 rounded-xl border border-secondary/10">
+                            <span class="counter-value text-2xl" data-counter="100" data-suffix="%">0</span>
+                            <span class="text-xs uppercase font-mono font-semibold text-gray-500">Dedication<br>Guaranteed</span>
+                        </div>
+                    </div>
+                    <a href="about.html" class="btn-glow inline-block mt-8 bg-navy text-white px-8 py-3 rounded-xl font-bold uppercase text-xs tracking-widest hover:bg-primary transition-all duration-300">Know More →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Facilities Section -->
+        <section class="py-24 bg-[#F8FAFC]">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16 reveal">
+                    <span class="section-label">Our Infrastructure</span>
+                    <h3 class="section-title text-lg md:text-xl lg:text-2xl text-gray-900 uppercase">World-Class <span class="text-primary">Facilities</span></h3>
+                    <div class="tiranga-divider w-24 mx-auto mt-6"></div>
+                    <p class="mt-6 text-gray-500 max-w-2xl mx-auto uppercase text-xs tracking-widest font-bold">State-of-the-art training environment for elite preparation. 🇮🇳</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 stagger-children">
+                    <!-- Facility 1 -->
+                    <div onclick="showFacilityInfo('Sports Ground', 'A standard 400m track for elite physical conditioning.', 'Our sprawling ground features a standard 400m track, high-jump pits, and specialized equipment for all defense physical standards. It is where daily endurance and strength training takes place.', 'assets/images/ground.jpg')" class="facility-card shadow-2xl rounded-2xl overflow-hidden relative group h-48 cursor-pointer">
+                        <img src="assets/images/ground.jpg" alt="Ground" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark/95 via-dark/50 to-transparent opacity-80 group-hover:opacity-100 transition duration-300"></div>
+                        <div class="absolute inset-0 p-6 flex flex-col justify-end z-10 transition-transform duration-300 transform translate-y-4 group-hover:translate-y-0">
+                            <h4 class="text-2xl font-bold mb-2 text-white drop-shadow-md">Sports Ground</h4>
+                            <p class="text-sm text-gray-200 drop-shadow">Equipped with 400m track and modern physical training tools.</p>
+                            <span class="text-[10px] text-primary font-bold uppercase tracking-widest mt-2 opacity-0 group-hover:opacity-100 transition-opacity">Click to view details →</span>
+                        </div>
+                    </div>
+                    <!-- Facility 2 -->
+                    <div onclick="showFacilityInfo('Digital Library', 'Quiet study environment with 24/7 resource access.', 'Access thousands of books, journals, and online test series for MPSC, Police, and Army exams. The library is air-conditioned and designed to provide a distraction-free study zone.', 'assets/images/modern-library.png')" class="facility-card shadow-2xl rounded-2xl overflow-hidden relative group h-48 cursor-pointer">
+                        <img src="assets/images/modern-library.png" alt="Library" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark/95 via-dark/50 to-transparent opacity-80 group-hover:opacity-100 transition duration-300"></div>
+                        <div class="absolute inset-0 p-6 flex flex-col justify-end z-10 transition-transform duration-300 transform translate-y-4 group-hover:translate-y-0">
+                            <h4 class="text-2xl font-bold mb-2 text-white drop-shadow-md">Digital Library</h4>
+                            <p class="text-sm text-gray-200 drop-shadow">Comprehensive collection of competitive exam resources.</p>
+                            <span class="text-[10px] text-primary font-bold uppercase tracking-widest mt-2 opacity-0 group-hover:opacity-100 transition-opacity">Click to view details →</span>
+                        </div>
+                    </div>
+                    <!-- Facility 3 -->
+                    <div onclick="showFacilityInfo('Smart Classrooms', 'Technology-driven learning for modern exams.', 'Our classrooms are equipped with projector screens and surround sound systems for audio-visual learning. We also record lectures for students to review later in the digital library.', 'assets/images/classroom-study.png')" class="facility-card shadow-2xl rounded-2xl overflow-hidden relative group h-48 cursor-pointer">
+                        <img src="assets/images/classroom-study.png" alt="Classroom" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-dark/95 via-dark/50 to-transparent opacity-80 group-hover:opacity-100 transition duration-300"></div>
+                        <div class="absolute inset-0 p-6 flex flex-col justify-end z-10 transition-transform duration-300 transform translate-y-4 group-hover:translate-y-0">
+                            <h4 class="text-2xl font-bold mb-2 text-white drop-shadow-md">Smart Classrooms</h4>
+                            <p class="text-sm text-gray-200 drop-shadow">Audio-visual learning aids for deeper understanding levels.</p>
+                            <span class="text-[10px] text-primary font-bold uppercase tracking-widest mt-2 opacity-0 group-hover:opacity-100 transition-opacity">Click to view details →</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-12">
+                    <a href="facilities.html" class="inline-flex items-center gap-2 text-primary font-bold uppercase tracking-widest text-xs hover:gap-4 transition-all duration-300">Explore All Facilities <span class="text-xl">→</span></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Information Modal (Standardized) -->
+        <div id="infoModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-dark/90 backdrop-blur-md">
+            <div class="bg-white rounded-3xl overflow-hidden shadow-2xl max-w-4xl w-full flex flex-col md:flex-row relative reveal-scale active">
+                <button onclick="closeInfoModal()" class="absolute top-4 right-4 w-10 h-10 bg-white shadow-lg rounded-full flex items-center justify-center text-dark font-bold hover:bg-primary hover:text-white transition-all z-20">×</button>
+                <div class="md:w-1/2 h-48 md:h-auto overflow-hidden">
+                    <img id="modalImg" src="assets/images/ground.jpg" alt="Detail" class="w-full h-full object-cover">
+                </div>
+                <div class="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+                    <span id="modalSubtitle" class="text-primary font-bold uppercase tracking-widest text-[10px] mb-2">Facility Detail</span>
+                    <h4 id="modalTitle" class="text-3xl font-heading font-extrabold text-navy uppercase mb-4">Sports Ground</h4>
+                    <div class="tiranga-divider w-16 mb-6"></div>
+                    <p id="modalDesc" class="text-gray-600 leading-relaxed text-sm"></p>
+                    <div class="mt-10 flex gap-4">
+                        <a href="admission.html" class="bg-navy text-white px-8 py-3 rounded-xl font-bold uppercase text-[10px] tracking-widest hover:bg-primary transition-all shadow-lg">Join Batch</a>
+                        <button onclick="closeInfoModal()" class="border-2 border-gray-100 text-gray-400 px-8 py-3 rounded-xl font-bold uppercase text-[10px] tracking-widest hover:border-primary hover:text-primary transition-all">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dynamic Stats Banner - Dark Section -->
+        <section class="dark-section py-24 text-white text-center overflow-hidden relative z-0">
+            <div class="container mx-auto px-4">
+                <div class="reveal mb-16">
+                    <span class="section-label text-primary">Our Impact</span>
+                    <h3 class="section-title text-lg md:text-xl lg:text-2xl text-white">Numbers That <span class="text-primary">Speak</span></h3>
+                    <div class="tiranga-divider w-24 mx-auto mt-6"></div>
+                </div>
+                <div class="stagger-children grid grid-cols-1 md:grid-cols-4 gap-12">
+                    <div class="flex flex-col items-center p-8 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300">
+                        <div class="w-16 h-16 mb-5 bg-primary/20 rounded-2xl flex items-center justify-center">
+                            <span class="text-3xl">💂</span>
+                        </div>
+                        <div class="counter-value text-xl md:text-3xl" data-counter="1000" data-suffix="+">0</div>
+                        <p class="uppercase font-mono font-semibold text-xs tracking-widest text-white/60 mt-2">Students Selected</p>
+                    </div>
+                    <div class="flex flex-col items-center p-8 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300">
+                        <div class="w-16 h-16 mb-5 bg-primary/20 rounded-2xl flex items-center justify-center">
+                            <span class="text-3xl">🏆</span>
+                        </div>
+                        <div class="counter-value text-xl md:text-3xl" data-counter="100" data-suffix="%">0</div>
+                        <p class="uppercase font-mono font-semibold text-xs tracking-widest text-white/60 mt-2">Success Rate</p>
+                    </div>
+                    <div class="flex flex-col items-center p-8 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300">
+                        <div class="w-16 h-16 mb-5 bg-primary/20 rounded-2xl flex items-center justify-center">
+                            <span class="text-3xl">👨‍🏫</span>
+                        </div>
+                        <div class="counter-value text-xl md:text-3xl" data-counter="15" data-suffix="+">0</div>
+                        <p class="uppercase font-mono font-semibold text-xs tracking-widest text-white/60 mt-2">Expert Teachers</p>
+                    </div>
+                    <div class="flex flex-col items-center p-8 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300">
+                        <div class="w-16 h-16 mb-5 bg-primary/20 rounded-2xl flex items-center justify-center">
+                            <span class="text-3xl">🏃</span>
+                        </div>
+                        <div class="counter-value text-xl md:text-3xl" data-counter="8" data-suffix=" Yrs">0</div>
+                        <p class="uppercase font-mono font-semibold text-xs tracking-widest text-white/60 mt-2">Physical Training</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Courses - Bento Grid -->
+        <section class="py-24 bg-[#FAFAFA] overflow-hidden">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16 reveal">
+                    <span class="section-label">What We Offer</span>
+                    <h3 class="section-title text-lg md:text-xl lg:text-2xl text-gray-900">Our Specialized <span class="text-primary">Courses</span></h3>
+                    <div class="tiranga-divider w-24 mx-auto mt-6"></div>
+                </div>
+                
+                <!-- Bento Grid -->
+                <div class="stagger-children grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Card 1 - PSI (Featured) -->
+                    <div class="course-card bg-white group md:col-span-2 lg:row-span-2 relative">
+                        <div class="h-56 lg:h-full relative overflow-hidden">
+                            <img src="assets/images/fitness-test.jpg" alt="PSI Training" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-[#1A1A2E]/40 to-transparent"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-8">
+                                <span class="inline-block px-3 py-1 rounded-full bg-primary/20 backdrop-blur-sm text-primary text-xs font-mono font-semibold uppercase tracking-wider mb-3 border border-primary/30">MPSC Level</span>
+                                <h4 class="text-2xl lg:text-3xl font-heading font-bold text-white mb-3">PSI Recruitment Batch</h4>
+                                <p class="text-gray-300 text-sm mb-5 leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500">Dedicated training for Maharashtra Police Sub-Inspector candidates with 100% syllabus coverage and mock interviews.</p>
+                                <div class="flex gap-4">
+                                    <a href="psi-2.html" class="inline-flex items-center gap-2 text-primary font-bold uppercase text-xs tracking-widest group-hover:gap-4 transition-all duration-300">Details <span>→</span></a>
+                                    <a href="admission.html?course=PSI" class="bg-primary text-white px-4 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-widest hover:bg-white hover:text-primary transition-all duration-300">Apply Now</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 2 - STI -->
+                    <div class="course-card bg-white group relative">
+                        <div class="h-48 relative overflow-hidden">
+                            <img src="assets/images/os-44.jpg" alt="STI Training" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <span class="inline-block px-3 py-1 rounded-full bg-secondary/20 backdrop-blur-sm text-secondary text-xs font-mono font-semibold uppercase tracking-wider mb-2 border border-secondary/30">State Level</span>
+                                <h4 class="text-xl font-heading font-bold text-white mb-1">STI Training Program</h4>
+                                <a href="sti.html" class="inline-flex items-center gap-2 text-primary font-bold uppercase text-xs tracking-widest mt-2">Explore <span class="group-hover:translate-x-2 transition-transform">→</span></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 3 - ASO -->
+                    <div class="course-card bg-white group relative">
+                        <div class="h-48 relative overflow-hidden">
+                            <img src="assets/images/os-66.webp" alt="ASO Training" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <span class="inline-block px-3 py-1 rounded-full bg-navy/20 backdrop-blur-sm text-blue-300 text-xs font-mono font-semibold uppercase tracking-wider mb-2 border border-navy/30">Administrative</span>
+                                <h4 class="text-xl font-heading font-bold text-white mb-1">ASO Competitive Prep</h4>
+                                <a href="aso.html" class="inline-flex items-center gap-2 text-primary font-bold uppercase text-xs tracking-widest mt-2">Explore <span class="group-hover:translate-x-2 transition-transform">→</span></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 4 - CPRF -->
+                    <div class="course-card bg-white group relative">
+                        <div class="h-48 relative overflow-hidden">
+                            <img src="assets/images/g1.jpg" alt="CPRF Training" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <span class="inline-block px-3 py-1 rounded-full bg-primary/20 backdrop-blur-sm text-primary text-xs font-mono font-semibold uppercase tracking-wider mb-2 border border-primary/30">Central Force</span>
+                                <h4 class="text-xl font-heading font-bold text-white mb-1">CRPF Special Force</h4>
+                                <a href="cprf.html" class="inline-flex items-center gap-2 text-primary font-bold uppercase text-xs tracking-widest mt-2">Explore <span class="group-hover:translate-x-2 transition-transform">→</span></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 5 - ITBP -->
+                    <div class="course-card bg-white group relative">
+                        <div class="h-48 relative overflow-hidden">
+                            <img src="assets/images/g2.jpg" alt="ITBP Training" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <span class="inline-block px-3 py-1 rounded-full bg-secondary/20 backdrop-blur-sm text-secondary text-xs font-mono font-semibold uppercase tracking-wider mb-2 border border-secondary/30">Border Force</span>
+                                <h4 class="text-xl font-heading font-bold text-white mb-1">ITBP Recruitment</h4>
+                                <a href="ibti.html" class="inline-flex items-center gap-2 text-primary font-bold uppercase text-xs tracking-widest mt-2">Explore <span class="group-hover:translate-x-2 transition-transform">→</span></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 6 - RPF -->
+                    <div class="course-card bg-white group relative">
+                        <div class="h-48 relative overflow-hidden">
+                            <img src="assets/images/g5.jpg" alt="RPF Training" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <span class="inline-block px-3 py-1 rounded-full bg-primary/20 backdrop-blur-sm text-primary text-xs font-mono font-semibold uppercase tracking-wider mb-2 border border-primary/30">Railway</span>
+                                <h4 class="text-xl font-heading font-bold text-white mb-1">RPF Railway Police</h4>
+                                <a href="rpf.html" class="inline-flex items-center gap-2 text-primary font-bold uppercase text-xs tracking-widest mt-2">Explore <span class="group-hover:translate-x-2 transition-transform">→</span></a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Card 7 - SPRF -->
+                    <div class="course-card bg-white group relative">
+                        <div class="h-48 relative overflow-hidden">
+                            <img src="assets/images/ground.jpg" alt="SRPF Training" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <span class="inline-block px-3 py-1 rounded-full bg-emerald-500/20 backdrop-blur-sm text-emerald-400 text-xs font-mono font-semibold uppercase tracking-wider mb-2 border border-emerald-500/30">State Force</span>
+                                <h4 class="text-xl font-heading font-bold text-white mb-1">SRPF Recruitment</h4>
+                                <a href="sprf.html" class="inline-flex items-center gap-2 text-primary font-bold uppercase text-xs tracking-widest mt-2">Explore <span class="group-hover:translate-x-2 transition-transform">→</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 8 - BSF -->
+                    <div class="course-card bg-white group relative">
+                        <div class="h-48 relative overflow-hidden">
+                            <img src="assets/images/os-33.avif" alt="BSF Training" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <span class="inline-block px-3 py-1 rounded-full bg-secondary/20 backdrop-blur-sm text-secondary text-xs font-mono font-semibold uppercase tracking-wider mb-2 border border-secondary/30">Border Security</span>
+                                <h4 class="text-xl font-heading font-bold text-white mb-1">BSF Preparation</h4>
+                                <a href="bsf.html" class="inline-flex items-center gap-2 text-primary font-bold uppercase text-xs tracking-widest mt-2 hover:underline">Details →</a>
+                                <a href="admission.html?course=BSF" class="ml-4 bg-primary text-white px-3 py-1 rounded text-[10px] font-bold uppercase tracking-widest">Apply</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 9 - Gramsevak -->
+                    <div class="course-card bg-white group relative">
+                        <div class="h-48 relative overflow-hidden">
+                            <img src="assets/images/gramsevak.jpg" alt="Gramsevak Training" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <span class="inline-block px-3 py-1 rounded-full bg-amber-500/20 backdrop-blur-sm text-amber-400 text-xs font-mono font-semibold uppercase tracking-wider mb-2 border border-amber-500/30">Zilla Parishad</span>
+                                <h4 class="text-xl font-heading font-bold text-white mb-1">Gramsevak Recruitment</h4>
+                                <a href="gramsevak-recruitment.html" class="inline-flex items-center gap-2 text-primary font-bold uppercase text-xs tracking-widest mt-2">Explore <span class="group-hover:translate-x-2 transition-transform">→</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 10 - Talathi -->
+                    <div class="course-card bg-white group relative">
+                        <div class="h-48 relative overflow-hidden">
+                            <img src="assets/images/talathi.jpg" alt="Talathi Training" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <span class="inline-block px-3 py-1 rounded-full bg-blue-500/20 backdrop-blur-sm text-blue-400 text-xs font-mono font-semibold uppercase tracking-wider mb-2 border border-blue-500/30">Revenue Dept</span>
+                                <h4 class="text-xl font-heading font-bold text-white mb-1">Talathi Recruitment</h4>
+                                <a href="talathi-recruitment-training-program.html" class="inline-flex items-center gap-2 text-primary font-bold uppercase text-xs tracking-widest mt-2">Explore <span class="group-hover:translate-x-2 transition-transform">→</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 11 - Clerk/Typist -->
+                    <div class="course-card bg-white group relative">
+                        <div class="h-48 relative overflow-hidden">
+                            <img src="assets/images/clerk.jpg" alt="Clerk Typist Training" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <span class="inline-block px-3 py-1 rounded-full bg-purple-500/20 backdrop-blur-sm text-purple-400 text-xs font-mono font-semibold uppercase tracking-wider mb-2 border border-purple-500/30">MPSC / State</span>
+                                <h4 class="text-xl font-heading font-bold text-white mb-1">Clerk / Typist</h4>
+                                <a href="clerk-typist-recruitment.html" class="inline-flex items-center gap-2 text-primary font-bold uppercase text-xs tracking-widest mt-2">Explore <span class="group-hover:translate-x-2 transition-transform">→</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 12 - Police Recruitment -->
+                    <div class="course-card bg-white group relative">
+                        <div class="h-48 relative overflow-hidden">
+                            <img src="assets/images/g6.jpg" alt="Police Bharti" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <span class="inline-block px-3 py-1 rounded-full bg-navy/20 backdrop-blur-sm text-blue-300 text-xs font-mono font-semibold uppercase tracking-wider mb-2 border border-navy/30">Direct Bharti</span>
+                                <h4 class="text-xl font-heading font-bold text-white mb-1">Police Recruitment</h4>
+                                <a href="police-recruitment.html" class="inline-flex items-center gap-2 text-primary font-bold uppercase text-xs tracking-widest mt-2">Explore <span class="group-hover:translate-x-2 transition-transform">→</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 13 - Army Bharti -->
+                    <div class="course-card bg-white group relative">
+                        <div class="h-48 relative overflow-hidden">
+                            <img src="assets/images/defense-training.png" alt="Army Bharti" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <span class="inline-block px-3 py-1 rounded-full bg-secondary/20 backdrop-blur-sm text-secondary text-xs font-mono font-semibold uppercase tracking-wider mb-2 border border-secondary/30">Defense</span>
+                                <h4 class="text-xl font-heading font-bold text-white mb-1">Army Recruitment</h4>
+                                <a href="army-recruitment.html" class="inline-flex items-center gap-2 text-primary font-bold uppercase text-xs tracking-widest mt-2">Explore <span class="group-hover:translate-x-2 transition-transform">→</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 14 - Railway -->
+                    <div class="course-card bg-white group relative">
+                        <div class="h-48 relative overflow-hidden">
+                            <img src="assets/images/railway.jpg" alt="Railway Recruitment" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <span class="inline-block px-3 py-1 rounded-full bg-red-500/20 backdrop-blur-sm text-red-400 text-xs font-mono font-semibold uppercase tracking-wider mb-2 border border-red-500/30">RRB / Central</span>
+                                <h4 class="text-xl font-heading font-bold text-white mb-1">Railway Recruitment</h4>
+                                <a href="railway-recruitment.html" class="inline-flex items-center gap-2 text-primary font-bold uppercase text-xs tracking-widest mt-2">Explore <span class="group-hover:translate-x-2 transition-transform">→</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 15 - Forest Service -->
+                    <div class="course-card bg-white group relative">
+                        <div class="h-48 relative overflow-hidden">
+                            <img src="assets/images/obstacle-course.png" alt="Forest Service" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <span class="inline-block px-3 py-1 rounded-full bg-secondary/20 backdrop-blur-sm text-secondary text-xs font-mono font-semibold uppercase tracking-wider mb-2 border border-secondary/30">Vanrakshak</span>
+                                <h4 class="text-xl font-heading font-bold text-white mb-1">Forest Service</h4>
+                                <a href="forest-service-recruitment.html" class="inline-flex items-center gap-2 text-primary font-bold uppercase text-xs tracking-widest mt-2">Explore <span class="group-hover:translate-x-2 transition-transform">→</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card 16 - School & Scholarship -->
+                    <div class="course-card bg-white group relative">
+                        <div class="h-48 relative overflow-hidden">
+                            <img src="assets/images/scholarship.jpg" alt="Scholarship Exams" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent"></div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <span class="inline-block px-3 py-1 rounded-full bg-cyan-500/20 backdrop-blur-sm text-cyan-400 text-xs font-mono font-semibold uppercase tracking-wider mb-2 border border-cyan-500/30">Academics</span>
+                                <h4 class="text-xl font-heading font-bold text-white mb-1">School & Scholarship</h4>
+                                <a href="school-scholarship-exam-courses.html" class="inline-flex items-center gap-2 text-primary font-bold uppercase text-xs tracking-widest mt-2">Explore <span class="group-hover:translate-x-2 transition-transform">→</span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- View All Courses CTA -->
+                <div class="text-center mt-12 reveal">
+                    <a href="#" class="btn-glow inline-block bg-navy text-white px-12 py-4 rounded-xl font-bold uppercase text-sm tracking-widest hover:bg-primary transition-all duration-300">View All Courses →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Speciality Section - Dark -->
+        <section class="dark-section py-24 overflow-hidden">
+            <div class="container mx-auto px-4 grid lg:grid-cols-2 gap-16 items-center">
+                <div class="reveal-left">
+                    <span class="section-label">Our Speciality</span>
+                    <h3 class="section-title text-3xl md:text-4xl lg:text-5xl text-white mb-4">Why Choose<br><span class="text-primary">The Champions Academy?</span></h3>
+                    <div class="tiranga-divider w-24 mb-10"></div>
+                    <div class="stagger-children grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div class="speciality-card p-6 bg-white/5 border border-white/10 backdrop-blur-sm hover:border-primary/50 hover:bg-white/10">
+                            <div class="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center mb-4">
+                                <span class="text-2xl">🏆</span>
+                            </div>
+                            <h4 class="font-heading font-bold text-white text-sm tracking-wider mb-2">Physical Training</h4><p class="text-xs text-gray-400 leading-relaxed">Professional physical conditioning by ex-defense trainers.</p></div>
+                        <div class="speciality-card p-6 bg-white/5 border border-white/10 backdrop-blur-sm hover:border-primary/50 hover:bg-white/10">
+                            <div class="w-12 h-12 bg-secondary/20 rounded-xl flex items-center justify-center mb-4">
+                                <span class="text-2xl">💻</span>
+                            </div>
+                            <h4 class="font-heading font-bold text-white text-sm tracking-wider mb-2">Computer Lab</h4>
+                            <p class="text-xs text-gray-400 leading-relaxed">Modern digital lab for online exam simulations.</p>
+                        </div>
+                        <div class="speciality-card p-6 bg-white/5 border border-white/10 backdrop-blur-sm hover:border-primary/50 hover:bg-white/10">
+                            <div class="w-12 h-12 bg-navy/30 rounded-xl flex items-center justify-center mb-4">
+                                <span class="text-2xl">🎓</span>
+                            </div>
+                            <h4 class="font-heading font-bold text-white text-sm tracking-wider mb-2">Expert Teachers</h4>
+                            <p class="text-xs text-gray-400 leading-relaxed">Qualified faculty with years of recruitment experience.</p>
+                        </div>
+                        <div class="speciality-card p-6 bg-white/5 border border-white/10 backdrop-blur-sm hover:border-primary/50 hover:bg-white/10">
+                            <div class="w-12 h-12 bg-primary/20 rounded-xl flex items-center justify-center mb-4">
+                                <span class="text-2xl">📚</span>
+                            </div>
+                            <h4 class="font-heading font-bold text-white text-sm tracking-wider mb-2">Digital Library</h4>
+                            <p class="text-xs text-gray-400 leading-relaxed">24/7 access to reading rooms and study materials.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal-right relative">
+                    <img src="assets/images/os-44.jpg" alt="Speciality" class="rounded-2xl shadow-2xl w-full relative z-10">
+                    <div class="absolute -bottom-3 -right-3 w-full h-full border-2 border-primary/15 rounded-2xl -z-10"></div>
+                </div>
+            </div>
+        </section>
+        <!-- Testimonials Section -->
+        <section class="py-24 bg-white overflow-hidden">
+            <div class="container mx-auto px-4 text-center mb-16 reveal">
+                <span class="section-label">Testimonials</span>
+                <h3 class="section-title text-3xl md:text-4xl lg:text-5xl text-gray-900">What Our <span class="text-primary">Students</span> Say</h3>
+                <div class="tiranga-divider w-24 mx-auto mt-6"></div>
+            </div>
+            <div class="container mx-auto px-4">
+                <div class="stagger-children grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial-card bg-[#FAFAFA] p-10 relative group">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary font-heading font-bold text-lg">PJ</div>
+                            <div>
+                                <h4 class="font-heading font-bold text-sm">Pratiksha Jadhav</h4>
+                                <span class="text-xs text-primary font-mono font-semibold">NDA Success</span>
+                            </div>
+                        </div>
+                        <div class="flex gap-1 text-primary text-sm mb-4">★★★★★</div>
+                        <p class="text-gray-500 text-sm leading-relaxed">"The disciplined environment and personal attention from trainers helped me stay motivated and focused. I cleared the NDA exam with excellent scores."</p>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial-card bg-[#FAFAFA] p-10 relative border-t-4 border-primary group">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center text-secondary font-heading font-bold text-lg">SS</div>
+                            <div>
+                                <h4 class="font-heading font-bold text-sm">Snehal Shinde</h4>
+                                <span class="text-xs text-primary font-mono font-semibold">Army Candidate</span>
+                            </div>
+                        </div>
+                        <div class="flex gap-1 text-primary text-sm mb-4">★★★★★</div>
+                        <p class="text-gray-500 text-sm leading-relaxed">"What I loved most was the daily schedule and doubt-solving sessions. It not only prepared me for exams but also improved my fitness and confidence."</p>
+                    </div>
+                    <!-- Testimonial 3 -->
+                    <div class="testimonial-card bg-[#FAFAFA] p-10 relative group">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-12 h-12 rounded-full bg-navy/20 flex items-center justify-center text-navy font-heading font-bold text-lg">VK</div>
+                            <div>
+                                <h4 class="font-heading font-bold text-sm">Vishal Kale</h4>
+                                <span class="text-xs text-primary font-mono font-semibold">Jawan Service</span>
+                            </div>
+                        </div>
+                        <div class="flex gap-1 text-primary text-sm mb-4">★★★★★</div>
+                        <p class="text-gray-500 text-sm leading-relaxed">"The Champions Academy not only trained me but also built my discipline and determination. Today, I proudly serve as a jawan, and I owe this success to my mentors here."</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer - Premium -->
+    <footer class="dark-section pt-24 pb-12 text-white border-t-4 border-primary relative overflow-hidden">
+        <!-- Decorative Elements -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-primary/3 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-48 bg-secondary/3 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2 pointer-events-none"></div>
+        
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 relative z-10">
+            <div>
+                <div class="mb-8 flex items-start">
+                    <img src="assets/images/logo.png" alt="Logo" class="h-20 md:h-24 object-contain">
+                </div>
+                
+                <div class="mb-5 flex flex-col items-start gap-4">
+                    <div class="w-16 h-1 bg-primary rounded-full mb-2"></div>
+                </div>
+                <p class="text-gray-400 text-sm leading-relaxed">Disciplined training, proper guidance, and consistent practice ensure the success of every student at The Champions Academy.</p>
+                <div class="flex gap-3 mt-8">
+                    <a href="#" class="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-primary hover:border-primary transition-all duration-300 text-sm">f</a>
+                    <a href="#" class="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-primary hover:border-primary transition-all duration-300 text-sm">t</a>
+                    <a href="#" class="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-primary hover:border-primary transition-all duration-300 text-sm">i</a>
+                    <a href="#" class="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-primary hover:border-primary transition-all duration-300 text-sm">y</a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-white font-heading font-bold uppercase text-sm tracking-widest mb-8 flex items-center gap-2">
+                    <span class="w-8 h-0.5 bg-primary"></span> Quick Links
+                </h4>
+                <ul class="space-y-4 text-gray-400 text-sm">
+                    <li><a href="index.html" class="hover:text-primary hover:translate-x-1 transition-all duration-300 inline-block">Home</a></li>
+                    <li><a href="about.html" class="hover:text-primary hover:translate-x-1 transition-all duration-300 inline-block">About Academy</a></li>
+                    <li><a href="facilities.html" class="hover:text-primary hover:translate-x-1 transition-all duration-300 inline-block">Our Facilities</a></li>
+                    <li><a href="gallery.html" class="hover:text-primary hover:translate-x-1 transition-all duration-300 inline-block">Our Gallery</a></li>
+                    <li><a href="admission.html" class="hover:text-primary hover:translate-x-1 transition-all duration-300 inline-block">Admission</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-heading font-bold uppercase text-sm tracking-widest mb-8 flex items-center gap-2">
+                    <span class="w-8 h-0.5 bg-primary"></span> Contact Info
+                </h4>
+                <ul class="space-y-6 text-gray-400 text-sm">
+                    <li class="flex gap-4 items-start">
+                        <span class="text-primary mt-0.5">📍</span>
+                        <span>Office No. 46/390, In front of YCM High Tech Nagar, Abhiyanmadhye Dalal Joshi, Opposite Holkar, Sant Tukaram Nagar, Pimpri - 18.</span>
+                    </li>
+                    <li class="flex gap-4 items-start">
+                        <span class="text-primary mt-0.5">📍</span>
+                        <span>Office No. 46/390, In front of YCM High Tech Nagar, Abhiyanmadhye Dalal Joshi, Opposite Holkar, Sant Tukaram Nagar, Pimpri - 18.</span>
+                    </li>
+                    <li class="flex gap-4 items-center">
+                        <span class="text-primary">📞</span>
+                        <span>+91 84844001141 / +91 8484842737</span>
+                    </li>
+                    <li class="flex gap-4 items-center">
+                        <span class="text-primary">📧</span>
+                        <span>info@champions.com</span>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-heading font-bold uppercase text-sm tracking-widest mb-8 flex items-center gap-2">
+                    <span class="w-8 h-0.5 bg-primary"></span> Stay Updated
+                </h4>
+                <p class="text-gray-400 text-xs mb-6">Subscribe to get latest updates on recruitment and new batches.</p>
+                <form class="flex rounded-xl overflow-hidden">
+                    <input type="email" placeholder="Email Address" class="bg-white/5 border border-white/10 border-r-0 px-4 py-3 text-sm focus:ring-1 focus:ring-primary outline-none w-full rounded-l-xl">
+                    <button class="bg-primary text-white px-5 py-3 hover:bg-orange-600 transition font-bold rounded-r-xl">→</button>
+                </form>
+            </div>
+        </div>
+        <!-- Bottom bar with Tiranga -->
+        <div class="container mx-auto px-4 mt-20">
+            <div class="tiranga-divider mb-8"></div>
+            <p class="text-center text-gray-500 text-xs tracking-widest uppercase">&copy; 2026 THE CHAMPIONS ACADEMY. ALL RIGHTS RESERVED.</p>
+        </div>
+    </footer>
+
+        <!-- Auth Check Script -->
+        <script>
+            document.addEventListener('DOMContentLoaded', async () => {
+                try {
+                    const res = await fetch('/api/auth/profile');
+                    const authLinks = document.getElementById('auth-links');
+                    const userInfo = document.getElementById('user-info');
+                    const mobileAuthLinks = document.getElementById('mobile-auth-links');
+
+                    if (res.ok) {
+                        const user = await res.json();
+                        authLinks.classList.add('hidden');
+                        authLinks.classList.remove('sm:flex');
+                        userInfo.classList.remove('hidden');
+                        userInfo.classList.add('flex');
+                        
+                        // Update mobile auth links to show dashboard
+                        mobileAuthLinks.innerHTML = `
+                            <a href="dashboard.html" class="text-center py-3 bg-navy text-white rounded-sm text-sm tracking-widest font-bold uppercase">Go to Dashboard</a>
+                        `;
+                    }
+                } catch (err) {
+                    console.log('User not logged in');
+                }
+            });
+        </script>
+
+        <script src="script.js"></script>
+
+        <!-- Callback Modal -->
+        <div id="callbackModal" class="fixed inset-0 bg-navy/80 backdrop-blur-md z-[100] hidden items-center justify-center p-4">
+            <div class="bg-white max-w-md w-full rounded-3xl overflow-hidden shadow-2xl p-8 relative">
+                <button onclick="closeCallbackModal()" class="absolute top-4 right-4 text-gray-400 hover:text-navy text-2xl">×</button>
+                <div class="text-center mb-6">
+                    <span class="text-xs font-bold text-primary uppercase tracking-widest bg-primary/10 px-3 py-1 rounded-full">Fast Response</span>
+                    <h4 class="text-2xl font-heading font-bold text-navy mt-4 uppercase">Request a Callback</h4>
+                    <p class="text-gray-500 text-sm mt-2">Leave your number and we'll call you back within 24 hours.</p>
+                </div>
+                <form id="callbackForm" class="space-y-4">
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Your Name</label>
+                        <input type="text" id="cbName" placeholder="Enter full name" class="w-full p-4 bg-gray-50 border-b-2 border-gray-200 focus:border-primary outline-none transition rounded-xl" required>
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Mobile Number</label>
+                        <input type="tel" id="cbPhone" placeholder="+91 90000 00000" class="w-full p-4 bg-gray-50 border-b-2 border-gray-200 focus:border-primary outline-none transition rounded-xl" required>
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Interested Course</label>
+                        <select id="cbCourse" class="w-full p-4 bg-gray-50 border-b-2 border-gray-200 focus:border-primary outline-none transition rounded-xl">
+                            <option>PSI Batch</option>
+                            <option>Defense Exams</option>
+                            <option>Police Recruitment</option>
+                            <option>Other</option>
+                        </select>
+                    </div>
+                    <button type="submit" id="cbSubmitBtn" class="w-full bg-primary text-white py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-navy transition-all duration-300 shadow-lg shadow-primary/20">Submit Request</button>
+                </form>
+                <div id="cbMessage" class="hidden mt-4 p-3 rounded-xl text-center text-xs font-bold uppercase tracking-widest"></div>
+            </div>
+        </div>
+
+        <script>
+            function openCallbackModal() {
+                document.getElementById('callbackModal').classList.remove('hidden');
+                document.getElementById('callbackModal').classList.add('flex');
+            }
+            function closeCallbackModal() {
+                document.getElementById('callbackModal').classList.add('hidden');
+                document.getElementById('callbackModal').classList.remove('flex');
+            }
+
+            function showFacilityInfo(title, subtitle, desc, img) {
+                document.getElementById('modalTitle').textContent = title;
+                document.getElementById('modalSubtitle').textContent = subtitle;
+                document.getElementById('modalDesc').textContent = desc;
+                document.getElementById('modalImg').src = img;
+                document.getElementById('infoModal').classList.remove('hidden');
+                document.getElementById('infoModal').classList.add('flex');
+            }
+
+            function showFacultyInfo(name, role, desc, img) {
+                showFacilityInfo(name, role, desc, img); // Re-using the same modal for faculty
+            }
+
+            function closeInfoModal() {
+                document.getElementById('infoModal').classList.add('hidden');
+                document.getElementById('infoModal').classList.remove('flex');
+            }
+
+            function closeFacultyModal() { closeInfoModal(); }
+
+            const callbackForm = document.getElementById('callbackForm');
+            const cbMessage = document.getElementById('cbMessage');
+            const cbSubmitBtn = document.getElementById('cbSubmitBtn');
+
+            if (callbackForm) {
+                callbackForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    cbSubmitBtn.disabled = true;
+                    cbSubmitBtn.textContent = 'Sending...';
+                    
+                    try {
+                        const res = await fetch('/api/contact/callback', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                name: document.getElementById('cbName').value,
+                                phone: document.getElementById('cbPhone').value,
+                                course: document.getElementById('cbCourse').value
+                            })
+                        });
+                        
+                        if (res.ok) {
+                            cbMessage.textContent = 'Request Sent Successfully!';
+                            cbMessage.className = 'mt-4 p-3 rounded-xl text-center text-xs font-bold uppercase tracking-widest bg-green-100 text-green-700';
+                            cbMessage.classList.remove('hidden');
+                            setTimeout(() => { closeCallbackModal(); callbackForm.reset(); cbMessage.classList.add('hidden'); }, 2000);
+                        } else {
+                            throw new Error('Failed');
+                        }
+                    } catch (err) {
+                        cbMessage.textContent = 'Failed to send request.';
+                        cbMessage.className = 'mt-4 p-3 rounded-xl text-center text-xs font-bold uppercase tracking-widest bg-red-100 text-red-700';
+                        cbMessage.classList.remove('hidden');
+                    } finally {
+                        cbSubmitBtn.disabled = false;
+                        cbSubmitBtn.textContent = 'Submit Request';
+                    }
+                });
+            }
+        </script>
+    <!-- Scroll to top -->
+    <button id="scroll-top" class="fixed bottom-8 right-8 w-12 h-12 bg-secondary text-white rounded-full hidden items-center justify-center shadow-2xl hover:-translate-y-2 transition duration-300 z-50">↑</button>
+
+
+    <script>
+    // ===== INTERSECTION OBSERVER FOR SCROLL ANIMATIONS =====
+    document.addEventListener('DOMContentLoaded', () => {
+        const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .stagger-children');
+        
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+        
+        revealElements.forEach(el => revealObserver.observe(el));
+        
+        // ===== ANIMATED COUNTERS =====
+        const counters = document.querySelectorAll('[data-counter]');
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseInt(entry.target.getAttribute('data-counter'));
+                    const suffix = entry.target.getAttribute('data-suffix') || '';
+                    let current = 0;
+                    const increment = Math.ceil(target / 60);
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            current = target;
+                            clearInterval(timer);
+                        }
+                        entry.target.textContent = current.toLocaleString() + suffix;
+                    }, 30);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        counters.forEach(c => counterObserver.observe(c));
+        
+        // ===== HEADER SHRINK ON SCROLL =====
+        const header = document.getElementById('main-header');
+        if (header) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 80) {
+                    header.classList.add('scrolled');
+                } else {
+                    header.classList.remove('scrolled');
+                }
+            });
+        }
+    });
+    </script>
+</body>
+</html>
+
+
+
