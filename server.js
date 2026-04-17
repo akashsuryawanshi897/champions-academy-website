@@ -44,4 +44,9 @@ app.get('/dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, 'dashboard.html'));
 });
 
-app.listen(PORT, () => console.log(`🚀 Server active on port ${PORT}`));
+module.exports = app;
+
+if (require.main === module) {
+    app.listen(PORT, () => console.log(`🚀 Server active on port ${PORT}`));
+}
+
