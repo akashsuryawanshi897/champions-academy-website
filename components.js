@@ -76,22 +76,22 @@ const SHARED_NAV = `
                     </div>
                 </div>
 
-                <button class="xl:hidden text-2xl p-2 h-10 w-10 md:h-12 md:w-12 flex items-center justify-center hover:bg-gray-50 rounded-xl transition-all" id="mobile-menu-btn-shared">☰</button>
+                <button class="xl:hidden text-2xl p-2 h-10 w-10 md:h-12 md:w-12 flex items-center justify-center hover:bg-gray-50 rounded-xl transition-all" id="mobile-menu-btn">☰</button>
             </div>
         </div>
     </header>
 
     <!-- Sidebar Mobile Menu -->
-    <div class="fixed inset-0 bg-[#1A1A2E]/90 backdrop-blur-sm z-[60] hidden transition-opacity duration-300" id="mobile-overlay-shared"></div>
-    <div class="fixed top-0 left-[-320px] bottom-0 w-[320px] bg-white z-[70] transition-all duration-500 shadow-2xl p-8 flex flex-col overflow-y-auto" id="mobile-sidebar-shared">
+    <div class="fixed inset-0 bg-[#1A1A2E]/90 backdrop-blur-sm z-[60] hidden transition-opacity duration-300" id="mobile-overlay"></div>
+    <div class="fixed top-0 left-[-320px] bottom-0 w-[320px] bg-white z-[70] transition-all duration-500 shadow-2xl p-8 flex flex-col overflow-y-auto" id="mobile-sidebar">
         <div class="flex justify-between items-center mb-10">
             <img src="assets/images/logo.png" alt="Logo" class="h-10 object-contain">
-            <button class="text-3xl text-[#000080] hover:text-[#FF9933] transition" id="close-sidebar-btn-shared">×</button>
+            <button class="text-3xl text-[#000080] hover:text-[#FF9933] transition" id="close-sidebar-btn">×</button>
         </div>
         <nav class="flex flex-col gap-1 font-extrabold text-sm uppercase tracking-wide">
             <a href="index.html" class="py-4 border-b border-gray-50 text-[#000080] hover:text-[#FF9933] transition">Home</a>
             <div class="py-4 border-b border-gray-50 text-[#000080]">
-                <button class="flex justify-between items-center w-full uppercase" onclick="this.nextElementSibling.classList.toggle('hidden')">About <span class="text-orange-500">+</span></button>
+                <button class="flex justify-between items-center w-full uppercase" onclick="toggleMobileAccordion(this)">About <span class="text-orange-500">+</span></button>
                 <div class="hidden flex-col pl-4 gap-3 mt-4 text-[11px] font-semibold text-gray-500">
                     <a href="about.html" class="hover:text-[#FF9933]">About Us</a>
                     <a href="facilities.html" class="hover:text-[#FF9933]">Facilities</a>
@@ -100,7 +100,7 @@ const SHARED_NAV = `
                 </div>
             </div>
             <div class="py-4 border-b border-gray-50 text-[#000080]">
-                <button class="flex justify-between items-center w-full uppercase" onclick="this.nextElementSibling.classList.toggle('hidden')">Courses <span class="text-orange-500">+</span></button>
+                <button class="flex justify-between items-center w-full uppercase" onclick="toggleMobileAccordion(this)">Courses <span class="text-orange-500">+</span></button>
                 <div class="hidden flex-col pl-4 gap-3 mt-4 text-[11px] font-semibold text-gray-500">
                     <span class="text-[#FF9933] text-[10px] font-black">Police & Defense</span>
                     <a href="police-recruitment.html" class="hover:text-[#FF9933]">Police Bharti</a>
@@ -230,10 +230,10 @@ const SHARED_FOOTER = `
             headerPlaceholder.innerHTML = SHARED_NAV;
             
             // Mobile Menu Bindings
-            const mobileBtn = document.getElementById('mobile-menu-btn-shared');
-            const mobileOverlay = document.getElementById('mobile-overlay-shared');
-            const mobileSidebar = document.getElementById('mobile-sidebar-shared');
-            const closeBtn = document.getElementById('close-sidebar-btn-shared');
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const mobileOverlay = document.getElementById('mobile-overlay');
+            const mobileSidebar = document.getElementById('mobile-sidebar');
+            const closeBtn = document.getElementById('close-sidebar-btn');
 
             if(mobileBtn && mobileSidebar && mobileOverlay && closeBtn) {
                 const toggleMenu = (show) => {

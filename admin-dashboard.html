@@ -45,13 +45,13 @@
         .modal-overlay.active { display: flex; }
         .mobile-header { display: none; }
         @media (max-width: 1024px) {
-            .admin-sidebar { display: none; }
+            .admin-sidebar:not(.mobile-sidebar) { display: none; }
             .mobile-header { display: flex; }
         }
         @media (min-width: 1025px) {
             .mobile-sidebar, .mobile-overlay { display: none !important; }
         }
-        .mobile-sidebar { position: fixed; top: 0; left: -320px; width: 300px; height: 100vh; z-index: 300; transition: left 0.3s ease; }
+        .mobile-sidebar { position: fixed; top: 0; left: -320px; width: 300px; height: 100vh; z-index: 300; transition: left 0.3s ease; overflow-y: auto; display: flex; flex-direction: column; }
         .mobile-sidebar.open { left: 0; }
         .mobile-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 299; display: none; }
         .mobile-overlay.active { display: block; }
@@ -131,7 +131,7 @@
         <!-- Main Content -->
         <main class="flex-1 flex flex-col min-w-0">
             <!-- Mobile Header -->
-            <div class="mobile-header items-center justify-between p-4 bg-white shadow-sm">
+            <div class="mobile-header sticky top-0 z-50 items-center justify-between p-4 bg-white shadow-md">
                 <button onclick="toggleMobileSidebar()" class="text-2xl text-navy">☰</button>
                 <div class="flex items-center gap-2">
                     <img src="assets/images/logo.png" alt="Logo" class="h-8">
