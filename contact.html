@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us | THE CHAMPIONS ACADEMY</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Get in touch with THE CHAMPIONS ACADEMY for admissions, coaching details, or any inquiries related to police and defense recruitment training.">
+    
+    <!-- Google Fonts & Tailwind -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF9933',
+                        secondary: '#138808',
+                        navy: '#000080',
+                        dark: '#1A1A2E',
+                        slate: '#0F172A',
+                        'off-white': '#FAFAFA',
+                    },
+                    fontFamily: {
+                        heading: ['Outfit', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                        mono: ['Space Grotesk', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+        <link href="index.css" rel="stylesheet">
+</head>
+<body class="text-gray-800 font-body bg-[#FAFAFA] min-h-screen">
+
+    
+    <div id="header-placeholder"></div>
+
+    <main>
+        <!-- Contact Page Title Section -->
+        <section class="bg-dark py-16 pt-32 text-center text-white relative">
+            <div class="absolute inset-0 bg-primary opacity-20"></div>
+            <div class="container mx-auto px-4 relative z-10">
+                <h1 class="text-xl md:text-2xl font-bold font-heading uppercase mb-4">Connect With Us</h1>
+                <p class="text-base text-gray-300">We're here to help you start your journey to success.</p>
+            </div>
+        </section>
+
+        <section class="py-20 -mt-10 relative z-10">
+            <div class="container mx-auto px-4 grid lg:grid-cols-2 gap-12">
+                <!-- Info Section -->
+                <div class="contact-box p-10 lg:p-16">
+                    <h2 class="text-xl font-bold font-heading mb-8 uppercase text-dark">Contact Information</h2>
+                    <div class="space-y-8">
+                        <div class="flex items-start gap-6 group">
+                            <div class="w-14 h-14 bg-primary bg-opacity-10 text-primary flex items-center justify-center rounded-2xl group-hover:bg-primary group-hover:text-white transition duration-300">
+                                <span class="text-2xl">📍</span>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold mb-1 uppercase">Our Address</h4>
+                                <p class="text-gray-500 leading-relaxed text-sm">Jay Ganesh Apartment, Last Floor, Near Vrushali Hotel, Opposite Nav Maharashtra College, Pimpri Gaon, Pimpri, Pune – 411018, Maharashtra, India</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-6 group">
+                            <div class="w-14 h-14 bg-secondary bg-opacity-10 text-secondary flex items-center justify-center rounded-2xl group-hover:bg-secondary group-hover:text-white transition duration-300">
+                                <span class="text-2xl">📞</span>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold mb-1 uppercase">Call Us</h4>
+                                <p class="text-gray-500 leading-relaxed text-sm">+91 84844 00114<br>+91 84848 42737</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-6 group">
+                            <div class="w-14 h-14 bg-dark bg-opacity-10 text-dark flex items-center justify-center rounded-2xl group-hover:bg-dark group-hover:text-white transition duration-300">
+                                <span class="text-2xl">📧</span>
+                            </div>
+                            <div>
+                                <h4 class="text-lg font-bold mb-1 uppercase">Email Support</h4>
+                                <p class="text-gray-500 leading-relaxed text-sm">info@championsacademy.in</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Social Links -->
+                    <div class="flex gap-3 mt-8">
+                        <a href="#" class="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-600 text-white rounded-xl flex items-center justify-center hover:scale-110 transition-transform text-sm font-bold shadow-md">IG</a>
+                        <a href="#" class="w-12 h-12 bg-red-600 text-white rounded-xl flex items-center justify-center hover:scale-110 transition-transform text-sm font-bold shadow-md">YT</a>
+                        <a href="https://wa.me/918484400114" class="w-12 h-12 bg-green-500 text-white rounded-xl flex items-center justify-center hover:scale-110 transition-transform text-sm font-bold shadow-md">WA</a>
+                    </div>
+                </div>
+
+                <!-- Contact Form Section -->
+                <div class="contact-box p-10 lg:p-16">
+                    <h2 class="text-xl font-bold font-heading mb-8 uppercase text-dark">Send a Message</h2>
+                    <form id="contactForm" class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div class="flex flex-col gap-2">
+                                <label class="text-xs font-bold text-gray-500 uppercase tracking-widest pl-1">Name</label>
+                                <input type="text" id="contactName" placeholder="John Doe" class="bg-gray-100 border border-transparent focus:border-primary focus:bg-white p-4 rounded-xl transition duration-300 outline-none w-full" required>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label class="text-xs font-bold text-gray-500 uppercase tracking-widest pl-1">Email</label>
+                                <input type="email" id="contactEmail" placeholder="john@example.com" class="bg-gray-100 border border-transparent focus:border-primary focus:bg-white p-4 rounded-xl transition duration-300 outline-none w-full" required>
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="text-xs font-bold text-gray-500 uppercase tracking-widest pl-1">Subject</label>
+                            <input type="text" id="contactSubject" placeholder="Admission Inquiry" class="bg-gray-100 border border-transparent focus:border-primary focus:bg-white p-4 rounded-xl transition duration-300 outline-none w-full" required>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="text-xs font-bold text-gray-500 uppercase tracking-widest pl-1">Message</label>
+                            <textarea id="contactMessage" placeholder="How can we help you?" class="bg-gray-100 border border-transparent focus:border-primary focus:bg-white p-4 rounded-xl transition duration-300 outline-none w-full h-32" required></textarea>
+                        </div>
+                        <div id="msgStatus" class="hidden p-4 rounded-xl text-center font-bold uppercase text-xs tracking-widest"></div>
+                        <button type="submit" id="msgSubmitBtn" class="w-full bg-primary text-white py-4 rounded-xl font-bold uppercase tracking-widest text-base hover:shadow-2xl hover:translate-y-[-5px] transition-all duration-300 shadow-xl">Send Message</button>
+                    </form>
+                </div>
+
+                <script>
+                    const contactForm = document.getElementById('contactForm');
+                    const msgStatus = document.getElementById('msgStatus');
+                    const msgSubmitBtn = document.getElementById('msgSubmitBtn');
+
+                    if (contactForm) {
+                        contactForm.addEventListener('submit', async (e) => {
+                            e.preventDefault();
+                            msgSubmitBtn.disabled = true;
+                            msgSubmitBtn.textContent = 'Sending...';
+                            msgStatus.classList.add('hidden');
+
+                            const formData = {
+                                name: document.getElementById('contactName').value,
+                                email: document.getElementById('contactEmail').value,
+                                subject: document.getElementById('contactSubject').value,
+                                message: document.getElementById('contactMessage').value
+                            };
+
+                            try {
+                                const res = await fetch('/api/contact/message', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify(formData)
+                                });
+
+                                if (res.ok) {
+                                    msgStatus.textContent = 'Message Sent Successfully!';
+                                    msgStatus.className = 'p-4 rounded-xl text-center font-bold uppercase text-xs tracking-widest bg-green-100 text-green-700 mt-4';
+                                    msgStatus.classList.remove('hidden');
+                                    contactForm.reset();
+                                } else {
+                                    throw new Error('Failed');
+                                }
+                            } catch (err) {
+                                msgStatus.textContent = 'Failed to send message. Please try again.';
+                                msgStatus.className = 'p-4 rounded-xl text-center font-bold uppercase text-xs tracking-widest bg-red-100 text-red-700 mt-4';
+                                msgStatus.classList.remove('hidden');
+                            } finally {
+                                msgSubmitBtn.disabled = false;
+                                msgSubmitBtn.textContent = 'Send Message';
+                            }
+                        });
+                    }
+                </script>
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section class="container mx-auto px-4 py-20">
+            <div class="h-[450px] w-full rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3781.0!2d73.8!3d18.6!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDM2JzAwLjAiTiA3M8KwNDgnMDAuMCJF!5e0!3m2!1sen!2sin!4v1" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </section>
+    </main>
+
+    
+    
+    <div id="footer-placeholder"></div>
+    
+
+
+    
+
+    
+
+    <script src="mock-auth.js"></script>
+    <script src="components.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Facilities | THE CHAMPIONS ACADEMY</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Explore the premium facilities at THE CHAMPIONS ACADEMY, including dedicated study libraries, sports grounds, and expert physical training areas.">
+    <meta name="keywords" content="Academy Facilities, Library, Training Ground, Hostel, Education Infrastructure">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF9933',
+                        secondary: '#138808',
+                        navy: '#000080',
+                        dark: '#1A1A2E',
+                        slate: '#0F172A',
+                        'off-white': '#FAFAFA',
+                    },
+                    fontFamily: {
+                        heading: ['Outfit', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                        mono: ['Space Grotesk', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <!-- Modern Defense UI CSS -->
+        <link href="index.css" rel="stylesheet">
+</head>
+<body class="text-gray-800 font-body bg-[#FAFAFA] min-h-screen">
+
+    <div id="header-placeholder"></div>
+
+    <main>
+        <!-- Page Header -->
+        <section class="py-16 pt-32 bg-gradient-to-br from-dark via-navy to-dark text-white text-center relative overflow-hidden">
+            <div class="absolute inset-0 bg-[url('assets/images/ground.jpg')] bg-cover bg-center opacity-10"></div>
+            <div class="container mx-auto px-4 relative z-10">
+                <h1 class="text-3xl md:text-4xl font-bold font-heading uppercase mb-4">World-Class <span class="text-primary">Facilities</span></h1>
+                <p class="text-base text-gray-300">Providing the perfect environment for your success.</p>
+            </div>
+        </section>
+
+        <!-- Facilities Grid -->
+        <section class="py-20">
+            <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <!-- Facility 1 -->
+                <div onclick="showFacilityInfo('Sports Ground', 'Physical training ground for runners, shooters, and athletes.', 'Our elite 400m track is professionally maintained. It includes specialized areas for long jump, high jump, shot put, and pull-up bars. We also have a dedicated area for obstacle courses required in defense exams.', 'assets/images/ground.jpg')" class="facility-card shadow-2xl rounded-2xl overflow-hidden relative group reveal h-48 cursor-pointer">
+                    <img src="assets/images/ground.jpg" alt="Ground" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/95 via-dark/50 to-transparent opacity-80 group-hover:opacity-100 transition duration-300"></div>
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end z-10 transition-transform duration-300 transform translate-y-4 group-hover:translate-y-0">
+                        <h4 class="text-lg font-bold mb-2 text-white drop-shadow-md">Sports Ground</h4>
+                        <p class="text-sm text-gray-200 drop-shadow">Elite 400m track and specialized areas for long jump, high jump, and shot put.</p>
+                        <span class="text-[10px] text-primary font-bold uppercase tracking-widest mt-2 opacity-0 group-hover:opacity-100 transition-opacity">Click to view details →</span>
+                    </div>
+                </div>
+                <!-- Facility 2 -->
+                <div onclick="showFacilityInfo('Digital Library', 'A quiet, modern study space with vast resources.', 'The library provides a 24/7 quiet study environment with individual cabins. It features high-speed Wi-Fi, a vast collection of competitive exam books (MPSC, UPSC, Police Bharti), and access to premium online test series.', 'assets/images/modern-library.png')" class="facility-card shadow-2xl rounded-2xl overflow-hidden relative group reveal h-48 cursor-pointer">
+                    <img src="assets/images/modern-library.png" alt="Library" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/95 via-dark/50 to-transparent opacity-80 group-hover:opacity-100 transition duration-300"></div>
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end z-10 transition-transform duration-300 transform translate-y-4 group-hover:translate-y-0">
+                        <h4 class="text-lg font-bold mb-2 text-white drop-shadow-md">Digital Library</h4>
+                        <p class="text-sm text-gray-200 drop-shadow">Quiet study environment with access to thousands of competitive exam books and online resources.</p>
+                        <span class="text-[10px] text-primary font-bold uppercase tracking-widest mt-2 opacity-0 group-hover:opacity-100 transition-opacity">Click to view details →</span>
+                    </div>
+                </div>
+                <!-- Facility 3 -->
+                <div onclick="showFacilityInfo('Student Mess', 'Nutritious and hygienic food for future warriors.', 'We serve balanced, high-protein meals prepared under strict hygienic conditions. The menu is designed by nutritionists to support the rigorous physical and mental training that our cadets undergo daily.', 'assets/images/mess.jpg')" class="facility-card shadow-2xl rounded-2xl overflow-hidden relative group reveal h-48 cursor-pointer">
+                    <img src="assets/images/mess.jpg" alt="Mess" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/95 via-dark/50 to-transparent opacity-80 group-hover:opacity-100 transition duration-300"></div>
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end z-10 transition-transform duration-300 transform translate-y-4 group-hover:translate-y-0">
+                        <h4 class="text-2xl font-bold mb-2 text-white drop-shadow-md">Student Mess</h4>
+                        <p class="text-sm text-gray-200 drop-shadow">Hygienic and nutritious meals designed specifically for high-performance physical training.</p>
+                        <span class="text-[10px] text-primary font-bold uppercase tracking-widest mt-2 opacity-0 group-hover:opacity-100 transition-opacity">Click to view details →</span>
+                    </div>
+                </div>
+                <!-- Facility 4 -->
+                <div onclick="showFacilityInfo('Boys & Girls Hostel', 'A home away from home with maximum security.', 'Separate residential wings for boys and girls with 24/7 security, wardens, and clean drinking water. Each room is spacious, well-ventilated, and designed to provide comfort after a long day of training.', 'assets/images/hostel.jpg')" class="facility-card shadow-2xl rounded-2xl overflow-hidden relative group reveal h-48 cursor-pointer">
+                    <img src="assets/images/hostel.jpg" alt="Hostel" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/95 via-dark/50 to-transparent opacity-80 group-hover:opacity-100 transition duration-300"></div>
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end z-10 transition-transform duration-300 transform translate-y-4 group-hover:translate-y-0">
+                        <h4 class="text-2xl font-bold mb-2 text-white drop-shadow-md">Boys & Girls Hostel</h4>
+                        <p class="text-sm text-gray-200 drop-shadow">Safe, clean, and comfortable living spaces with 24/7 security and warden assistance.</p>
+                        <span class="text-[10px] text-primary font-bold uppercase tracking-widest mt-2 opacity-0 group-hover:opacity-100 transition-opacity">Click to view details →</span>
+                    </div>
+                </div>
+                <!-- Facility 5 -->
+                <div onclick="showFacilityInfo('Smart Classrooms', 'Technology-driven learning for modern exams.', 'Our classrooms are equipped with projector screens and surround sound systems for audio-visual learning. We also record lectures for students to review later in the digital library.', 'assets/images/classroom-study.png')" class="facility-card shadow-2xl rounded-2xl overflow-hidden relative group reveal h-48 cursor-pointer">
+                    <img src="assets/images/classroom-study.png" alt="Smart Classrooms" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/95 via-dark/50 to-transparent opacity-80 group-hover:opacity-100 transition duration-300"></div>
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end z-10 transition-transform duration-300 transform translate-y-4 group-hover:translate-y-0">
+                        <h4 class="text-2xl font-bold mb-2 text-white drop-shadow-md">Smart Classrooms</h4>
+                        <p class="text-sm text-gray-200 drop-shadow">Air-conditioned classrooms equipped with audio-visual aids for interactive learning.</p>
+                        <span class="text-[10px] text-primary font-bold uppercase tracking-widest mt-2 opacity-0 group-hover:opacity-100 transition-opacity">Click to view details →</span>
+                    </div>
+                </div>
+                <!-- Facility 6 -->
+                <div onclick="showFacilityInfo('Medical Assistance', 'Health and first-aid support for physical training.', 'We have an on-campus first-aid center and a dedicated ambulance for emergencies. Regular health check-ups and physiotherapy sessions are provided to ensure students remain injury-free during training.', 'assets/images/medical.jpg')" class="facility-card shadow-2xl rounded-2xl overflow-hidden relative group reveal h-48 cursor-pointer">
+                    <img src="assets/images/medical.jpg" alt="Medical Facilities" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/95 via-dark/50 to-transparent opacity-80 group-hover:opacity-100 transition duration-300"></div>
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end z-10 transition-transform duration-300 transform translate-y-4 group-hover:translate-y-0">
+                        <h4 class="text-2xl font-bold mb-2 text-white drop-shadow-md">Medical Assistance</h4>
+                        <p class="text-sm text-gray-200 drop-shadow">Regular health checkups and immediate first-aid infrastructure for training support.</p>
+                        <span class="text-[10px] text-primary font-bold uppercase tracking-widest mt-2 opacity-0 group-hover:opacity-100 transition-opacity">Click to view details →</span>
+                    </div>
+                </div>
+
+                <!-- Facility 7 -->
+                <div onclick="showFacilityInfo('Computer Lab', 'Modern computing facility for online exam preparation.', 'Our computer lab is equipped with high-speed internet and the latest software systems, allowing students to practice online mock tests and access digital educational materials seamlessly.', 'assets/images/computer-lab.png')" class="facility-card shadow-2xl rounded-2xl overflow-hidden relative group reveal h-48 cursor-pointer">
+                    <img src="assets/images/computer-lab.png" alt="Computer Lab" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/95 via-dark/50 to-transparent opacity-80 group-hover:opacity-100 transition duration-300"></div>
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end z-10 transition-transform duration-300 transform translate-y-4 group-hover:translate-y-0">
+                        <h4 class="text-2xl font-bold mb-2 text-white drop-shadow-md">Computer Lab</h4>
+                        <p class="text-sm text-gray-200 drop-shadow">Advanced lab for online mock tests and digital research.</p>
+                        <span class="text-[10px] text-primary font-bold uppercase tracking-widest mt-2 opacity-0 group-hover:opacity-100 transition-opacity">Click to view details →</span>
+                    </div>
+                </div>
+
+                <!-- Facility 8 -->
+                <div onclick="showFacilityInfo('Audio-Visual Hall', 'State-of-the-art auditorium for seminars and seminars.', 'A large capacity hall equipped with superior audio systems and wide-angle projectors, ideal for motivational seminars, guest lectures, and film-based tactical training sessions.', 'assets/images/f3.png')" class="facility-card shadow-2xl rounded-2xl overflow-hidden relative group reveal h-48 cursor-pointer">
+                    <img src="assets/images/f3.png" alt="AV Hall" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/95 via-dark/50 to-transparent opacity-80 group-hover:opacity-100 transition duration-300"></div>
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end z-10 transition-transform duration-300 transform translate-y-4 group-hover:translate-y-0">
+                        <h4 class="text-2xl font-bold mb-2 text-white drop-shadow-md">Audio-Visual Hall</h4>
+                        <p class="text-sm text-gray-200 drop-shadow">Modern auditorium for specialized seminars and workshops.</p>
+                        <span class="text-[10px] text-primary font-bold uppercase tracking-widest mt-2 opacity-0 group-hover:opacity-100 transition-opacity">Click to view details →</span>
+                    </div>
+                </div>
+
+                <!-- Facility 9 -->
+                <div onclick="showFacilityInfo('Gym & Fitness', 'Professional grade equipment for peak physical prep.', 'Our on-campus gym provides a wide range of strength and endurance training equipment, including free weights and cardio machines, supervised by professional athletes and coaches.', 'assets/images/f4.png')" class="facility-card shadow-2xl rounded-2xl overflow-hidden relative group reveal h-48 cursor-pointer">
+                    <img src="assets/images/f4.png" alt="Gym" class="w-full h-full object-cover transition duration-700 group-hover:scale-110">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark/95 via-dark/50 to-transparent opacity-80 group-hover:opacity-100 transition duration-300"></div>
+                    <div class="absolute inset-0 p-6 flex flex-col justify-end z-10 transition-transform duration-300 transform translate-y-4 group-hover:translate-y-0">
+                        <h4 class="text-2xl font-bold mb-2 text-white drop-shadow-md">Gym & Fitness</h4>
+                        <p class="text-sm text-gray-200 drop-shadow">Specialized fitness center for comprehensive strength conditioning.</p>
+                        <span class="text-[10px] text-primary font-bold uppercase tracking-widest mt-2 opacity-0 group-hover:opacity-100 transition-opacity">Click to view details →</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Our Expert Faculty - Clickable Info -->
+        <section class="py-24 bg-white overflow-hidden">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16 reveal">
+                    <span class="section-label">Guidance Excellence</span>
+                    <h3 class="section-title text-lg md:text-xl lg:text-2xl text-gray-900 uppercase">Meet Our <span class="text-primary">Expert Faculty</span></h3>
+                    <div class="tiranga-divider w-24 mx-auto mt-6"></div>
+                    <p class="mt-6 text-gray-500 max-w-2xl mx-auto uppercase text-xs tracking-widest font-bold">Click on any faculty member to see their expertise and experience. 🇮🇳</p>
+                </div>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 stagger-children">
+                    <!-- Faculty 1 -->
+                    <div onclick="showFacultyInfo('Capt. Rajesh Kumar', 'Ex-Army Officer', '15+ years of experience in physical conditioning and tactical strategy. Specializes in NDA and Police recruitment.', 'assets/images/f1.png')" class="group cursor-pointer">
+                        <div class="relative rounded-2xl overflow-hidden shadow-xl aspect-square mb-4">
+                            <img src="assets/images/f1.png" alt="Faculty" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-navy/20 group-hover:bg-navy/0 transition duration-300"></div>
+                            <div class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-md p-4 rounded-xl shadow-lg border border-primary/20 transform translate-y-2 group-hover:translate-y-0 transition duration-300">
+                                <h4 class="font-heading font-bold text-navy uppercase text-sm">Capt. Rajesh Kumar</h4>
+                                <p class="text-[10px] text-primary font-bold uppercase tracking-wider">Physical Training Head</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Faculty 2 -->
+                    <div onclick="showFacultyInfo('Prof. Amit Deshmukh', 'MPSC Specialist', 'Former government official with deep knowledge of MPSC syllabus and exam patterns. Guiding students since 2010.', 'assets/images/f2.png')" class="group cursor-pointer">
+                        <div class="relative rounded-2xl overflow-hidden shadow-xl aspect-square mb-4">
+                            <img src="assets/images/f2.png" alt="Faculty" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-navy/20 group-hover:bg-navy/0 transition duration-300"></div>
+                            <div class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-md p-4 rounded-xl shadow-lg border border-primary/20 transform translate-y-2 group-hover:translate-y-0 transition duration-300">
+                                <h4 class="font-heading font-bold text-navy uppercase text-sm">Prof. Amit Deshmukh</h4>
+                                <p class="text-[10px] text-primary font-bold uppercase tracking-wider">General Studies Expert</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Faculty 3 -->
+                    <div onclick="showFacultyInfo('Sub-Inspector S. Jadhav', 'Police Academy Mentor', 'Direct field experience from Maharashtra Police. Specialized in current affairs and interview techniques.', 'assets/images/f3.png')" class="group cursor-pointer">
+                        <div class="relative rounded-2xl overflow-hidden shadow-xl aspect-square mb-4">
+                            <img src="assets/images/f3.png" alt="Faculty" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-navy/20 group-hover:bg-navy/0 transition duration-300"></div>
+                            <div class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-md p-4 rounded-xl shadow-lg border border-primary/20 transform translate-y-2 group-hover:translate-y-0 transition duration-300">
+                                <h4 class="font-heading font-bold text-navy uppercase text-sm">SI S. Jadhav</h4>
+                                <p class="text-[10px] text-primary font-bold uppercase tracking-wider">Recruitment Strategist</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Faculty 4 -->
+                    <div onclick="showFacultyInfo('Col. Vikram Singh', 'Strategic Mentor', 'Decorated veteran specializing in leadership training and mental toughness for defense aspirants.', 'assets/images/f4.png')" class="group cursor-pointer">
+                        <div class="relative rounded-2xl overflow-hidden shadow-xl aspect-square mb-4">
+                            <img src="assets/images/f4.png" alt="Faculty" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                            <div class="absolute inset-0 bg-navy/20 group-hover:bg-navy/0 transition duration-300"></div>
+                            <div class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-md p-4 rounded-xl shadow-lg border border-primary/20 transform translate-y-2 group-hover:translate-y-0 transition duration-300">
+                                <h4 class="font-heading font-bold text-navy uppercase text-sm">Col. Vikram Singh</h4>
+                                <p class="text-[10px] text-primary font-bold uppercase tracking-wider">Defense Orientation</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detail Modal -->
+        <div id="infoModal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-dark/90 backdrop-blur-md">
+            <div class="bg-white rounded-3xl overflow-hidden shadow-2xl max-w-4xl w-full flex flex-col md:flex-row relative">
+                <button onclick="closeInfoModal()" class="absolute top-4 right-4 w-10 h-10 bg-white shadow-lg rounded-full flex items-center justify-center text-dark font-bold hover:bg-primary hover:text-white transition-all z-20">×</button>
+                <div class="md:w-1/2 h-48 md:h-auto overflow-hidden">
+                    <img id="modalImg" src="assets/images/ground.jpg" alt="Detail" class="w-full h-full object-cover">
+                </div>
+                <div class="w-full md:w-1/2 p-8 flex flex-col justify-center">
+                    <span id="modalTag" class="text-[10px] font-bold text-primary uppercase tracking-widest border-b-2 border-primary/20 pb-1 mb-4 inline-block">Facility</span>
+                    <h4 id="modalName" class="text-2xl font-heading font-bold text-navy uppercase mb-4 leading-tight">Name</h4>
+                    <p id="modalDesc" class="text-gray-600 text-sm leading-relaxed mb-6">Description</p>
+                    <a href="admission.html" class="inline-block bg-navy text-white px-6 py-2 rounded-lg font-bold text-xs uppercase tracking-widest hover:bg-primary transition duration-300 w-fit">Enquire Now</a>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function showFacilityInfo(name, tag, desc, img) {
+                document.getElementById('modalName').textContent = name;
+                document.getElementById('modalTag').textContent = tag;
+                document.getElementById('modalDesc').textContent = desc;
+                document.getElementById('modalImg').src = img;
+                document.getElementById('infoModal').classList.remove('hidden');
+                document.getElementById('infoModal').classList.add('flex');
+            }
+            function showFacultyInfo(name, role, desc, img) {
+                showFacilityInfo(name, role, desc, img); // Re-using the same modal for faculty
+            }
+            function closeInfoModal() {
+                document.getElementById('infoModal').classList.add('hidden');
+                document.getElementById('infoModal').classList.remove('flex');
+            }
+            function closeFacultyModal() { closeInfoModal(); }
+        </script>
+
+        <!-- Gallery CTA -->
+        <section class="py-20 bg-gray-100 text-center">
+            <h3 class="text-2xl font-bold mb-8 uppercase font-heading">View Our Full Infrastructure</h3>
+            <a href="gallery.html" class="bg-primary text-white px-10 py-4 rounded-xl font-bold uppercase text-sm tracking-widest hover:bg-dark transition shadow-xl border-b-4 border-orange-700">Open Gallery</a>
+        </section>
+    </main>
+
+    
+    
+    <div id="footer-placeholder"></div>
+    
+
+
+    
+
+    
+
+    <script src="mock-auth.js"></script>
+    <script src="components.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+

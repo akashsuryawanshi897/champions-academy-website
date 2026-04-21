@@ -1,0 +1,1957 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE CHAMPIONS ACADEMY - Build Strength. Build Discipline. Become a Champion.</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="The Champions Academy is Maharashtra's premier Police Bharti & Defense training institute with 10+ years experience, 3000+ days ground presence, and 100% physical test success rate. Join now!">
+    <meta name="keywords"
+        content="The Champions Academy, Police Bharti, Army Bharti, Vansevak, Vanrakshak, Talathi, SSC CGL, UPSC Foundation, MPSC Foundation, Defense Training, Pune, Pimpri">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF9933',
+                        secondary: '#138808',
+                        navy: '#000080',
+                        dark: '#1A1A2E',
+                        slate: '#0F172A',
+                        'off-white': '#FAFAFA',
+                    },
+                    fontFamily: {
+                        heading: ['Outfit', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                        mono: ['Space Grotesk', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+    <!-- Modern Defense UI CSS -->
+    <style>
+        /* ===== MODERN DEFENSE UI - GLOBAL DESIGN SYSTEM ===== */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Scroll Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: blur(4px);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: blur(4px);
+        }
+
+        .reveal-left.active {
+            opacity: 1;
+            transform: translateX(0);
+            filter: blur(0);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(60px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: blur(4px);
+        }
+
+        .reveal-right.active {
+            opacity: 1;
+            transform: translateX(0);
+            filter: blur(0);
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-scale.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .stagger-children>* {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .stagger-children.active>*:nth-child(1) {
+            transition-delay: 0ms;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-children.active>*:nth-child(2) {
+            transition-delay: 100ms;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-children.active>*:nth-child(3) {
+            transition-delay: 200ms;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-children.active>*:nth-child(4) {
+            transition-delay: 300ms;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-children.active>*:nth-child(5) {
+            transition-delay: 400ms;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-children.active>*:nth-child(6) {
+            transition-delay: 500ms;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-children.active>*:nth-child(7) {
+            transition-delay: 600ms;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-children.active>*:nth-child(8) {
+            transition-delay: 700ms;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-children.active>*:nth-child(9) {
+            transition-delay: 800ms;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-children.active>*:nth-child(10) {
+            transition-delay: 900ms;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-children.active>*:nth-child(11) {
+            transition-delay: 1000ms;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-children.active>*:nth-child(12) {
+            transition-delay: 1100ms;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Marquee */
+        @keyframes marquee {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .marquee-container {
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .marquee-content {
+            display: inline-block;
+            animation: marquee 25s linear infinite;
+        }
+
+        /* Glass Nav */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(25px) saturate(180%);
+            -webkit-backdrop-filter: blur(25px) saturate(180%);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 50px -10px rgba(0, 0, 128, 0.05);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 4px 0;
+        }
+
+        .glass-nav.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 15px 40px -15px rgba(0, 0, 128, 0.12);
+            padding: 0;
+        }
+
+        .nav-link {
+            position: relative;
+            padding: 8px 0;
+            color: #1A1A2E;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #FF9933;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: -4px;
+            left: 0;
+            background: linear-gradient(90deg, #FF9933, #FFD700);
+            transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 10px;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .auth-btn {
+            background: transparent;
+            color: #1A1A2E;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(0, 0, 128, 0.1);
+        }
+
+        .auth-btn:hover {
+            background: #F8FAFC;
+            border-color: #FF9933;
+            color: #FF9933;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -10px rgba(255, 153, 51, 0.3);
+        }
+
+        .course-card {
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .course-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 128, 0.15);
+        }
+
+        .speciality-card {
+            border-radius: 16px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            background: white;
+        }
+
+        .speciality-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px -12px rgba(255, 153, 51, 0.2);
+            border-color: #FF9933;
+        }
+
+        .hero-slider {
+            height: 80vh;
+            min-height: 400px;
+            position: relative;
+        }
+
+        .counter-value {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            font-size: inherit;
+            background: linear-gradient(135deg, #FF9933, #FFD700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .testimonial-card {
+            border-radius: 16px;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px -12px rgba(0, 0, 128, 0.1);
+        }
+
+        .btn-glow {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .btn-glow::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: inherit;
+            box-shadow: 0 0 20px rgba(255, 153, 51, 0.4);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .btn-glow:hover::after {
+            opacity: 1;
+        }
+
+        .btn-glow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -8px rgba(255, 153, 51, 0.5);
+        }
+
+        .tiranga-divider {
+            height: 4px;
+            background: linear-gradient(90deg, #FF9933 33%, #FFFFFF 33%, #FFFFFF 66%, #138808 66%);
+            border-radius: 2px;
+        }
+
+        .section-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: #FF9933;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            text-transform: uppercase;
+            line-height: 1.1;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .dark-section {
+            background: linear-gradient(180deg, #1A1A2E 0%, #0F172A 100%);
+            color: white;
+        }
+
+        .dropdown-link {
+            display: block;
+            padding: 10px 24px;
+            transition: all 0.3s ease;
+            position: relative;
+            border-left: 3px solid transparent;
+        }
+
+        .dropdown-link:hover {
+            color: #FF9933;
+            background: #FFF4EA;
+            border-left-color: #FF9933;
+            transform: translateX(4px);
+        }
+
+        /* WhatsApp Floating Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            z-index: 999;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 6px 30px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+            animation: whatsapp-pulse 2s infinite;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 40px rgba(37, 211, 102, 0.6);
+        }
+
+        @keyframes whatsapp-pulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+            }
+        }
+
+        /* Mission/Vision/Goals Glass Cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 153, 51, 0.3);
+            transform: translateY(-4px);
+        }
+
+        /* Pulse animation for Join Now */
+        @keyframes pulse-glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 153, 51, 0.5);
+            }
+
+            50% {
+                box-shadow: 0 0 0 12px rgba(255, 153, 51, 0);
+            }
+        }
+
+        .pulse-btn {
+            animation: pulse-glow 2s infinite;
+        }
+    </style>
+</head>
+
+<body class="text-gray-800 font-body bg-[#FAFAFA] min-h-screen pt-[140px]">
+
+    <div class="fixed top-0 left-0 w-full z-50">
+        <!-- Top Bar with Marquee -->
+        <div
+            class="bg-gradient-to-r from-primary to-secondary text-white py-2 marquee-container font-medium relative shadow-md">
+            <div class="marquee-content">
+                🏆 Build Strength. Build Discipline. Become a Champion! • Admissions Open for 2026 Batches! • 10+ Years
+                of Excellence • 3000+ Days Ground Presence • 100% Physical Test Success Rate • Join The Champions
+                Academy Today! • Police Bharti | Army Bharti | MPSC | UPSC
+            </div>
+        </div>
+
+        <!-- Header / Navigation -->
+        <header class="glass-nav transition-all duration-300 border-b border-gray-100 bg-white/95 backdrop-blur-md"
+            id="main-header">
+            <div class="container mx-auto px-4 py-2 flex justify-between items-center">
+                <a href="index.html" class="flex items-center">
+                    <img src="assets/images/logo.png" alt="The Champions Academy"
+                        class="h-10 md:h-12 lg:h-16 object-contain"
+                        style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;">
+                </a>
+
+                <!-- Desktop Nav -->
+                <nav
+                    class="hidden xl:flex gap-8 font-bold items-center text-sm uppercase tracking-wider text-navy hover:text-primary">
+                    <a href="index.html" class="nav-link hover:text-primary transition">Home</a>
+                    <div class="relative group">
+                        <button class="nav-link hover:text-primary transition flex items-center gap-1 uppercase">About
+                            <span class="text-[8px]">▼</span></button>
+                        <div
+                            class="absolute left-0 top-full bg-white shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-400 border-t-4 border-primary transform translate-y-4 group-hover:translate-y-0 py-2 uppercase tracking-wide w-48">
+                            <a href="about.html" class="dropdown-link text-sm font-semibold text-gray-700">About Academy</a>
+                            <a href="facilities.html" class="dropdown-link text-sm font-semibold text-gray-700">Facilities</a>
+                            <a href="gallery.html" class="dropdown-link text-sm font-semibold text-gray-700">Gallery</a>
+                            <a href="eligibility-criteria.html" class="dropdown-link text-sm font-semibold text-gray-700">Eligibility</a>
+                        </div>
+                    </div>
+                    <div class="relative group">
+                        <button class="nav-link hover:text-primary transition flex items-center gap-1 uppercase">COURSES
+                            <span class="text-[8px]">▼</span></button>
+                        <div
+                            class="absolute left-0 top-full bg-white shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-400 border-t-4 border-primary transform translate-y-4 group-hover:translate-y-0 py-2 uppercase tracking-wide max-h-[80vh] overflow-y-auto w-72">
+                            <div
+                                class="px-6 py-2 bg-gray-50 font-bold uppercase text-[10px] tracking-widest text-primary">
+                                Police & Defense</div>
+                            <a href="police-recruitment.html"
+                                class="dropdown-link text-sm font-semibold text-gray-700">Police Bharti</a>
+                            <a href="army-recruitment.html"
+                                class="dropdown-link text-sm font-semibold text-gray-700">Army Bharti</a>
+                            <a href="forest-service-recruitment.html"
+                                class="dropdown-link text-sm font-semibold text-gray-700">Vansevak / Vanrakshak</a>
+                            <a href="police-recruitment.html"
+                                class="dropdown-link text-sm font-semibold text-gray-700">Darubandi Police</a>
+                            <div
+                                class="px-6 py-2 bg-gray-50 font-bold uppercase text-[10px] tracking-widest mt-1 text-primary">
+                                Government Exams</div>
+                            <a href="talathi-recruitment-training-program.html"
+                                class="dropdown-link text-sm font-semibold text-gray-700">Talathi</a>
+                            <a href="clerk-typist-recruitment.html"
+                                class="dropdown-link text-sm font-semibold text-gray-700">Clerk</a>
+                            <a href="gramsevak-recruitment.html"
+                                class="dropdown-link text-sm font-semibold text-gray-700">Mahanagar Palika</a>
+                            <a href="ssc-recruitment.html" class="dropdown-link text-sm font-semibold text-gray-700">SSC
+                                CGL</a>
+                            <div
+                                class="px-6 py-2 bg-gray-50 font-bold uppercase text-[10px] tracking-widest mt-1 text-primary">
+                                Foundation Courses</div>
+                            <a href="psi-2.html" class="dropdown-link text-sm font-semibold text-gray-700">UPSC
+                                Foundation</a>
+                            <a href="sti.html" class="dropdown-link text-sm font-semibold text-gray-700">MPSC
+                                Foundation</a>
+                        </div>
+                    </div>
+                    <a href="admission.html" class="nav-link hover:text-primary transition uppercase">Admission</a>
+                    <a href="contact.html" class="nav-link hover:text-primary transition uppercase">Contact Us</a>
+                </nav>
+
+                <div class="flex items-center gap-2 md:gap-3 flex-nowrap">
+                    <div id="account-section" class="flex items-center">
+                        <div id="auth-links" class="flex items-center gap-2">
+                            <a href="login.html"
+                                class="btn-glow bg-navy text-white px-4 md:px-5 py-2 md:py-2.5 rounded-lg font-bold uppercase text-[9px] md:text-[10px] tracking-widest hover:bg-primary transition-all shadow-xl shadow-blue-500/10 whitespace-nowrap">🔑
+                                Login</a>
+                            <a href="admission.html"
+                                class="btn-glow pulse-btn bg-primary text-white px-4 md:px-5 py-2 md:py-2.5 rounded-lg font-bold uppercase text-[9px] md:text-[10px] tracking-widest hover:bg-navy transition-all shadow-xl shadow-orange-500/10 whitespace-nowrap hidden sm:block">Join
+                                Now</a>
+                        </div>
+                        <div id="user-info" class="hidden relative group">
+                            <button
+                                class="flex items-center gap-2 px-3 py-2 bg-white rounded-lg border border-gray-100 font-bold text-[10px] uppercase tracking-wider text-navy hover:border-primary transition-all shadow-sm">
+                                👤 My Account <span class="text-[8px] opacity-60">▼</span>
+                            </button>
+                            <div
+                                class="absolute right-0 top-full mt-2 w-48 bg-white shadow-2xl rounded-xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 border border-gray-100 transform translate-y-2 group-hover:translate-y-0 z-50">
+                                <a href="dashboard.html" id="dash-link"
+                                    class="block px-6 py-2.5 text-[11px] font-bold text-gray-700 hover:text-primary hover:bg-orange-50 transition border-b border-gray-50 uppercase tracking-wider">📊
+                                    Dashboard</a>
+                                <a href="admission.html"
+                                    class="block px-6 py-2.5 text-[11px] font-bold text-gray-700 hover:text-primary hover:bg-orange-50 transition border-b border-gray-50 uppercase tracking-wider">📝
+                                    Apply Now</a>
+                                <button onclick="logout()"
+                                    class="w-full text-left px-6 py-2.5 text-[11px] font-bold text-red-500 hover:bg-red-50 transition uppercase tracking-wider">🚪
+                                    Logout</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button
+                        class="xl:hidden text-2xl p-2 h-10 w-10 md:h-12 md:w-12 flex items-center justify-center hover:bg-gray-50 rounded-xl transition-all"
+                        id="mobile-menu-btn">☰</button>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <!-- Sidebar Mobile Menu -->
+    <div class="fixed inset-0 bg-dark bg-opacity-80 z-[60] hidden transition-opacity duration-300" id="mobile-overlay">
+    </div>
+    <div class="fixed top-0 left-[-300px] bottom-0 w-[300px] bg-white z-[70] transition-all duration-500 shadow-2xl p-8 flex flex-col overflow-y-auto"
+        id="mobile-sidebar">
+        <button class="self-end text-3xl mb-8 flex-shrink-0" id="close-sidebar-btn">×</button>
+        <nav class="flex flex-col gap-2 font-bold text-base uppercase">
+            <a href="index.html" class="border-b border-gray-100 py-3 hover:text-primary transition">Home</a>
+            <div class="border-b border-gray-100 py-3">
+                <button
+                    class="sidebar-accordion flex justify-between items-center w-full uppercase hover:text-primary transition"
+                    onclick="this.nextElementSibling.classList.toggle('hidden');this.querySelector('span').textContent=this.nextElementSibling.classList.contains('hidden')?'+':'−'">About
+                    <span>+</span></button>
+                <div class="hidden flex-col pl-4 text-xs uppercase tracking-wider font-semibold gap-2 mt-3">
+                    <a href="about.html" class="py-1 hover:text-primary">About Academy</a>
+                    <a href="facilities.html" class="py-1 hover:text-primary">Facilities</a>
+                    <a href="gallery.html" class="py-1 hover:text-primary">Gallery</a>
+                    <a href="eligibility-criteria.html" class="py-1 hover:text-primary">Eligibility</a>
+                </div>
+            </div>
+            <div class="border-b border-gray-100 py-3">
+                <button
+                    class="sidebar-accordion flex justify-between items-center w-full uppercase hover:text-primary transition"
+                    onclick="this.nextElementSibling.classList.toggle('hidden');this.querySelector('span').textContent=this.nextElementSibling.classList.contains('hidden')?'+':'−'">COURSES
+                    <span>+</span></button>
+                <div class="hidden flex-col pl-4 text-xs uppercase tracking-wider font-semibold gap-2 mt-3">
+                    <span class="text-primary text-[10px] uppercase tracking-widest mt-2 font-bold">Police &
+                        Defense</span>
+                    <a href="police-recruitment.html" class="py-1 hover:text-primary">Police Bharti</a>
+                    <a href="army-recruitment.html" class="py-1 hover:text-primary">Army Bharti</a>
+                    <a href="forest-service-recruitment.html" class="py-1 hover:text-primary">Vansevak / Vanrakshak</a>
+                    <a href="police-recruitment.html" class="py-1 hover:text-primary">Darubandi Police</a>
+                    <span class="text-primary text-[10px] uppercase tracking-widest mt-2 font-bold">Govt Exams</span>
+                    <a href="talathi-recruitment-training-program.html" class="py-1 hover:text-primary">Talathi</a>
+                    <a href="clerk-typist-recruitment.html" class="py-1 hover:text-primary">Clerk</a>
+                    <a href="gramsevak-recruitment.html" class="py-1 hover:text-primary">Mahanagar Palika</a>
+                    <a href="ssc-recruitment.html" class="py-1 hover:text-primary">SSC CGL</a>
+                    <span class="text-primary text-[10px] uppercase tracking-widest mt-2 font-bold">Foundation</span>
+                    <a href="psi-2.html" class="py-1 hover:text-primary">UPSC Foundation</a>
+                    <a href="sti.html" class="py-1 hover:text-primary">MPSC Foundation</a>
+                </div>
+            </div>
+            <a href="admission.html" class="border-b border-gray-100 py-3 hover:text-primary transition uppercase">Admission</a>
+            <a href="contact.html" class="border-b border-gray-100 py-3 hover:text-primary transition uppercase">Contact Us</a>
+            <div id="mobile-auth-links" class="flex flex-col gap-3 mt-6">
+                <a href="login.html"
+                    class="text-center py-4 bg-navy text-white rounded-xl text-sm tracking-widest font-bold uppercase shadow-xl hover:bg-primary transition-all duration-300 flex items-center justify-center gap-2">
+                    <span>Account Login</span> 🔒
+                </a>
+                <p class="text-[10px] text-gray-400 text-center uppercase tracking-widest font-bold mt-2">New student?
+                    <a href="register.html" class="text-primary underline">Join academy now</a>
+                </p>
+            </div>
+            <a href="admission.html"
+                class="mt-6 bg-secondary text-white text-center py-4 rounded-sm text-sm tracking-widest hover:bg-dark transition uppercase font-bold">Apply
+                Now</a>
+        </nav>
+    </div>
+
+    <main>
+        <!-- ======================== HERO SLIDER ======================== -->
+        <section class="hero-slider relative overflow-hidden bg-gray-900">
+            <div class="absolute inset-0 slide transition-opacity duration-1000 opacity-100 flex items-center"
+                id="slide-0">
+                <img src="assets/images/hero-police-training.png"
+                    alt="Build Strength Build Discipline Become a Champion"
+                    class="absolute inset-0 w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
+                <div class="container mx-auto px-4 relative z-10 pt-20 md:pt-32">
+                    <div class="max-w-3xl">
+
+                        <h1
+                            class="text-2xl md:text-3xl lg:text-4xl text-white font-heading font-extrabold uppercase mb-6 leading-[0.95]">
+                            Build Strength.<br>Build Discipline.<br><span class="text-primary">Become a Champion.</span>
+                        </h1>
+                        <p class="text-sm md:text-base text-gray-300 mb-10 max-w-xl leading-relaxed">Join The Champions
+                            Academy and transform yourself into a physically and mentally strong individual ready for
+                            Police Bharti and national service.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="admission.html"
+                                class="btn-glow pulse-btn bg-primary text-white px-10 py-4 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-white hover:text-primary transition-all duration-300">Join
+                                Now →</a>
+                            <button onclick="openCallbackModal()"
+                                class="px-10 py-4 rounded-xl font-bold uppercase tracking-widest text-sm border-2 border-white/30 text-white hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">Request
+                                Callback</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="absolute inset-0 slide transition-opacity duration-1000 opacity-0 flex items-center"
+                id="slide-1">
+                <img src="assets/images/hero-soldier-training.png" alt="Army Bharti Training"
+                    class="absolute inset-0 w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
+                <div class="container mx-auto px-4 relative z-10">
+                    <div class="max-w-3xl">
+
+                        <h1
+                            class="text-2xl md:text-3xl lg:text-4xl text-white font-heading font-extrabold uppercase mb-6 leading-[0.95]">
+                            We Don't Just<br>Train Students—<br><span class="text-primary">We Build Champions</span>
+                        </h1>
+                        <p class="text-sm md:text-base text-gray-300 mb-10 max-w-xl leading-relaxed">With over 10 years
+                            of dedicated experience, we provide expert guidance, disciplined training, and a
+                            success-driven environment to help students achieve their dreams.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="admission.html"
+                                class="btn-glow bg-primary text-white px-10 py-4 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-white hover:text-primary transition-all duration-300">Enroll
+                                Now →</a>
+                            <a href="facilities.html"
+                                class="px-10 py-4 rounded-xl font-bold uppercase tracking-widest text-sm border-2 border-white/30 text-white hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">Our
+                                Facilities</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="absolute inset-0 slide transition-opacity duration-1000 opacity-0 flex items-center"
+                id="slide-2">
+                <img src="assets/images/hero-defense-academy.png" alt="Defense Academy"
+                    class="absolute inset-0 w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
+                <div class="container mx-auto px-4 relative z-10">
+                    <div class="max-w-3xl">
+
+                        <h1
+                            class="text-2xl md:text-3xl lg:text-4xl text-white font-heading font-extrabold uppercase mb-6 leading-[0.95]">
+                            Your Gateway to<br><span class="text-primary">Police & Defense</span><br>Services</h1>
+                        <p class="text-sm md:text-base text-gray-300 mb-10 max-w-xl leading-relaxed">Comprehensive
+                            training for Police Bharti, Army Bharti, SSC CGL, UPSC, MPSC & more. World-class facilities,
+                            expert mentors, proven results.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <a href="about.html"
+                                class="btn-glow bg-primary text-white px-10 py-4 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-white hover:text-primary transition-all duration-300">Know
+                                More →</a>
+                            <a href="contact.html"
+                                class="px-10 py-4 rounded-xl font-bold uppercase tracking-widest text-sm border-2 border-white/30 text-white hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">Contact
+                                Us</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination Dots -->
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex gap-3 z-20">
+                <button class="w-12 h-1.5 rounded-full bg-primary transition-all duration-300"></button>
+                <button
+                    class="w-12 h-1.5 rounded-full bg-white/30 hover:bg-white/60 transition-all duration-300"></button>
+                <button
+                    class="w-12 h-1.5 rounded-full bg-white/30 hover:bg-white/60 transition-all duration-300"></button>
+            </div>
+        </section>
+
+        <!-- ======================== FLOATING STATS BAR ======================== -->
+        <section class="relative z-10 my-16">
+            <div class="container mx-auto px-4">
+                <div
+                    class="reveal bg-white/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-gray-100 p-8 md:p-10 grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <div class="text-center">
+                        <div class="counter-value text-xl md:text-3xl" data-counter="3000" data-suffix="+">0</div>
+                        <p class="text-xs uppercase font-mono font-semibold tracking-widest text-gray-500 mt-1">Days
+                            Ground Presence</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="counter-value text-xl md:text-3xl" data-counter="10" data-suffix="+ Yrs">0</div>
+                        <p class="text-xs uppercase font-mono font-semibold tracking-widest text-gray-500 mt-1">Of
+                            Experience</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="counter-value text-xl md:text-3xl" data-counter="100" data-suffix="%">0</div>
+                        <p class="text-xs uppercase font-mono font-semibold tracking-widest text-gray-500 mt-1">Physical
+                            Test Success</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="counter-value text-xl md:text-3xl" data-counter="500" data-suffix="+">0</div>
+                        <p class="text-xs uppercase font-mono font-semibold tracking-widest text-gray-500 mt-1">Students
+                            Selected</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================== ABOUT SECTION ======================== -->
+        <section class="pt-16 pb-24 bg-white overflow-hidden" id="about">
+            <div class="container mx-auto px-4 grid lg:grid-cols-2 gap-16 items-center">
+                <div class="relative reveal-left">
+                    <img src="assets/images/about-img.jpg" alt="Training at The Champions Academy"
+                        class="rounded-2xl shadow-2xl relative z-10 w-full">
+                    <div class="absolute -top-4 -left-4 w-full h-full border-2 border-primary/20 rounded-2xl -z-10">
+                    </div>
+                    <div
+                        class="absolute -bottom-6 -right-6 bg-white p-6 rounded-2xl shadow-xl z-20 border border-gray-100 hidden md:block">
+                        <span class="block text-4xl font-black text-primary">3000+</span>
+                        <span class="text-[10px] uppercase font-bold tracking-widest text-gray-500">Days
+                            Without<br>Missing a Day</span>
+                    </div>
+                </div>
+                <div class="reveal-right">
+                    <span class="section-label">About Us</span>
+                    <h2 class="section-title text-lg md:text-xl lg:text-2xl text-gray-900 mb-4">The Champions
+                        Academy<br><span class="text-primary">Where Champions Are Made</span></h2>
+                    <div class="tiranga-divider w-24 mb-8"></div>
+                    <div class="space-y-5 text-gray-600 leading-relaxed text-base">
+                        <p>The Champions Academy is one of the most dedicated and result-oriented training institutes
+                            for Police Bharti preparation in Maharashtra.</p>
+                        <p>Our founder has been consistently training students for the past <strong
+                                class="text-navy">10+ years</strong>, with over <strong class="text-primary">3000+
+                                days</strong> of continuous ground presence without missing a single day. This
+                            consistency reflects our commitment and passion towards student success.</p>
+                        <p>We believe in personal attention. Every student is guided individually, and their physical as
+                            well as mental development is monitored closely. Our training is not just about passing
+                            exams—<strong>it's about building a strong mindset where students never give up in
+                                life.</strong></p>
+                    </div>
+                    <div class="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="flex items-center gap-3 p-3 bg-green-50 rounded-xl border border-green-100">
+                            <span class="text-xl">✅</span>
+                            <span class="text-xs font-bold text-gray-700">Zero Failure in Physical Tests</span>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 bg-blue-50 rounded-xl border border-blue-100">
+                            <span class="text-xl">✅</span>
+                            <span class="text-xs font-bold text-gray-700">Lifelong Discipline</span>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 bg-orange-50 rounded-xl border border-orange-100">
+                            <span class="text-xl">✅</span>
+                            <span class="text-xs font-bold text-gray-700">Hundreds Selected</span>
+                        </div>
+                    </div>
+                    <a href="about.html"
+                        class="btn-glow inline-block mt-8 bg-navy text-white px-8 py-3 rounded-xl font-bold uppercase text-xs tracking-widest hover:bg-primary transition-all duration-300">Know
+                        More →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================== MISSION / VISION / GOALS ======================== -->
+        <section class="dark-section py-24 overflow-hidden relative" id="mission">
+            <div class="absolute top-0 right-0 w-1/2 h-full bg-primary/5 blur-[120px] -z-0"></div>
+            <div class="container mx-auto px-4 relative z-10">
+                <div class="text-center mb-16 reveal">
+                    <span class="section-label text-primary">Our Purpose</span>
+                    <h2 class="section-title text-lg md:text-xl lg:text-2xl text-white">Mission, Vision & <span
+                            class="text-primary">Goals</span></h2>
+                    <div class="tiranga-divider w-24 mx-auto mt-6"></div>
+                </div>
+
+                <div class="stagger-children grid md:grid-cols-3 gap-8">
+                    <!-- Mission -->
+                    <div class="glass-card p-10">
+                        <div class="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mb-6">
+                            <span class="text-3xl">🎯</span>
+                        </div>
+                        <h3 class="text-xl font-heading font-black uppercase text-white mb-4">Our Mission</h3>
+                        <p class="text-gray-300 leading-relaxed text-sm">To build physically strong, mentally tough, and
+                            highly disciplined individuals who are fully prepared to succeed in Police Bharti and serve
+                            the nation with pride.</p>
+                    </div>
+                    <!-- Vision -->
+                    <div class="glass-card p-10 border-primary/20">
+                        <div class="w-16 h-16 bg-secondary/20 rounded-2xl flex items-center justify-center mb-6">
+                            <span class="text-3xl">👁️</span>
+                        </div>
+                        <h3 class="text-xl font-heading font-black uppercase text-white mb-4">Our Vision</h3>
+                        <ul class="text-gray-300 leading-relaxed text-sm space-y-3">
+                            <li class="flex gap-2"><span class="text-primary">•</span> Trained students in every police
+                                station across Maharashtra</li>
+                            <li class="flex gap-2"><span class="text-primary">•</span> Champions at every border of
+                                India for national security</li>
+                            <li class="flex gap-2"><span class="text-primary">•</span> Creating fearless, capable &
+                                self-disciplined youth</li>
+                        </ul>
+                    </div>
+                    <!-- Goals -->
+                    <div class="glass-card p-10">
+                        <div class="w-16 h-16 bg-navy/30 rounded-2xl flex items-center justify-center mb-6">
+                            <span class="text-3xl">🏆</span>
+                        </div>
+                        <h3 class="text-xl font-heading font-black uppercase text-white mb-4">Our Goals</h3>
+                        <ul class="text-gray-300 leading-relaxed text-sm space-y-3">
+                            <li class="flex gap-2"><span class="text-primary">✓</span> 100% physical test success for
+                                every dedicated student</li>
+                            <li class="flex gap-2"><span class="text-primary">✓</span> Personal attention & continuous
+                                improvement tracking</li>
+                            <li class="flex gap-2"><span class="text-primary">✓</span> Never-give-up attitude in every
+                                student</li>
+                            <li class="flex gap-2"><span class="text-primary">✓</span> Expand our academy reach across
+                                Maharashtra</li>
+                            <li class="flex gap-2"><span class="text-primary">✓</span> Maximum successful candidates
+                                every year</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================== OUR RESULTS ======================== -->
+        <section class="py-24 bg-white overflow-hidden" id="results">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16 reveal">
+                    <span class="section-label">Our Results</span>
+                    <h2 class="section-title text-lg md:text-xl lg:text-2xl text-gray-900">Numbers That <span
+                            class="text-primary">Speak</span></h2>
+                    <div class="tiranga-divider w-24 mx-auto mt-6"></div>
+                    <p class="mt-6 text-gray-500 max-w-2xl mx-auto text-sm">Continuous success year after year — our
+                        track record of discipline and performance speaks for itself.</p>
+                </div>
+                <div class="stagger-children grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <div
+                        class="text-center p-8 rounded-2xl bg-gradient-to-br from-primary/5 to-orange-50 border border-primary/10 hover:shadow-xl transition-all duration-300">
+                        <div class="w-16 h-16 mx-auto mb-5 bg-primary/20 rounded-2xl flex items-center justify-center">
+                            <span class="text-3xl">💂</span>
+                        </div>
+                        <div class="counter-value text-xl md:text-3xl" data-counter="500" data-suffix="+">0</div>
+                        <p class="uppercase font-mono font-semibold text-xs tracking-widest text-gray-500 mt-2">Students
+                            Selected</p>
+                    </div>
+                    <div
+                        class="text-center p-8 rounded-2xl bg-gradient-to-br from-green-50 to-emerald-50 border border-green-100 hover:shadow-xl transition-all duration-300">
+                        <div
+                            class="w-16 h-16 mx-auto mb-5 bg-secondary/20 rounded-2xl flex items-center justify-center">
+                            <span class="text-3xl">🏆</span>
+                        </div>
+                        <div class="counter-value text-xl md:text-3xl" data-counter="100" data-suffix="%">0</div>
+                        <p class="uppercase font-mono font-semibold text-xs tracking-widest text-gray-500 mt-2">Physical
+                            Test Pass Rate</p>
+                    </div>
+                    <div
+                        class="text-center p-8 rounded-2xl bg-gradient-to-br from-blue-50 to-indigo-50 border border-blue-100 hover:shadow-xl transition-all duration-300">
+                        <div class="w-16 h-16 mx-auto mb-5 bg-navy/20 rounded-2xl flex items-center justify-center">
+                            <span class="text-3xl">📅</span>
+                        </div>
+                        <div class="counter-value text-xl md:text-3xl" data-counter="3000" data-suffix="+">0</div>
+                        <p class="uppercase font-mono font-semibold text-xs tracking-widest text-gray-500 mt-2">Days
+                            Ground Presence</p>
+                    </div>
+                    <div
+                        class="text-center p-8 rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-100 hover:shadow-xl transition-all duration-300">
+                        <div
+                            class="w-16 h-16 mx-auto mb-5 bg-purple-500/20 rounded-2xl flex items-center justify-center">
+                            <span class="text-3xl">🎓</span>
+                        </div>
+                        <div class="counter-value text-xl md:text-3xl" data-counter="10" data-suffix="+ Yrs">0</div>
+                        <p class="uppercase font-mono font-semibold text-xs tracking-widest text-gray-500 mt-2">
+                            Consistent Success</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================== COURSES SECTION ======================== -->
+        <section class="py-24 bg-[#FAFAFA] overflow-hidden" id="courses">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16 reveal">
+                    <span class="section-label">What We Offer</span>
+                    <h2 class="section-title text-lg md:text-xl lg:text-2xl text-gray-900">Our Specialized <span
+                            class="text-primary">Courses</span></h2>
+                    <div class="tiranga-divider w-24 mx-auto mt-6"></div>
+                    <p class="mt-6 text-gray-500 max-w-3xl mx-auto text-sm">We offer a wide range of competitive exam
+                        and physical training programs designed to prepare students for government jobs and defense
+                        services.</p>
+                </div>
+
+                <div class="stagger-children grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                    <!-- Police Bharti -->
+                    <div class="course-card bg-white group relative">
+                        <div class="h-48 relative overflow-hidden">
+                            <img src="assets/images/g6.jpg" alt="Police Bharti"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent">
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <span
+                                    class="inline-block px-3 py-1 rounded-full bg-navy/20 backdrop-blur-sm text-blue-300 text-xs font-mono font-semibold uppercase tracking-wider mb-2 border border-navy/30">Police</span>
+                                <h4 class="text-xl font-heading font-bold text-white mb-1">Police Bharti</h4>
+                                <a href="police-recruitment.html"
+                                    class="inline-flex items-center gap-2 text-primary font-bold uppercase text-xs tracking-widest mt-2">Explore
+                                    <span class="group-hover:translate-x-2 transition-transform">→</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Army Bharti -->
+                    <div class="course-card bg-white group relative">
+                        <div class="h-48 relative overflow-hidden">
+                            <img src="assets/images/defense-training.png" alt="Army Bharti"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent">
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <span
+                                    class="inline-block px-3 py-1 rounded-full bg-secondary/20 backdrop-blur-sm text-secondary text-xs font-mono font-semibold uppercase tracking-wider mb-2 border border-secondary/30">Defense</span>
+                                <h4 class="text-xl font-heading font-bold text-white mb-1">Army Bharti</h4>
+                                <a href="army-recruitment.html"
+                                    class="inline-flex items-center gap-2 text-primary font-bold uppercase text-xs tracking-widest mt-2">Explore
+                                    <span class="group-hover:translate-x-2 transition-transform">→</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vansevak -->
+                    <div class="course-card bg-white group relative">
+                        <div class="h-48 relative overflow-hidden">
+                            <img src="assets/images/obstacle-course.png" alt="Vansevak"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent">
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <span
+                                    class="inline-block px-3 py-1 rounded-full bg-emerald-500/20 backdrop-blur-sm text-emerald-400 text-xs font-mono font-semibold uppercase tracking-wider mb-2 border border-emerald-500/30">Forest</span>
+                                <h4 class="text-xl font-heading font-bold text-white mb-1">Vansevak</h4>
+                                <a href="forest-service-recruitment.html"
+                                    class="inline-flex items-center gap-2 text-primary font-bold uppercase text-xs tracking-widest mt-2">Explore
+                                    <span class="group-hover:translate-x-2 transition-transform">→</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vanrakshak -->
+                    <div class="course-card bg-white group relative">
+                        <div class="h-48 relative overflow-hidden">
+                            <img src="assets/images/g1.jpg" alt="Vanrakshak"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent">
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <span
+                                    class="inline-block px-3 py-1 rounded-full bg-green-500/20 backdrop-blur-sm text-green-400 text-xs font-mono font-semibold uppercase tracking-wider mb-2 border border-green-500/30">Forest
+                                    Guard</span>
+                                <h4 class="text-xl font-heading font-bold text-white mb-1">Vanrakshak</h4>
+                                <a href="forest-service-recruitment.html"
+                                    class="inline-flex items-center gap-2 text-primary font-bold uppercase text-xs tracking-widest mt-2">Explore
+                                    <span class="group-hover:translate-x-2 transition-transform">→</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Darubandi Police -->
+                    <div class="course-card bg-white group relative">
+                        <div class="h-48 relative overflow-hidden">
+                            <img src="assets/images/fitness-test.jpg" alt="Darubandi Police"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent">
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <span
+                                    class="inline-block px-3 py-1 rounded-full bg-red-500/20 backdrop-blur-sm text-red-400 text-xs font-mono font-semibold uppercase tracking-wider mb-2 border border-red-500/30">Prohibition</span>
+                                <h4 class="text-xl font-heading font-bold text-white mb-1">Darubandi Police</h4>
+                                <a href="police-recruitment.html"
+                                    class="inline-flex items-center gap-2 text-primary font-bold uppercase text-xs tracking-widest mt-2">Explore
+                                    <span class="group-hover:translate-x-2 transition-transform">→</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Talathi -->
+                    <div class="course-card bg-white group relative">
+                        <div class="h-48 relative overflow-hidden">
+                            <img src="assets/images/talathi.jpg" alt="Talathi"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent">
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <span
+                                    class="inline-block px-3 py-1 rounded-full bg-blue-500/20 backdrop-blur-sm text-blue-400 text-xs font-mono font-semibold uppercase tracking-wider mb-2 border border-blue-500/30">Revenue</span>
+                                <h4 class="text-xl font-heading font-bold text-white mb-1">Talathi</h4>
+                                <a href="talathi-recruitment-training-program.html"
+                                    class="inline-flex items-center gap-2 text-primary font-bold uppercase text-xs tracking-widest mt-2">Explore
+                                    <span class="group-hover:translate-x-2 transition-transform">→</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Clerk -->
+                    <div class="course-card bg-white group relative">
+                        <div class="h-48 relative overflow-hidden">
+                            <img src="assets/images/clerk.jpg" alt="Clerk"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent">
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <span
+                                    class="inline-block px-3 py-1 rounded-full bg-purple-500/20 backdrop-blur-sm text-purple-400 text-xs font-mono font-semibold uppercase tracking-wider mb-2 border border-purple-500/30">State</span>
+                                <h4 class="text-xl font-heading font-bold text-white mb-1">Clerk</h4>
+                                <a href="clerk-typist-recruitment.html"
+                                    class="inline-flex items-center gap-2 text-primary font-bold uppercase text-xs tracking-widest mt-2">Explore
+                                    <span class="group-hover:translate-x-2 transition-transform">→</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Mahanagar Palika -->
+                    <div class="course-card bg-white group relative">
+                        <div class="h-48 relative overflow-hidden">
+                            <img src="assets/images/gramsevak.jpg" alt="Mahanagar Palika"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent">
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <span
+                                    class="inline-block px-3 py-1 rounded-full bg-amber-500/20 backdrop-blur-sm text-amber-400 text-xs font-mono font-semibold uppercase tracking-wider mb-2 border border-amber-500/30">Municipal</span>
+                                <h4 class="text-xl font-heading font-bold text-white mb-1">Mahanagar Palika</h4>
+                                <a href="gramsevak-recruitment.html"
+                                    class="inline-flex items-center gap-2 text-primary font-bold uppercase text-xs tracking-widest mt-2">Explore
+                                    <span class="group-hover:translate-x-2 transition-transform">→</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SSC CGL -->
+                    <div class="course-card bg-white group relative">
+                        <div class="h-48 relative overflow-hidden">
+                            <img src="assets/images/os-44.jpg" alt="SSC CGL"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent">
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <span
+                                    class="inline-block px-3 py-1 rounded-full bg-cyan-500/20 backdrop-blur-sm text-cyan-400 text-xs font-mono font-semibold uppercase tracking-wider mb-2 border border-cyan-500/30">Central</span>
+                                <h4 class="text-xl font-heading font-bold text-white mb-1">SSC CGL</h4>
+                                <a href="ssc-recruitment.html"
+                                    class="inline-flex items-center gap-2 text-primary font-bold uppercase text-xs tracking-widest mt-2">Explore
+                                    <span class="group-hover:translate-x-2 transition-transform">→</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- UPSC Foundation -->
+                    <div class="course-card bg-white group relative">
+                        <div class="h-48 relative overflow-hidden">
+                            <img src="assets/images/os-66.webp" alt="UPSC Foundation"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent">
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <span
+                                    class="inline-block px-3 py-1 rounded-full bg-primary/20 backdrop-blur-sm text-primary text-xs font-mono font-semibold uppercase tracking-wider mb-2 border border-primary/30">Foundation</span>
+                                <h4 class="text-xl font-heading font-bold text-white mb-1">UPSC Foundation</h4>
+                                <a href="psi-2.html"
+                                    class="inline-flex items-center gap-2 text-primary font-bold uppercase text-xs tracking-widest mt-2">Explore
+                                    <span class="group-hover:translate-x-2 transition-transform">→</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- MPSC Foundation -->
+                    <div class="course-card bg-white group relative">
+                        <div class="h-48 relative overflow-hidden">
+                            <img src="assets/images/g5.jpg" alt="MPSC Foundation"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent">
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <span
+                                    class="inline-block px-3 py-1 rounded-full bg-indigo-500/20 backdrop-blur-sm text-indigo-400 text-xs font-mono font-semibold uppercase tracking-wider mb-2 border border-indigo-500/30">Foundation</span>
+                                <h4 class="text-xl font-heading font-bold text-white mb-1">MPSC Foundation</h4>
+                                <a href="sti.html"
+                                    class="inline-flex items-center gap-2 text-primary font-bold uppercase text-xs tracking-widest mt-2">Explore
+                                    <span class="group-hover:translate-x-2 transition-transform">→</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- NDA (Coming Soon) -->
+                    <div class="course-card bg-white group relative">
+                        <div class="h-48 relative overflow-hidden">
+                            <img src="assets/images/g2.jpg" alt="NDA Preparation"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent">
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 p-6">
+                                <span
+                                    class="inline-block px-3 py-1 rounded-full bg-yellow-500/20 backdrop-blur-sm text-yellow-400 text-xs font-mono font-semibold uppercase tracking-wider mb-2 border border-yellow-500/30">Coming
+                                    Soon</span>
+                                <h4 class="text-xl font-heading font-bold text-white mb-1">NDA Preparation</h4>
+                                <span class="text-primary font-bold uppercase text-xs tracking-widest mt-2">Starting
+                                    Soon →</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-12 reveal">
+                    <p class="text-gray-500 text-sm mb-6">Our programs include both <strong>Physical Training + Written
+                            Exam Preparation</strong>, ensuring complete development of every student.</p>
+                    <a href="admission.html"
+                        class="btn-glow pulse-btn inline-block bg-primary text-white px-12 py-4 rounded-xl font-bold uppercase text-sm tracking-widest hover:bg-navy transition-all duration-300">Join
+                        Now — Admissions Open →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================== TRAINING SPECIALITIES ======================== -->
+        <section class="py-20 bg-[#FAFAFA] overflow-hidden">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16 reveal">
+                    <span class="section-label">Training Specialities</span>
+                    <h2 class="section-title text-2xl md:text-3xl text-gray-900 mb-4">What Students <span
+                            class="text-primary">Get</span></h2>
+                    <div class="tiranga-divider w-24 mx-auto mt-4"></div>
+                    <p class="mt-6 text-gray-500 max-w-3xl mx-auto text-sm">We provide complete physical and academic
+                        coaching under one roof.</p>
+                </div>
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="reveal-left">
+                        <div class="stagger-children space-y-4">
+                            <div
+                                class="flex items-start gap-4 p-5 bg-white rounded-2xl border border-gray-100 hover:border-orange-200 hover:shadow-lg transition-all">
+                                <span
+                                    class="w-10 h-10 bg-primary/20 rounded-xl flex items-center justify-center shrink-0 text-xl">🏃‍♂️</span>
+                                <div>
+                                    <h4 class="font-bold text-gray-800 mb-1">Morning Physical Training</h4>
+                                    <p class="text-sm text-gray-500">Running, sprints, and endurance building every
+                                        morning</p>
+                                </div>
+                            </div>
+                            <div
+                                class="flex items-start gap-4 p-5 bg-white rounded-2xl border border-gray-100 hover:border-blue-200 hover:shadow-lg transition-all">
+                                <span
+                                    class="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center shrink-0 text-xl">📝</span>
+                                <div>
+                                    <h4 class="font-bold text-gray-800 mb-1">Complete Subject Coaching</h4>
+                                    <p class="text-sm text-gray-500">Marathi, GK, Maths & Reasoning classes by experts
+                                    </p>
+                                </div>
+                            </div>
+                            <div
+                                class="flex items-start gap-4 p-5 bg-white rounded-2xl border border-gray-100 hover:border-green-200 hover:shadow-lg transition-all">
+                                <span
+                                    class="w-10 h-10 bg-secondary/20 rounded-xl flex items-center justify-center shrink-0 text-xl">📋</span>
+                                <div>
+                                    <h4 class="font-bold text-gray-800 mb-1">Regular Mock Tests</h4>
+                                    <p class="text-sm text-gray-500">Weekly tests simulating exam conditions</p>
+                                </div>
+                            </div>
+                            <div
+                                class="flex items-start gap-4 p-5 bg-white rounded-2xl border border-gray-100 hover:border-purple-200 hover:shadow-lg transition-all">
+                                <span
+                                    class="w-10 h-10 bg-purple-500/20 rounded-xl flex items-center justify-center shrink-0 text-xl">🍎</span>
+                                <div>
+                                    <h4 class="font-bold text-gray-800 mb-1">Personal Diet Plans</h4>
+                                    <p class="text-sm text-gray-500">Individual nutrition guidance for peak performance
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reveal-right">
+                        <img src="assets/images/defense-training.png" alt="Training Specialities"
+                            class="rounded-2xl shadow-2xl w-3/4 md:w-1/2 max-w-sm mx-auto block">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================== FACILITIES ======================== -->
+        <section class="py-24 bg-white" id="facilities">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16 reveal">
+                    <span class="section-label">Our Infrastructure</span>
+                    <h2 class="section-title text-lg md:text-xl lg:text-2xl text-gray-900 uppercase">World-Class <span
+                            class="text-primary">Facilities</span></h2>
+                    <div class="tiranga-divider w-24 mx-auto mt-6"></div>
+                    <p class="mt-6 text-gray-500 max-w-2xl mx-auto text-sm">Our campus is fully equipped with modern
+                        infrastructure and facilities to support student success.</p>
+                </div>
+
+                <div class="stagger-children grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                    <div
+                        class="p-6 bg-gradient-to-br from-orange-50 to-white rounded-2xl border border-orange-100 text-center hover:shadow-lg transition-all group">
+                        <span class="text-3xl block mb-3 group-hover:scale-110 transition-transform">🏋️</span>
+                        <h4 class="font-bold text-sm text-gray-800">Spacious Ground</h4>
+                        <p class="text-xs text-gray-500 mt-1">For Running & Drills</p>
+                    </div>
+                    <div
+                        class="p-6 bg-gradient-to-br from-blue-50 to-white rounded-2xl border border-blue-100 text-center hover:shadow-lg transition-all group">
+                        <span class="text-3xl block mb-3 group-hover:scale-110 transition-transform">💪</span>
+                        <h4 class="font-bold text-sm text-gray-800">Modern Gym</h4>
+                        <p class="text-xs text-gray-500 mt-1">Full Equipment</p>
+                    </div>
+                    <div
+                        class="p-6 bg-gradient-to-br from-green-50 to-white rounded-2xl border border-green-100 text-center hover:shadow-lg transition-all group">
+                        <span class="text-3xl block mb-3 group-hover:scale-110 transition-transform">🏠</span>
+                        <h4 class="font-bold text-sm text-gray-800">Hostel</h4>
+                        <p class="text-xs text-gray-500 mt-1">Accommodation</p>
+                    </div>
+                    <div
+                        class="p-6 bg-gradient-to-br from-purple-50 to-white rounded-2xl border border-purple-100 text-center hover:shadow-lg transition-all group">
+                        <span class="text-3xl block mb-3 group-hover:scale-110 transition-transform">🍽️</span>
+                        <h4 class="font-bold text-sm text-gray-800">Mess Facility</h4>
+                        <p class="text-xs text-gray-500 mt-1">Nutritious Food</p>
+                    </div>
+                    <div
+                        class="p-6 bg-gradient-to-br from-cyan-50 to-white rounded-2xl border border-cyan-100 text-center hover:shadow-lg transition-all group">
+                        <span class="text-3xl block mb-3 group-hover:scale-110 transition-transform">📖</span>
+                        <h4 class="font-bold text-sm text-gray-800">Study Room</h4>
+                        <p class="text-xs text-gray-500 mt-1">Peaceful Environment</p>
+                    </div>
+                    <div
+                        class="p-6 bg-gradient-to-br from-amber-50 to-white rounded-2xl border border-amber-100 text-center hover:shadow-lg transition-all group">
+                        <span class="text-3xl block mb-3 group-hover:scale-110 transition-transform">📚</span>
+                        <h4 class="font-bold text-sm text-gray-800">Library</h4>
+                        <p class="text-xs text-gray-500 mt-1">Books & Study Material</p>
+                    </div>
+                    <div
+                        class="p-6 bg-gradient-to-br from-indigo-50 to-white rounded-2xl border border-indigo-100 text-center hover:shadow-lg transition-all group">
+                        <span class="text-3xl block mb-3 group-hover:scale-110 transition-transform">🏫</span>
+                        <h4 class="font-bold text-sm text-gray-800">5 Classrooms</h4>
+                        <p class="text-xs text-gray-500 mt-1">AC & Digital Boards</p>
+                    </div>
+                    <div
+                        class="p-6 bg-gradient-to-br from-red-50 to-white rounded-2xl border border-red-100 text-center hover:shadow-lg transition-all group">
+                        <span class="text-3xl block mb-3 group-hover:scale-110 transition-transform">🚿</span>
+                        <h4 class="font-bold text-sm text-gray-800">Rest Rooms</h4>
+                        <p class="text-xs text-gray-500 mt-1">Clean & Hygienic</p>
+                    </div>
+                    <div
+                        class="p-6 bg-gradient-to-br from-orange-50 to-white rounded-2xl border border-orange-100 text-center hover:shadow-lg transition-all group">
+                        <span class="text-3xl block mb-3 group-hover:scale-110 transition-transform">📹</span>
+                        <h4 class="font-bold text-sm text-gray-800">CCTV Surveillance</h4>
+                        <p class="text-xs text-gray-500 mt-1">24x7 Safety</p>
+                    </div>
+                    <div
+                        class="p-6 bg-gradient-to-br from-blue-50 to-white rounded-2xl border border-blue-100 text-center hover:shadow-lg transition-all group">
+                        <span class="text-3xl block mb-3 group-hover:scale-110 transition-transform">🚰</span>
+                        <h4 class="font-bold text-sm text-gray-800">Drinking Water</h4>
+                        <p class="text-xs text-gray-500 mt-1">RO Purified</p>
+                    </div>
+                </div>
+
+                <div class="text-center mt-12">
+                    <a href="facilities.html"
+                        class="inline-flex items-center gap-2 text-primary font-bold uppercase tracking-widest text-xs hover:gap-4 transition-all duration-300">Explore
+                        All Facilities <span class="text-xl">→</span></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================== WHY CHOOSE US ======================== -->
+        <section class="dark-section py-24 overflow-hidden" id="why-us">
+            <div class="container mx-auto px-4 grid lg:grid-cols-2 gap-16 items-center">
+                <div class="reveal-left">
+                    <span class="section-label">Why Choose Us</span>
+                    <h2 class="section-title text-2xl md:text-3xl text-white mb-4">Why Choose<br><span
+                            class="text-primary">The Champions Academy?</span></h2>
+                    <div class="tiranga-divider w-24 mb-10"></div>
+                    <p class="text-gray-400 mb-8 text-sm leading-relaxed">Choosing the right academy can change your
+                        life. We don't just train students—we build champions who never give up in life.</p>
+                    <div class="stagger-children grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div
+                            class="speciality-card p-5 bg-white/5 border border-white/10 backdrop-blur-sm hover:border-primary/50 hover:bg-white/10">
+                            <span class="text-primary text-lg">✅</span>
+                            <h4 class="font-heading font-bold text-white text-sm mt-2">10+ Years Experience</h4>
+                            <p class="text-xs text-gray-400 mt-1">In Police Bharti Training</p>
+                        </div>
+                        <div
+                            class="speciality-card p-5 bg-white/5 border border-white/10 backdrop-blur-sm hover:border-primary/50 hover:bg-white/10">
+                            <span class="text-primary text-lg">✅</span>
+                            <h4 class="font-heading font-bold text-white text-sm mt-2">3000+ Days Presence</h4>
+                            <p class="text-xs text-gray-400 mt-1">Without a single break</p>
+                        </div>
+                        <div
+                            class="speciality-card p-5 bg-white/5 border border-white/10 backdrop-blur-sm hover:border-primary/50 hover:bg-white/10">
+                            <span class="text-primary text-lg">✅</span>
+                            <h4 class="font-heading font-bold text-white text-sm mt-2">100% Success Record</h4>
+                            <p class="text-xs text-gray-400 mt-1">Physical test pass rate</p>
+                        </div>
+                        <div
+                            class="speciality-card p-5 bg-white/5 border border-white/10 backdrop-blur-sm hover:border-primary/50 hover:bg-white/10">
+                            <span class="text-primary text-lg">✅</span>
+                            <h4 class="font-heading font-bold text-white text-sm mt-2">Personal Attention</h4>
+                            <p class="text-xs text-gray-400 mt-1">To every student</p>
+                        </div>
+                        <div
+                            class="speciality-card p-5 bg-white/5 border border-white/10 backdrop-blur-sm hover:border-primary/50 hover:bg-white/10">
+                            <span class="text-primary text-lg">✅</span>
+                            <h4 class="font-heading font-bold text-white text-sm mt-2">Largest Campus</h4>
+                            <p class="text-xs text-gray-400 mt-1">With all facilities</p>
+                        </div>
+                        <div
+                            class="speciality-card p-5 bg-white/5 border border-white/10 backdrop-blur-sm hover:border-primary/50 hover:bg-white/10">
+                            <span class="text-primary text-lg">✅</span>
+                            <h4 class="font-heading font-bold text-white text-sm mt-2">Proven Track Record</h4>
+                            <p class="text-xs text-gray-400 mt-1">Hundreds of selections</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal-right relative">
+                    <img src="assets/images/os-44.jpg" alt="Why Choose Champions Academy"
+                        class="rounded-2xl shadow-2xl w-full relative z-10">
+                    <div class="absolute -bottom-3 -right-3 w-full h-full border-2 border-primary/15 rounded-2xl -z-10">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================== SUCCESS STORIES & REELS ======================== -->
+        <section class="py-20 bg-white overflow-hidden relative">
+            <!-- Decorative Backgrounds -->
+            <div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10"></div>
+            <div class="absolute bottom-0 left-0 w-64 h-64 bg-navy/5 rounded-full blur-3xl -z-10"></div>
+
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16 reveal">
+                    <span class="section-label">Our Pride</span>
+                    <h2 class="section-title text-2xl md:text-3xl text-gray-900 mb-4">Champion <span
+                            class="text-primary">Success Stories</span></h2>
+                    <div class="tiranga-divider w-24 mx-auto mt-4"></div>
+                    <p class="mt-6 text-gray-500 max-w-3xl mx-auto text-sm">Real Results. Real Transformations. Watch
+                        our students achieve their dreams.</p>
+                </div>
+
+                <!-- Success Banner -->
+                <div
+                    class="bg-gradient-to-r from-navy to-dark rounded-3xl p-8 md:p-12 text-white shadow-2xl relative overflow-hidden mb-16 reveal-left">
+                    <div class="absolute inset-0 bg-[url('assets/images/pattern.png')] opacity-10 mix-blend-overlay">
+                    </div>
+                    <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
+                        <div class="md:w-2/3">
+                            <h3
+                                class="font-heading font-black text-2xl md:text-4xl mb-4 text-transparent bg-clip-text bg-gradient-to-r from-primary to-yellow-300">
+                                🎉 HUNDREDS OF SELECTIONS!</h3>
+                            <p class="text-gray-300 text-sm md:text-base leading-relaxed mb-6">Our students have proudly
+                                cleared the toughest physical and written examinations across Maharashtra. Will you be
+                                next?</p>
+                            <a href="admission.html"
+                                class="inline-block bg-primary text-white px-8 py-4 rounded-xl font-bold uppercase text-xs tracking-widest hover:bg-white hover:text-navy hover:shadow-[0_0_20px_rgba(255,153,51,0.5)] transition duration-300 transform hover:-translate-y-1">
+                                JOIN NEXT BATCH NOW <span class="ml-2">→</span>
+                            </a>
+                        </div>
+                        <div class="md:w-1/3 flex justify-center">
+                            <div class="grid grid-cols-2 gap-4">
+                                <div
+                                    class="text-center p-4 bg-white/10 rounded-2xl backdrop-blur-md border border-white/20">
+                                    <h4 class="text-3xl font-black text-primary">500+</h4>
+                                    <p class="text-[10px] font-bold uppercase tracking-widest text-gray-300 mt-1">
+                                        Selections</p>
+                                </div>
+                                <div
+                                    class="text-center p-4 bg-white/10 rounded-2xl backdrop-blur-md border border-white/20">
+                                    <h4 class="text-3xl font-black text-secondary">100%</h4>
+                                    <p class="text-[10px] font-bold uppercase tracking-widest text-gray-300 mt-1">Ground
+                                        Pass</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reels Integration Grid -->
+                <div class="text-center mb-10 reveal">
+                    <h3
+                        class="font-heading font-bold text-xl uppercase tracking-widest text-navy relative inline-block">
+                        <span class="mr-2 text-2xl">📱</span> Watch Our Training Action
+                    </h3>
+                </div>
+
+                <div id="trainingActionGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 px-2 md:px-10 stagger-children">
+                    <!-- Reels will be injected here by JS -->
+                </div>
+                <div class="text-center mt-12">
+                    <a href="https://instagram.com" target="_blank"
+                        class="inline-flex items-center gap-2 text-primary font-bold uppercase tracking-widest text-xs hover:gap-4 transition-all duration-300">View
+                        All On Instagram <span class="text-xl">→</span></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================== TESTIMONIALS ======================== -->
+        <section class="py-24 bg-[#FAFAFA] overflow-hidden">
+            <div class="container mx-auto px-4 text-center mb-16 reveal">
+                <span class="section-label">Testimonials</span>
+                <h2 class="section-title text-lg md:text-xl lg:text-2xl text-gray-900">What Our <span
+                        class="text-primary">Students</span> Say</h2>
+                <div class="tiranga-divider w-24 mx-auto mt-6"></div>
+            </div>
+            <div class="container mx-auto px-4">
+                <div id="testimonialGrid" class="stagger-children grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="testimonial-card bg-white p-10 relative group">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div
+                                class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary font-heading font-bold text-lg">
+                                PJ</div>
+                            <div>
+                                <h4 class="font-heading font-bold text-sm">Pratiksha Jadhav</h4>
+                                <span class="text-xs text-primary font-mono font-semibold">Police Bharti Success</span>
+                            </div>
+                        </div>
+                        <div class="flex gap-1 text-primary text-sm mb-4">★★★★★</div>
+                        <p class="text-gray-500 text-sm leading-relaxed">"The disciplined environment and personal
+                            attention from trainers helped me stay motivated and focused. I cleared the physical test
+                            with flying colors thanks to Champions Academy."</p>
+                    </div>
+                    <div class="testimonial-card bg-white p-10 relative border-t-4 border-primary group">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div
+                                class="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center text-secondary font-heading font-bold text-lg">
+                                SS</div>
+                            <div>
+                                <h4 class="font-heading font-bold text-sm">Snehal Shinde</h4>
+                                <span class="text-xs text-primary font-mono font-semibold">Army Candidate</span>
+                            </div>
+                        </div>
+                        <div class="flex gap-1 text-primary text-sm mb-4">★★★★★</div>
+                        <p class="text-gray-500 text-sm leading-relaxed">"What I loved most was the daily schedule and
+                            doubt-solving sessions. The 3000+ days of continuous training by our sir shows true
+                            dedication. It built my fitness and confidence."</p>
+                    </div>
+                    <div class="testimonial-card bg-white p-10 relative group">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div
+                                class="w-12 h-12 rounded-full bg-navy/20 flex items-center justify-center text-navy font-heading font-bold text-lg">
+                                VK</div>
+                            <div>
+                                <h4 class="font-heading font-bold text-sm">Vishal Kale</h4>
+                                <span class="text-xs text-primary font-mono font-semibold">Police Service</span>
+                            </div>
+                        </div>
+                        <div class="flex gap-1 text-primary text-sm mb-4">★★★★★</div>
+                        <p class="text-gray-500 text-sm leading-relaxed">"The Champions Academy not only trained me but
+                            also built my discipline and determination. I can proudly say that no student trained here
+                            has failed in physical tests. True champions!"</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================== ADDRESS & MAP ======================== -->
+        <section class="py-24 bg-white" id="address">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16 reveal">
+                    <span class="section-label">Find Us</span>
+                    <h2 class="section-title text-lg md:text-xl lg:text-2xl text-gray-900">Our <span
+                            class="text-primary">Location</span></h2>
+                    <div class="tiranga-divider w-24 mx-auto mt-6"></div>
+                </div>
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="reveal-left">
+                        <div class="bg-gradient-to-br from-navy/5 to-primary/5 p-10 rounded-3xl border border-gray-100">
+                            <h3 class="font-heading font-bold text-xl text-navy mb-6 uppercase">📍 The Champions Academy
+                            </h3>
+                            <p class="text-gray-600 leading-relaxed mb-6">
+                                Jay Ganesh Apartment, Last Floor<br>
+                                Near Vrushali Hotel<br>
+                                Opposite Nav Maharashtra College<br>
+                                Pimpri Gaon, Pimpri<br>
+                                <strong>Pune – 411018</strong><br>
+                                Maharashtra, India
+                            </p>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4">
+                                    <span
+                                        class="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center">📞</span>
+                                    <div>
+                                        <p class="text-xs text-gray-400 uppercase tracking-widest font-bold">Phone</p>
+                                        <p class="font-bold text-navy">+91 84844 00114 / +91 84848 42737</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <span
+                                        class="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">💬</span>
+                                    <div>
+                                        <p class="text-xs text-gray-400 uppercase tracking-widest font-bold">WhatsApp
+                                        </p>
+                                        <a href="https://wa.me/918484400114"
+                                            class="font-bold text-green-600 hover:text-green-700">Chat on WhatsApp →</a>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-4">
+                                    <span
+                                        class="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">📧</span>
+                                    <div>
+                                        <p class="text-xs text-gray-400 uppercase tracking-widest font-bold">Email</p>
+                                        <p class="font-bold text-navy">info@championsacademy.in</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex gap-3 mt-8">
+                                <a href="#"
+                                    class="w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-600 text-white rounded-xl flex items-center justify-center hover:scale-110 transition-transform text-sm font-bold">IG</a>
+                                <a href="#"
+                                    class="w-10 h-10 bg-red-600 text-white rounded-xl flex items-center justify-center hover:scale-110 transition-transform text-sm font-bold">YT</a>
+                                <a href="https://wa.me/918484400114"
+                                    class="w-10 h-10 bg-green-500 text-white rounded-xl flex items-center justify-center hover:scale-110 transition-transform text-sm font-bold">WA</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reveal-right">
+                        <div class="rounded-3xl overflow-hidden shadow-2xl border-4 border-white h-[400px]">
+                            <iframe
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3781.0!2d73.8!3d18.6!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTjCsDM2JzAwLjAiTiA3M8KwNDgnMDAuMCJF!5e0!3m2!1sen!2sin!4v1"
+                                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ======================== CTA BANNER ======================== -->
+        <section class="py-20 bg-gradient-to-r from-primary via-orange-500 to-primary relative overflow-hidden">
+            <div class="absolute inset-0 bg-[url('assets/images/ground.jpg')] bg-cover bg-center opacity-10"></div>
+            <div class="container mx-auto px-4 text-center relative z-10 reveal">
+                <h2 class="text-2xl md:text-3xl font-heading font-extrabold text-white uppercase mb-4">Ready to Become a
+                    Champion?</h2>
+                <p class="text-white/80 text-sm md:text-base mb-8 max-w-xl mx-auto">Admissions are open for all batches.
+                    Limited seats available. Don't miss your chance to transform your life.</p>
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <a href="admission.html"
+                        class="bg-white text-primary px-10 py-4 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-navy hover:text-white transition-all duration-300 shadow-2xl">Apply
+                        Now →</a>
+                    <a href="https://wa.me/918484400114"
+                        class="border-2 border-white text-white px-10 py-4 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-white hover:text-primary transition-all duration-300">💬
+                        WhatsApp Us</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ======================== FOOTER ======================== -->
+    <footer class="dark-section pt-24 pb-12 text-white border-t-4 border-primary relative overflow-hidden">
+        <div
+            class="absolute top-0 right-0 w-96 h-96 bg-primary/3 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none">
+        </div>
+        <div class="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 relative z-10">
+            <div>
+                <div class="mb-8 flex items-start">
+                    <img src="assets/images/logo.png" alt="Logo" class="h-20 md:h-24 object-contain">
+                </div>
+                <p class="text-gray-400 text-sm leading-relaxed">At The Champions Academy, we don't just prepare you for
+                    exams—we prepare you for life. Disciplined training, proper guidance, and consistent practice since
+                    10+ years.</p>
+                <div class="flex gap-3 mt-8">
+                    <a href="#"
+                        class="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-primary hover:border-primary transition-all duration-300 text-sm">IG</a>
+                    <a href="#"
+                        class="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-primary hover:border-primary transition-all duration-300 text-sm">YT</a>
+                    <a href="https://wa.me/918484400114"
+                        class="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-green-500 hover:border-green-500 transition-all duration-300 text-sm">WA</a>
+                </div>
+            </div>
+            <div>
+                <h4
+                    class="text-white font-heading font-bold uppercase text-sm tracking-widest mb-8 flex items-center gap-2">
+                    <span class="w-8 h-0.5 bg-primary"></span> Quick Links
+                </h4>
+                <ul class="space-y-4 text-gray-400 text-sm">
+                    <li><a href="index.html"
+                            class="hover:text-primary hover:translate-x-1 transition-all duration-300 inline-block">Home</a>
+                    </li>
+                    <li><a href="about.html"
+                            class="hover:text-primary hover:translate-x-1 transition-all duration-300 inline-block">About
+                            Academy</a></li>
+                    <li><a href="facilities.html"
+                            class="hover:text-primary hover:translate-x-1 transition-all duration-300 inline-block">Our
+                            Facilities</a></li>
+                    <li><a href="gallery.html"
+                            class="hover:text-primary hover:translate-x-1 transition-all duration-300 inline-block">Our
+                            Gallery</a></li>
+                    <li><a href="admission.html"
+                            class="hover:text-primary hover:translate-x-1 transition-all duration-300 inline-block">Admission</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h4
+                    class="text-white font-heading font-bold uppercase text-sm tracking-widest mb-8 flex items-center gap-2">
+                    <span class="w-8 h-0.5 bg-primary"></span> Contact Info
+                </h4>
+                <ul class="space-y-6 text-gray-400 text-sm">
+                    <li class="flex gap-4 items-start">
+                        <span class="text-primary mt-0.5">📍</span>
+                        <span>Jay Ganesh Apartment, Near Vrushali Hotel, Opp. Nav Maharashtra College, Pimpri Gaon, Pune
+                            – 411018</span>
+                    </li>
+                    <li class="flex gap-4 items-center">
+                        <span class="text-primary">📞</span>
+                        <span>+91 84844 00114 / +91 84848 42737</span>
+                    </li>
+                    <li class="flex gap-4 items-center">
+                        <span class="text-primary">📧</span>
+                        <span>info@championsacademy.in</span>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <h4
+                    class="text-white font-heading font-bold uppercase text-sm tracking-widest mb-8 flex items-center gap-2">
+                    <span class="w-8 h-0.5 bg-primary"></span> Stay Updated
+                </h4>
+                <p class="text-gray-400 text-xs mb-6">Subscribe to get latest updates on recruitment and new batches.
+                </p>
+                <form class="flex rounded-xl overflow-hidden">
+                    <input type="email" placeholder="Email Address"
+                        class="bg-white/5 border border-white/10 border-r-0 px-4 py-3 text-sm focus:ring-1 focus:ring-primary outline-none w-full rounded-l-xl">
+                    <button
+                        class="bg-primary text-white px-5 py-3 hover:bg-orange-600 transition font-bold rounded-r-xl">→</button>
+                </form>
+            </div>
+        </div>
+        <div class="container mx-auto px-4 mt-20">
+            <div class="tiranga-divider mb-8"></div>
+            <p class="text-center text-gray-500 text-xs tracking-widest uppercase">&copy; 2026 THE CHAMPIONS ACADEMY.
+                ALL RIGHTS RESERVED.</p>
+        </div>
+    </footer>
+
+    <!-- ======================== WHATSAPP FLOATING BUTTON ======================== -->
+    <a href="https://wa.me/918484400114?text=Hello%20Champions%20Academy,%20I%20would%20like%20to%20know%20more%20about%20admissions!"
+        target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp">
+        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" fill="white" viewBox="0 0 16 16">
+            <path
+                d="M13.601 2.326A7.854 7.854 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c-.003 1.396.366 2.76 1.057 3.965L0 16l4.204-1.102a7.933 7.933 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.898 7.898 0 0 0 13.6 2.326zM7.994 14.521a6.573 6.573 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.557 6.557 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592zm3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.729.729 0 0 0-.529.247c-.182.198-.691.677-.691 1.654 0 .977.71 1.916.81 2.049.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232z" />
+        </svg>
+    </a>
+
+    <!-- Scroll to top -->
+    <button id="scroll-top"
+        class="fixed bottom-8 right-8 w-12 h-12 bg-secondary text-white rounded-full hidden items-center justify-center shadow-2xl hover:-translate-y-2 transition duration-300 z-50">↑</button>
+
+    <!-- Scripts -->
+    <script src="mock-auth.js"></script>
+    <script src="script.js"></script>
+
+    <!-- Callback Modal -->
+    <div id="callbackModal"
+        class="fixed inset-0 bg-navy/80 backdrop-blur-md z-[100] hidden items-center justify-center p-4">
+        <div class="bg-white max-w-md w-full rounded-3xl overflow-hidden shadow-2xl p-8 relative">
+            <button onclick="closeCallbackModal()"
+                class="absolute top-4 right-4 text-gray-400 hover:text-navy text-2xl">×</button>
+            <div class="text-center mb-6">
+                <span
+                    class="text-xs font-bold text-primary uppercase tracking-widest bg-primary/10 px-3 py-1 rounded-full">Fast
+                    Response</span>
+                <h4 class="text-2xl font-heading font-bold text-navy mt-4 uppercase">Request a Callback</h4>
+                <p class="text-gray-500 text-sm mt-2">Leave your number and we'll call you back within 24 hours.</p>
+            </div>
+            <form id="callbackForm" class="space-y-4">
+                <div class="space-y-1">
+                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Your Name</label>
+                    <input type="text" id="cbName" placeholder="Enter full name"
+                        class="w-full p-4 bg-gray-50 border-b-2 border-gray-200 focus:border-primary outline-none transition rounded-xl"
+                        required>
+                </div>
+                <div class="space-y-1">
+                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Mobile Number</label>
+                    <input type="tel" id="cbPhone" placeholder="+91 90000 00000"
+                        class="w-full p-4 bg-gray-50 border-b-2 border-gray-200 focus:border-primary outline-none transition rounded-xl"
+                        required>
+                </div>
+                <div class="space-y-1">
+                    <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Interested
+                        Course</label>
+                    <select id="cbCourse"
+                        class="w-full p-4 bg-gray-50 border-b-2 border-gray-200 focus:border-primary outline-none transition rounded-xl">
+                        <option>Police Bharti</option>
+                        <option>Army Bharti</option>
+                        <option>Vansevak / Vanrakshak</option>
+                        <option>Darubandi Police (Prohibition)</option>
+                        <option>Talathi</option>
+                        <option>Clerk</option>
+                        <option>Mahanagar Palika</option>
+                        <option>SSC CGL</option>
+                        <option>UPSC Foundation</option>
+                        <option>MPSC Foundation</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <button type="submit" id="cbSubmitBtn"
+                    class="w-full bg-primary text-white py-4 rounded-xl font-bold uppercase tracking-widest hover:bg-navy transition-all duration-300 shadow-lg shadow-primary/20">Submit
+                    Request</button>
+            </form>
+            <div id="cbMessage"
+                class="hidden mt-4 p-3 rounded-xl text-center text-xs font-bold uppercase tracking-widest"></div>
+        </div>
+    </div>
+
+    <!-- Info Modal -->
+    <div id="infoModal"
+        class="fixed inset-0 z-[100] hidden items-center justify-center p-4 bg-dark/90 backdrop-blur-md">
+        <div
+            class="bg-white rounded-3xl overflow-hidden shadow-2xl max-w-4xl w-full flex flex-col md:flex-row relative reveal-scale active">
+            <button onclick="closeInfoModal()"
+                class="absolute top-4 right-4 w-10 h-10 bg-white shadow-lg rounded-full flex items-center justify-center text-dark font-bold hover:bg-primary hover:text-white transition-all z-20">×</button>
+            <div class="md:w-1/2 h-48 md:h-auto overflow-hidden">
+                <img id="modalImg" src="assets/images/ground.jpg" alt="Detail" class="w-full h-full object-cover">
+            </div>
+            <div class="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+                <span id="modalSubtitle"
+                    class="text-primary font-bold uppercase tracking-widest text-[10px] mb-2">Facility Detail</span>
+                <h4 id="modalTitle" class="text-3xl font-heading font-extrabold text-navy uppercase mb-4">Title</h4>
+                <div class="tiranga-divider w-16 mb-6"></div>
+                <p id="modalDesc" class="text-gray-600 leading-relaxed text-sm"></p>
+                <div class="mt-10 flex gap-4">
+                    <a href="admission.html"
+                        class="bg-navy text-white px-8 py-3 rounded-xl font-bold uppercase text-[10px] tracking-widest hover:bg-primary transition-all shadow-lg">Join
+                        Batch</a>
+                    <button onclick="closeInfoModal()"
+                        class="border-2 border-gray-100 text-gray-400 px-8 py-3 rounded-xl font-bold uppercase text-[10px] tracking-widest hover:border-primary hover:text-primary transition-all">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mock Auth Interceptor -->
+    <script src="mock-auth.js"></script>
+
+    <script>
+        // ===== INTERSECTION OBSERVER FOR SCROLL ANIMATIONS =====
+        document.addEventListener('DOMContentLoaded', () => {
+            // ===== AUTH UI TOGGLE =====
+            const user = window.MockAuth ? window.MockAuth.getSession() : null;
+            const authLinks = document.getElementById('auth-links');
+            const userInfo = document.getElementById('user-info');
+            const mobileAuthLinks = document.getElementById('mobile-auth-links');
+            
+            if (user) {
+                if (authLinks) authLinks.classList.add('hidden');
+                if (userInfo) userInfo.classList.remove('hidden');
+                
+                // Update dashboard link based on role
+                const dashUrl = (user.role === 'admin') ? 'admin-dashboard.html' : 'dashboard.html';
+                const dashLink = document.getElementById('dash-link');
+                if (dashLink) dashLink.href = dashUrl;
+
+                // Update mobile nav
+                if (mobileAuthLinks) {
+                    mobileAuthLinks.innerHTML = `
+                        <div class="flex flex-col gap-3">
+                            <a href="${dashUrl}" class="text-center py-4 bg-navy text-white rounded-xl text-sm tracking-widest font-bold uppercase shadow-xl hover:bg-primary transition-all duration-300">📊 Go to Dashboard</a>
+                            <button onclick="logout()" class="text-center py-4 bg-red-600 text-white rounded-xl text-sm tracking-widest font-bold uppercase shadow-xl hover:bg-red-700 transition-all duration-300">🚪 Logout</button>
+                        </div>
+                    `;
+                }
+            } else {
+                if (authLinks) authLinks.classList.remove('hidden');
+                if (userInfo) userInfo.classList.add('hidden');
+            }
+
+            const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .stagger-children');
+
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+            revealElements.forEach(el => revealObserver.observe(el));
+
+            // ===== ANIMATED COUNTERS =====
+            const counters = document.querySelectorAll('[data-counter]');
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = parseInt(entry.target.getAttribute('data-counter'));
+                        const suffix = entry.target.getAttribute('data-suffix') || '';
+                        let current = 0;
+                        const increment = Math.ceil(target / 60);
+                        const timer = setInterval(() => {
+                            current += increment;
+                            if (current >= target) {
+                                current = target;
+                                clearInterval(timer);
+                            }
+                            entry.target.textContent = current.toLocaleString() + suffix;
+                        }, 30);
+                        counterObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            counters.forEach(c => counterObserver.observe(c));
+
+            // ===== HEADER SHRINK ON SCROLL =====
+            const header = document.getElementById('main-header');
+            if (header) {
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 80) {
+                        header.classList.add('scrolled');
+                    } else {
+                        header.classList.remove('scrolled');
+                    }
+                });
+            }
+            // ===== LOAD TRAINING ACTION =====
+            const grid = document.getElementById('trainingActionGrid');
+            if (grid) {
+                let media = JSON.parse(localStorage.getItem('ca_training_action_media'));
+                if (!media || media.length === 0) {
+                    // Default demo data containing 5 items for testing
+                    media = [
+                        { id:'demota1', type:'YouTube', embed: '<iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/ScMzIvxBSi4?rel=0" frameborder="0" allowfullscreen></iframe>' },
+                        { id:'demota2', type:'Instagram', embed: '<iframe class="absolute inset-0 w-full h-full" src="https://www.instagram.com/p/CuWx8b2oZ0z/embed" frameborder="0" allowfullscreen></iframe>' },
+                        { id:'demota3', type:'YouTube', embed: '<iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/M7lc1UVf-VE?rel=0" frameborder="0" allowfullscreen></iframe>' },
+                        { id:'demota4', type:'Instagram', embed: '<iframe class="absolute inset-0 w-full h-full" src="https://www.instagram.com/p/CQe_Qd0hQ-7/embed" frameborder="0" allowfullscreen></iframe>' },
+                        { id:'demota5', type:'YouTube', embed: '<iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/9bZkp7q19f0?rel=0" frameborder="0" allowfullscreen></iframe>' }
+                    ];
+                    // Save to local storage automatically so the admin dashboard gets populated for direct testing!
+                    localStorage.setItem('ca_training_action_media', JSON.stringify(media));
+                }
+                
+                let html = '';
+                media.slice(0, 7).forEach(m => {
+                    html += `
+                    <div class="rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition duration-500 border-2 border-transparent hover:border-primary aspect-[9/16] bg-gray-100 flex items-center justify-center relative">
+                        ${m.embed}
+                    </div>`;
+                });
+
+                // Always add the 'Follow Us' card as the 4th item
+                html += `
+                    <a href="https://instagram.com/champions.academy" target="_blank"
+                        class="group relative aspect-[9/16] rounded-2xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl transition duration-500 border-2 border-transparent hover:border-primary bg-gradient-to-br from-navy to-purple-800 flex flex-col items-center justify-center text-center p-4">
+                        <span class="text-4xl text-white mb-2">📸</span>
+                        <h4 class="text-white font-bold font-heading text-sm uppercase tracking-widest">Follow for More
+                        </h4>
+                        <p class="text-gray-300 text-[10px] mt-2 mb-4">Daily Motivation & Training Updates</p>
+                        <span
+                            class="px-4 py-2 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-white font-bold text-[10px] uppercase tracking-widest rounded-full">@champions.academy</span>
+                    </a>`;
+                
+                grid.innerHTML = html;
+            }
+
+            // ===== LOAD TESTIMONIALS =====
+            const tGrid = document.getElementById('testimonialGrid');
+            if (tGrid) {
+                const testimonials = JSON.parse(localStorage.getItem('ca_testimonials')) || [];
+                testimonials.forEach(t => {
+                    const tCard = document.createElement('div');
+                    tCard.className = 'testimonial-card bg-white p-10 relative group reveal';
+                    
+                    // Generate initials
+                    const initials = t.name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
+                    
+                    tCard.innerHTML = `
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary font-heading font-bold text-lg">
+                                ${initials}
+                            </div>
+                            <div>
+                                <h4 class="font-heading font-bold text-sm">${t.name}</h4>
+                                <span class="text-xs text-primary font-mono font-semibold">${t.course}</span>
+                            </div>
+                        </div>
+                        <div class="flex gap-1 text-primary text-sm mb-4">
+                            ${'★'.repeat(t.rating || 5)}${'☆'.repeat(5 - (t.rating || 5))}
+                        </div>
+                        <p class="text-gray-500 text-sm leading-relaxed">"${t.text}"</p>
+                    `;
+                    tGrid.appendChild(tCard);
+                    
+                    // Observe new element
+                    if (revealObserver) revealObserver.observe(tCard);
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | THE CHAMPIONS ACADEMY - 10+ Years of Excellence</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="The Champions Academy is one of the most dedicated training institutes for Police Bharti in Maharashtra with 10+ years experience, 3000+ days ground presence, and 100% physical test success.">
+    <meta name="keywords" content="The Champions Academy, About Us, Police Bharti Training, Defense Training, Pune Academy, Pimpri">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF9933',
+                        secondary: '#138808',
+                        navy: '#000080',
+                        dark: '#1A1A2E',
+                        slate: '#0F172A',
+                        'off-white': '#FAFAFA',
+                    },
+                    fontFamily: {
+                        heading: ['Outfit', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                        mono: ['Space Grotesk', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <link href="index.css" rel="stylesheet">
+    <style>
+        .glass-box { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; backdrop-filter: blur(10px); }
+        .page-header { background: linear-gradient(135deg, #1A1A2E 0%, #000080 100%); padding: 140px 0 60px; }
+        .whatsapp-float { position: fixed; bottom: 24px; left: 24px; z-index: 999; width: 60px; height: 60px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 30px rgba(37, 211, 102, 0.4); transition: all 0.3s ease; animation: whatsapp-pulse 2s infinite; }
+        .whatsapp-float:hover { transform: scale(1.1); }
+        @keyframes whatsapp-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4); } 50% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } }
+    </style>
+</head>
+<body class="text-gray-800 font-body bg-[#FAFAFA] min-h-screen">
+
+    <div id="header-placeholder"></div>
+
+    <!-- Page Header -->
+    <section class="page-header text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-3xl md:text-4xl font-heading font-black uppercase mb-4 reveal">About <span class="text-primary">Our Academy</span></h1>
+            <p class="text-gray-300 font-medium tracking-widest uppercase text-xs reveal">Home / About Us</p>
+        </div>
+    </section>
+
+    <main>
+        <!-- About Section -->
+        <section class="py-24 bg-white overflow-hidden">
+            <div class="container mx-auto px-4">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="reveal-left relative">
+                        <img src="assets/images/about-img.jpg" alt="The Champions Academy Training" class="rounded-2xl shadow-2xl relative z-10 w-full object-cover aspect-video lg:aspect-auto h-[350px]">
+                        <div class="absolute -top-6 -left-6 w-32 h-32 bg-primary/10 rounded-full blur-2xl -z-10"></div>
+                        <div class="absolute -bottom-6 -right-6 w-40 h-40 bg-secondary/10 rounded-full blur-2xl -z-10"></div>
+                        <!-- Floating Badge -->
+                        <div class="absolute -bottom-6 -right-6 bg-white p-6 rounded-2xl shadow-xl z-20 border border-gray-100 hidden md:block">
+                            <span class="block text-4xl font-black text-primary">10+</span>
+                            <span class="text-[10px] uppercase font-bold tracking-widest text-gray-500">Years of<br>Dedication</span>
+                        </div>
+                    </div>
+                    <div class="reveal-right">
+                        <span class="section-label">A Legacy of Excellence</span>
+                        <h2 class="section-title text-2xl md:text-3xl text-gray-900 mb-6">The Most Dedicated <span class="text-primary">Training Institute</span></h2>
+                        <div class="tiranga-divider w-24 mb-8"></div>
+                        <div class="space-y-5 text-gray-600 leading-relaxed text-base">
+                            <p>The Champions Academy is one of the most dedicated and result-oriented training institutes for Police Bharti preparation in Maharashtra.</p>
+                            <p>Our founder has been consistently training students for the past <strong class="text-navy">10+ years</strong>, with over <strong class="text-primary">3000+ days</strong> of continuous ground presence without missing a single day. This consistency reflects our commitment and passion towards student success.</p>
+                            <p>We believe in personal attention. Every student is guided individually, and their physical as well as mental development is monitored closely. Our training is not just about passing exams—<strong>it's about building a strong mindset where students never give up in life.</strong></p>
+                            <p>Whether it's <strong>running drills at 5 AM</strong>, <strong>strength training</strong>, <strong>written exam preparation</strong>, or <strong>mock tests</strong>—each student receives individual feedback and improvement plans.</p>
+                        </div>
+                        
+                        <!-- Proud Stats -->
+                        <div class="mt-8 space-y-3">
+                            <div class="flex items-center gap-3 p-3 bg-green-50 rounded-xl border border-green-100">
+                                <span class="text-xl">✅</span>
+                                <span class="text-sm font-semibold text-gray-700">No student trained under us has ever failed in physical tests</span>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 bg-blue-50 rounded-xl border border-blue-100">
+                                <span class="text-xl">✅</span>
+                                <span class="text-sm font-semibold text-gray-700">Students develop lifelong discipline and confidence</span>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 bg-orange-50 rounded-xl border border-orange-100">
+                                <span class="text-xl">✅</span>
+                                <span class="text-sm font-semibold text-gray-700">Hundreds of students have successfully joined the police force</span>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 bg-purple-50 rounded-xl border border-purple-100">
+                                <span class="text-xl">✅</span>
+                                <span class="text-sm font-semibold text-gray-700">Physical + Written exam training under one roof</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Our Facilities Highlight -->
+        <section class="py-16 bg-navy text-white overflow-hidden relative">
+            <div class="absolute inset-0 bg-[url('assets/images/pattern.png')] opacity-5"></div>
+            <div class="container mx-auto px-4 relative z-10">
+                <div class="max-w-4xl mx-auto text-center reveal">
+                    <h2 class="text-2xl md:text-3xl font-black font-heading tracking-widest uppercase text-primary mb-6">Our Campus Infrastructure</h2>
+                    <p class="text-xl md:text-2xl font-semibold mb-10 leading-relaxed text-gray-200">
+                        We have one of the largest training campuses with all modern facilities including:
+                    </p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-left">
+                        <div class="bg-white/10 p-4 rounded-xl border border-white/20 backdrop-blur-sm flex items-center gap-3">
+                            <span class="text-2xl">🏠</span> <span class="font-bold text-sm tracking-widest uppercase">Hostel</span>
+                        </div>
+                        <div class="bg-white/10 p-4 rounded-xl border border-white/20 backdrop-blur-sm flex items-center gap-3">
+                            <span class="text-2xl">📖</span> <span class="font-bold text-sm tracking-widest uppercase">Study Room</span>
+                        </div>
+                        <div class="bg-white/10 p-4 rounded-xl border border-white/20 backdrop-blur-sm flex items-center gap-3">
+                            <span class="text-2xl">📚</span> <span class="font-bold text-sm tracking-widest uppercase">Library</span>
+                        </div>
+                        <div class="bg-white/10 p-4 rounded-xl border border-white/20 backdrop-blur-sm flex items-center gap-3">
+                            <span class="text-2xl">💪</span> <span class="font-bold text-sm tracking-widest uppercase">Gym</span>
+                        </div>
+                        <div class="bg-white/10 p-4 rounded-xl border border-white/20 backdrop-blur-sm flex items-center gap-3">
+                            <span class="text-2xl">🍽️</span> <span class="font-bold text-sm tracking-widest uppercase">Mess</span>
+                        </div>
+                        <div class="bg-white/10 p-4 rounded-xl border border-white/20 backdrop-blur-sm flex items-center gap-3">
+                            <span class="text-2xl">🚿</span> <span class="font-bold text-sm tracking-widest uppercase">Rest Rooms</span>
+                        </div>
+                        <div class="bg-white/10 p-4 rounded-xl border border-white/20 backdrop-blur-sm flex items-center gap-3">
+                            <span class="text-2xl">🏫</span> <span class="font-bold text-sm tracking-widest uppercase">5 Classrooms</span>
+                        </div>
+                        <div class="bg-white/10 p-4 rounded-xl border border-white/20 backdrop-blur-sm flex items-center gap-3 hover:bg-primary transition-all">
+                            <span class="text-2xl">🏃</span> <span class="font-bold text-[11px] tracking-widest uppercase">Full Ground Setup</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- What Makes Us Unique -->
+        <section class="py-20 bg-gradient-to-br from-navy/5 to-primary/5 overflow-hidden">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16 reveal">
+                    <span class="section-label">What Makes Us Different</span>
+                    <h2 class="section-title text-2xl md:text-3xl text-gray-900 mb-4">What Makes Us <span class="text-primary">Unique?</span></h2>
+                    <div class="tiranga-divider w-24 mx-auto mt-4"></div>
+                </div>
+                <div class="stagger-children grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all group">
+                        <span class="text-3xl block mb-4 group-hover:scale-110 transition-transform">📅</span>
+                        <h4 class="font-heading font-bold text-lg text-navy mb-3">3000+ Days Ground Presence</h4>
+                        <p class="text-gray-500 text-sm leading-relaxed">Our founder has been on the ground for <strong>3000+ consecutive days</strong> without missing a single day. No other academy in Maharashtra can claim this level of commitment.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all group">
+                        <span class="text-3xl block mb-4 group-hover:scale-110 transition-transform">👤</span>
+                        <h4 class="font-heading font-bold text-lg text-navy mb-3">Personal Attention to Every Student</h4>
+                        <p class="text-gray-500 text-sm leading-relaxed">We don't believe in batch-based mass training. Every student's strengths and weaknesses are tracked individually. We give personal diet plans, fitness schedules, and improvement strategies.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all group">
+                        <span class="text-3xl block mb-4 group-hover:scale-110 transition-transform">💪</span>
+                        <h4 class="font-heading font-bold text-lg text-navy mb-3">Physical + Mental Training</h4>
+                        <p class="text-gray-500 text-sm leading-relaxed">We combine rigorous physical training with written exam coaching. Students get running, strength, stamina, mock tests, GK, Marathi, Maths and reasoning all under one roof.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all group">
+                        <span class="text-3xl block mb-4 group-hover:scale-110 transition-transform">🏆</span>
+                        <h4 class="font-heading font-bold text-lg text-navy mb-3">100% Physical Test Pass Record</h4>
+                        <p class="text-gray-500 text-sm leading-relaxed">Not a single student who trained dedicatedly under our guidance has ever failed in the physical test. This is our proudest achievement and a guarantee to every new student.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all group">
+                        <span class="text-3xl block mb-4 group-hover:scale-110 transition-transform">🧠</span>
+                        <h4 class="font-heading font-bold text-lg text-navy mb-3">Never Give Up Mindset</h4>
+                        <p class="text-gray-500 text-sm leading-relaxed">Our training goes beyond exams. We build your character, your discipline, and your mindset so that you never give up—in the exam hall or in life.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl transition-all group">
+                        <span class="text-3xl block mb-4 group-hover:scale-110 transition-transform">🏟️</span>
+                        <h4 class="font-heading font-bold text-lg text-navy mb-3">Largest Training Campus</h4>
+                        <p class="text-gray-500 text-sm leading-relaxed">We have one of the largest training campus setups with ground, gym, hostel, mess, study rooms, library, and 5 classrooms—everything under one facility.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Training Specialities -->
+        <section class="py-20 bg-white overflow-hidden">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16 reveal">
+                    <span class="section-label">Training Specialities</span>
+                    <h2 class="section-title text-2xl md:text-3xl text-gray-900 mb-4">What You'll <span class="text-primary">Experience</span></h2>
+                    <div class="tiranga-divider w-24 mx-auto mt-4"></div>
+                    <p class="mt-6 text-gray-500 max-w-3xl mx-auto text-sm">Our daily routine and structured approach ensures every student gets the best possible preparation</p>
+                </div>
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="reveal-left">
+                        <div class="stagger-children space-y-4">
+                            <div class="flex items-start gap-4 p-5 bg-gradient-to-r from-orange-50 to-white rounded-2xl border border-orange-100 hover:shadow-lg transition-all">
+                                <span class="w-10 h-10 bg-primary/20 rounded-xl flex items-center justify-center shrink-0 text-xl">🌅</span>
+                                <div>
+                                    <h4 class="font-bold text-gray-800 mb-1">Early Morning Physical Training (5 AM)</h4>
+                                    <p class="text-sm text-gray-500">Running, sprints, stamina building, and endurance drills every morning</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4 p-5 bg-gradient-to-r from-blue-50 to-white rounded-2xl border border-blue-100 hover:shadow-lg transition-all">
+                                <span class="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center shrink-0 text-xl">🏋️</span>
+                                <div>
+                                    <h4 class="font-bold text-gray-800 mb-1">Strength & Gym Training</h4>
+                                    <p class="text-sm text-gray-500">Structured gym sessions for upper body, core, and overall strength development</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4 p-5 bg-gradient-to-r from-green-50 to-white rounded-2xl border border-green-100 hover:shadow-lg transition-all">
+                                <span class="w-10 h-10 bg-secondary/20 rounded-xl flex items-center justify-center shrink-0 text-xl">📝</span>
+                                <div>
+                                    <h4 class="font-bold text-gray-800 mb-1">Written Exam Preparation</h4>
+                                    <p class="text-sm text-gray-500">GK, Marathi, English, Maths, Reasoning – complete academic coaching with daily practice</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4 p-5 bg-gradient-to-r from-purple-50 to-white rounded-2xl border border-purple-100 hover:shadow-lg transition-all">
+                                <span class="w-10 h-10 bg-purple-500/20 rounded-xl flex items-center justify-center shrink-0 text-xl">📋</span>
+                                <div>
+                                    <h4 class="font-bold text-gray-800 mb-1">Mock Tests & Performance Review</h4>
+                                    <p class="text-sm text-gray-500">Regular mock tests simulating actual exam conditions with individual feedback</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4 p-5 bg-gradient-to-r from-cyan-50 to-white rounded-2xl border border-cyan-100 hover:shadow-lg transition-all">
+                                <span class="w-10 h-10 bg-cyan-500/20 rounded-xl flex items-center justify-center shrink-0 text-xl">🍎</span>
+                                <div>
+                                    <h4 class="font-bold text-gray-800 mb-1">Diet & Nutrition Guidance</h4>
+                                    <p class="text-sm text-gray-500">Personalized diet advice to ensure students maintain peak physical fitness</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4 p-5 bg-gradient-to-r from-red-50 to-white rounded-2xl border border-red-100 hover:shadow-lg transition-all">
+                                <span class="w-10 h-10 bg-red-500/20 rounded-xl flex items-center justify-center shrink-0 text-xl">❓</span>
+                                <div>
+                                    <h4 class="font-bold text-gray-800 mb-1">Daily Doubt-Solving Sessions</h4>
+                                    <p class="text-sm text-gray-500">Dedicated time for students to clear doubts and get one-on-one attention</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reveal-right">
+                        <img src="assets/images/defense-training.png" alt="Training at Champions Academy" class="rounded-2xl shadow-2xl w-3/4 md:w-1/2 max-w-sm mx-auto block">
+                        <div class="mt-8 p-6 bg-gradient-to-r from-primary/10 to-orange-50 rounded-2xl border border-primary/20">
+                            <p class="text-navy font-heading font-bold text-lg mb-2">📌 Our Daily Routine:</p>
+                            <ul class="text-sm text-gray-600 space-y-2">
+                                <li class="flex items-center gap-2"><span class="text-primary">⏰</span> <strong>5:00 AM</strong> – Morning Physical Training (Running, Sprints)</li>
+                                <li class="flex items-center gap-2"><span class="text-primary">⏰</span> <strong>7:30 AM</strong> – Breakfast + Rest</li>
+                                <li class="flex items-center gap-2"><span class="text-primary">⏰</span> <strong>9:00 AM</strong> – Gym / Strength Training</li>
+                                <li class="flex items-center gap-2"><span class="text-primary">⏰</span> <strong>11:00 AM</strong> – Written Exam Classes</li>
+                                <li class="flex items-center gap-2"><span class="text-primary">⏰</span> <strong>1:00 PM</strong> – Lunch Break</li>
+                                <li class="flex items-center gap-2"><span class="text-primary">⏰</span> <strong>3:00 PM</strong> – Revision / Self Study</li>
+                                <li class="flex items-center gap-2"><span class="text-primary">⏰</span> <strong>5:00 PM</strong> – Evening Physical Session</li>
+                                <li class="flex items-center gap-2"><span class="text-primary">⏰</span> <strong>7:00 PM</strong> – Doubt Solving / Mock Tests</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Campus Facilities -->
+        <section class="py-20 bg-[#FAFAFA]">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16 reveal">
+                    <span class="section-label">Our Campus</span>
+                    <h2 class="section-title text-2xl md:text-3xl text-gray-900 mb-4">Largest Training <span class="text-primary">Campus</span></h2>
+                    <div class="tiranga-divider w-24 mx-auto mt-4"></div>
+                    <p class="mt-6 text-gray-500 max-w-2xl mx-auto text-sm">We have one of the largest training campuses with all modern facilities for complete student development</p>
+                </div>
+                <div class="stagger-children grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                    <div class="p-6 bg-white rounded-2xl border border-gray-100 text-center hover:shadow-lg transition-all group">
+                        <span class="text-3xl block mb-3 group-hover:scale-110 transition-transform">🏋️</span>
+                        <h4 class="font-bold text-sm text-gray-800">Spacious Ground</h4>
+                        <p class="text-xs text-gray-400 mt-1">For Running & Drills</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-2xl border border-gray-100 text-center hover:shadow-lg transition-all group">
+                        <span class="text-3xl block mb-3 group-hover:scale-110 transition-transform">💪</span>
+                        <h4 class="font-bold text-sm text-gray-800">Modern Gym</h4>
+                        <p class="text-xs text-gray-400 mt-1">Full Equipment</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-2xl border border-gray-100 text-center hover:shadow-lg transition-all group">
+                        <span class="text-3xl block mb-3 group-hover:scale-110 transition-transform">🏠</span>
+                        <h4 class="font-bold text-sm text-gray-800">Hostel</h4>
+                        <p class="text-xs text-gray-400 mt-1">Accommodation</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-2xl border border-gray-100 text-center hover:shadow-lg transition-all group">
+                        <span class="text-3xl block mb-3 group-hover:scale-110 transition-transform">🍽️</span>
+                        <h4 class="font-bold text-sm text-gray-800">Mess Facility</h4>
+                        <p class="text-xs text-gray-400 mt-1">Nutritious Food</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-2xl border border-gray-100 text-center hover:shadow-lg transition-all group">
+                        <span class="text-3xl block mb-3 group-hover:scale-110 transition-transform">📖</span>
+                        <h4 class="font-bold text-sm text-gray-800">Study Room</h4>
+                        <p class="text-xs text-gray-400 mt-1">Quiet Environment</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-2xl border border-gray-100 text-center hover:shadow-lg transition-all group">
+                        <span class="text-3xl block mb-3 group-hover:scale-110 transition-transform">📚</span>
+                        <h4 class="font-bold text-sm text-gray-800">Library</h4>
+                        <p class="text-xs text-gray-400 mt-1">Books & Materials</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-2xl border border-gray-100 text-center hover:shadow-lg transition-all group">
+                        <span class="text-3xl block mb-3 group-hover:scale-110 transition-transform">🏫</span>
+                        <h4 class="font-bold text-sm text-gray-800">5 Classrooms</h4>
+                        <p class="text-xs text-gray-400 mt-1">AC & Digital</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-2xl border border-gray-100 text-center hover:shadow-lg transition-all group">
+                        <span class="text-3xl block mb-3 group-hover:scale-110 transition-transform">🚿</span>
+                        <h4 class="font-bold text-sm text-gray-800">Rest Rooms</h4>
+                        <p class="text-xs text-gray-400 mt-1">Clean & Hygienic</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-2xl border border-gray-100 text-center hover:shadow-lg transition-all group">
+                        <span class="text-3xl block mb-3 group-hover:scale-110 transition-transform">📹</span>
+                        <h4 class="font-bold text-sm text-gray-800">CCTV Surveillance</h4>
+                        <p class="text-xs text-gray-400 mt-1">24x7 Safety</p>
+                    </div>
+                    <div class="p-6 bg-white rounded-2xl border border-gray-100 text-center hover:shadow-lg transition-all group">
+                        <span class="text-3xl block mb-3 group-hover:scale-110 transition-transform">🚰</span>
+                        <h4 class="font-bold text-sm text-gray-800">Drinking Water</h4>
+                        <p class="text-xs text-gray-400 mt-1">RO Purified</p>
+                    </div>
+                </div>
+                <p class="text-center mt-10 text-gray-600 text-lg font-heading font-bold reveal">At The Champions Academy, we don't just prepare you for exams—<span class="text-primary">we prepare you for life.</span></p>
+            </div>
+        </section>
+
+        <!-- What Students Get -->
+        <section class="py-20 bg-white overflow-hidden">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16 reveal">
+                    <span class="section-label">Complete Training</span>
+                    <h2 class="section-title text-2xl md:text-3xl text-gray-900 mb-4">What Students <span class="text-primary">Get</span></h2>
+                    <div class="tiranga-divider w-24 mx-auto mt-4"></div>
+                </div>
+                <div class="stagger-children grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="text-center p-6 bg-gradient-to-br from-orange-50 to-white rounded-2xl border border-orange-100 hover:shadow-xl transition-all">
+                        <span class="text-4xl block mb-4">🏃</span>
+                        <h4 class="font-heading font-bold text-gray-800 mb-2">Physical Training</h4>
+                        <p class="text-xs text-gray-500">Running, sprints, long-distance, stamina & endurance drills</p>
+                    </div>
+                    <div class="text-center p-6 bg-gradient-to-br from-blue-50 to-white rounded-2xl border border-blue-100 hover:shadow-xl transition-all">
+                        <span class="text-4xl block mb-4">💪</span>
+                        <h4 class="font-heading font-bold text-gray-800 mb-2">Gym & Strength</h4>
+                        <p class="text-xs text-gray-500">Weight training, push-ups, pull-ups, body-weight exercises</p>
+                    </div>
+                    <div class="text-center p-6 bg-gradient-to-br from-green-50 to-white rounded-2xl border border-green-100 hover:shadow-xl transition-all">
+                        <span class="text-4xl block mb-4">📚</span>
+                        <h4 class="font-heading font-bold text-gray-800 mb-2">Academic Coaching</h4>
+                        <p class="text-xs text-gray-500">GK, Marathi, English, Maths, Reasoning, Current Affairs</p>
+                    </div>
+                    <div class="text-center p-6 bg-gradient-to-br from-purple-50 to-white rounded-2xl border border-purple-100 hover:shadow-xl transition-all">
+                        <span class="text-4xl block mb-4">📝</span>
+                        <h4 class="font-heading font-bold text-gray-800 mb-2">Mock Tests</h4>
+                        <p class="text-xs text-gray-500">Weekly tests, exam simulation, performance analytics</p>
+                    </div>
+                    <div class="text-center p-6 bg-gradient-to-br from-cyan-50 to-white rounded-2xl border border-cyan-100 hover:shadow-xl transition-all">
+                        <span class="text-4xl block mb-4">🍎</span>
+                        <h4 class="font-heading font-bold text-gray-800 mb-2">Diet Planning</h4>
+                        <p class="text-xs text-gray-500">Personalized nutrition advice for peak performance</p>
+                    </div>
+                    <div class="text-center p-6 bg-gradient-to-br from-amber-50 to-white rounded-2xl border border-amber-100 hover:shadow-xl transition-all">
+                        <span class="text-4xl block mb-4">🎯</span>
+                        <h4 class="font-heading font-bold text-gray-800 mb-2">Goal Setting</h4>
+                        <p class="text-xs text-gray-500">Individual target setting & personal progress monitoring</p>
+                    </div>
+                    <div class="text-center p-6 bg-gradient-to-br from-red-50 to-white rounded-2xl border border-red-100 hover:shadow-xl transition-all">
+                        <span class="text-4xl block mb-4">🧘</span>
+                        <h4 class="font-heading font-bold text-gray-800 mb-2">Mental Toughness</h4>
+                        <p class="text-xs text-gray-500">Meditation, visualization, and confidence-building exercises</p>
+                    </div>
+                    <div class="text-center p-6 bg-gradient-to-br from-indigo-50 to-white rounded-2xl border border-indigo-100 hover:shadow-xl transition-all">
+                        <span class="text-4xl block mb-4">🤝</span>
+                        <h4 class="font-heading font-bold text-gray-800 mb-2">Interview Prep</h4>
+                        <p class="text-xs text-gray-500">Personality development, communication skills, interview coaching</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission & Vision Section -->
+        <section class="dark-section py-24 relative overflow-hidden">
+            <div class="container mx-auto px-4 relative z-10">
+                <div class="text-center mb-16 reveal">
+                    <span class="section-label text-primary">Our Purpose</span>
+                    <h2 class="section-title text-2xl md:text-3xl text-white mb-4">Mission, Vision & <span class="text-primary">Goals</span></h2>
+                    <div class="tiranga-divider w-24 mx-auto mt-4"></div>
+                </div>
+                <div class="stagger-children grid md:grid-cols-2 gap-12">
+                    <!-- Mission -->
+                    <div class="p-10 glass-box border-primary/20 hover:border-primary/50 transition-all duration-500">
+                        <div class="w-16 h-16 bg-primary/20 rounded-2xl flex items-center justify-center mb-8">
+                            <span class="text-3xl">🎯</span>
+                        </div>
+                        <h3 class="text-2xl font-heading font-black uppercase text-white mb-6">Our Mission</h3>
+                        <p class="text-gray-300 leading-relaxed text-base mb-4">
+                            To build physically strong, mentally tough, and highly disciplined individuals who are fully prepared to succeed in Police Bharti and serve the nation with pride.
+                        </p>
+                        <ul class="text-gray-400 text-sm space-y-2">
+                            <li class="flex gap-2"><span class="text-primary">→</span> Provide structured physical and mental training programs</li>
+                            <li class="flex gap-2"><span class="text-primary">→</span> Ensure every student is exam-ready with full confidence</li>
+                            <li class="flex gap-2"><span class="text-primary">→</span> Build discipline that lasts a lifetime beyond the exam</li>
+                        </ul>
+                    </div>
+                    <!-- Vision -->
+                    <div class="p-10 glass-box border-secondary/20 hover:border-secondary/50 transition-all duration-500">
+                        <div class="w-16 h-16 bg-secondary/20 rounded-2xl flex items-center justify-center mb-8">
+                            <span class="text-3xl">👁️</span>
+                        </div>
+                        <h3 class="text-2xl font-heading font-black uppercase text-white mb-6">Our Vision</h3>
+                        <ul class="text-gray-300 leading-relaxed text-base space-y-3">
+                            <li class="flex gap-3"><span class="text-primary">🇮🇳</span> Our trained students serving in every police station across Maharashtra</li>
+                            <li class="flex gap-3"><span class="text-primary">🇮🇳</span> Champions at every border of India, contributing to national security</li>
+                            <li class="flex gap-3"><span class="text-primary">🇮🇳</span> Creating a generation of fearless, capable, and self-disciplined youth</li>
+                            <li class="flex gap-3"><span class="text-primary">🇮🇳</span> To be recognized as the most trusted training academy in the state</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Goals -->
+                <div class="mt-12 p-10 glass-box border-navy/20 hover:border-navy/50 transition-all duration-500 reveal">
+                    <div class="w-16 h-16 bg-navy/30 rounded-2xl flex items-center justify-center mb-8">
+                        <span class="text-3xl">🏆</span>
+                    </div>
+                    <h3 class="text-2xl font-heading font-black uppercase text-white mb-6">Our Goals</h3>
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="flex items-start gap-3">
+                            <span class="text-primary text-xl mt-0.5">✓</span>
+                            <p class="text-gray-300">100% physical test success for every dedicated student</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="text-primary text-xl mt-0.5">✓</span>
+                            <p class="text-gray-300">Personal attention and continuous improvement tracking</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="text-primary text-xl mt-0.5">✓</span>
+                            <p class="text-gray-300">Develop never-give-up attitude in every student</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="text-primary text-xl mt-0.5">✓</span>
+                            <p class="text-gray-300">Expand our academy reach across Maharashtra</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="text-primary text-xl mt-0.5">✓</span>
+                            <p class="text-gray-300">Maximum successful police candidates every year</p>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <span class="text-primary text-xl mt-0.5">✓</span>
+                            <p class="text-gray-300">Train students for all government competitive exams</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="absolute top-0 right-0 w-1/2 h-full bg-primary/5 blur-[120px] -z-0"></div>
+        </section>
+
+        <!-- Proud Statement -->
+        <section class="py-16 bg-gradient-to-r from-secondary via-green-600 to-secondary text-white text-center overflow-hidden">
+            <div class="container mx-auto px-4 reveal">
+                <span class="text-5xl block mb-6">💂</span>
+                <h2 class="text-xl md:text-2xl font-heading font-extrabold uppercase mb-4">Our Proud Statement</h2>
+                <p class="text-lg md:text-xl max-w-3xl mx-auto leading-relaxed font-medium italic">"No student who has trained under The Champions Academy with dedication and discipline has ever failed in the physical test. This is not just a claim—this is our result."</p>
+                <div class="flex justify-center gap-6 mt-8">
+                    <div class="text-center">
+                        <span class="block text-3xl font-black">0%</span>
+                        <span class="text-xs uppercase tracking-widest opacity-80">Failure Rate</span>
+                    </div>
+                    <div class="w-px bg-white/30"></div>
+                    <div class="text-center">
+                        <span class="block text-3xl font-black">100%</span>
+                        <span class="text-xs uppercase tracking-widest opacity-80">Dedication</span>
+                    </div>
+                    <div class="w-px bg-white/30"></div>
+                    <div class="text-center">
+                        <span class="block text-3xl font-black">500+</span>
+                        <span class="text-xs uppercase tracking-widest opacity-80">Selections</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Section -->
+        <section class="py-20 bg-[#FAFAFA]">
+            <div class="container mx-auto px-4">
+                <div class="reveal grid grid-cols-2 lg:grid-cols-4 gap-8 text-center bg-white p-12 rounded-3xl shadow-xl border border-gray-100">
+                    <div>
+                        <div class="counter-value text-2xl md:text-4xl" data-counter="10" data-suffix="+ Yrs">0</div>
+                        <p class="text-xs uppercase font-mono font-bold tracking-[0.2em] text-gray-500 mt-2">Of Experience</p>
+                    </div>
+                    <div>
+                        <div class="counter-value text-2xl md:text-4xl" data-counter="3000" data-suffix="+">0</div>
+                        <p class="text-xs uppercase font-mono font-bold tracking-[0.2em] text-gray-500 mt-2">Days Ground Presence</p>
+                    </div>
+                    <div>
+                        <div class="counter-value text-2xl md:text-4xl" data-counter="500" data-suffix="+">0</div>
+                        <p class="text-xs uppercase font-mono font-bold tracking-[0.2em] text-gray-500 mt-2">Students Selected</p>
+                    </div>
+                    <div>
+                        <div class="counter-value text-2xl md:text-4xl" data-counter="100" data-suffix="%">0</div>
+                        <p class="text-xs uppercase font-mono font-bold tracking-[0.2em] text-gray-500 mt-2">Physical Test Success</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="py-20 bg-gradient-to-r from-primary via-orange-500 to-primary relative overflow-hidden">
+            <div class="container mx-auto px-4 text-center relative z-10 reveal">
+                <h2 class="text-2xl md:text-3xl font-heading font-extrabold text-white uppercase mb-4">Ready to Start Your Journey?</h2>
+                <p class="text-white/80 text-sm md:text-base mb-8 max-w-xl mx-auto">Admissions are open. If you are serious about your goal and ready to work hard, this is the right place for you. We believe that success comes with discipline, consistency, and the right guidance—and we provide all three.</p>
+                <div class="flex flex-wrap gap-4 justify-center">
+                    <a href="admission.html" class="bg-white text-primary px-10 py-4 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-navy hover:text-white transition-all duration-300 shadow-2xl">Apply Now →</a>
+                    <a href="https://wa.me/918484400114" class="border-2 border-white text-white px-10 py-4 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-white hover:text-primary transition-all duration-300">💬 WhatsApp Us</a>
+                    <a href="contact.html" class="border-2 border-white text-white px-10 py-4 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-white hover:text-primary transition-all duration-300">Contact Us</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/918484400114" target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="white">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+    </a>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .stagger-children');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.15 });
+        revealElements.forEach(el => revealObserver.observe(el));
+        
+        const counters = document.querySelectorAll('[data-counter]');
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = parseInt(entry.target.getAttribute('data-counter'));
+                    const suffix = entry.target.getAttribute('data-suffix') || '';
+                    let current = 0;
+                    const timer = setInterval(() => {
+                        current += Math.ceil(target / 60);
+                        if (current >= target) { current = target; clearInterval(timer); }
+                        entry.target.textContent = current.toLocaleString() + suffix;
+                    }, 30);
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        counters.forEach(c => counterObserver.observe(c));
+
+        const header = document.getElementById('main-header');
+        if (header) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 80) header.classList.add('scrolled');
+                else header.classList.remove('scrolled');
+                const scrollTop = document.getElementById('scroll-top');
+                if (scrollTop) {
+                    if (window.scrollY > 500) { scrollTop.classList.remove('hidden'); scrollTop.classList.add('flex'); }
+                    else { scrollTop.classList.add('hidden'); }
+                }
+            });
+        }
+        
+        const st = document.getElementById('scroll-top');
+        if (st) st.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    });
+    </script>
+
+    <script src="mock-auth.js"></script>
+    <script src="components.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

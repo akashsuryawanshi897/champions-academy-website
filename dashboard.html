@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard | THE CHAMPIONS ACADEMY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF9933',
+                        secondary: '#138808',
+                        navy: '#000080',
+                        dark: '#1A1A2E',
+                    },
+                    fontFamily: {
+                        heading: ['Outfit', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link href="index.css" rel="stylesheet">
+    <style>
+        body { padding-top: 0 !important; background: #f0f2f5; font-family: 'Inter', sans-serif; }
+        .sidebar { background: linear-gradient(180deg, #000080 0%, #1A1A2E 100%); min-height: 100vh; }
+        .sidebar a.active { background: #FF9933; color: white; }
+        .stat-card { transition: all 0.3s ease; }
+        .stat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px -8px rgba(0,0,128,0.15); }
+        .toast { position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 16px 24px; border-radius: 12px; font-size: 14px; font-weight: 600; transform: translateX(400px); transition: transform 0.4s ease; }
+        .toast.show { transform: translateX(0); }
+        .toast-success { background: #d1fae5; color: #065f46; border-left: 4px solid #10b981; }
+        .toast-error { background: #fee2e2; color: #991b1b; border-left: 4px solid #ef4444; }
+        .mobile-header { display: none; }
+        .mobile-sidebar { position: fixed; top: 0; left: -320px; width: 300px; height: 100vh; z-index: 100; transition: left 0.3s ease; }
+        .mobile-sidebar.open { left: 0; }
+        .mobile-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 99; display: none; }
+        .mobile-overlay.active { display: block; }
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .mobile-header { display: flex; }
+        }
+        @media (min-width: 769px) {
+            .mobile-sidebar, .mobile-overlay { display: none !important; }
+        }
+        .status-badge { padding: 4px 12px; border-radius: 20px; font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+        .status-pending { background: #fef3c7; color: #92400e; }
+        .status-approved { background: #d1fae5; color: #065f46; }
+        .status-rejected { background: #fee2e2; color: #991b1b; }
+        .modal-overlay { background: rgba(0,0,128,0.6); backdrop-filter: blur(8px); }
+    </style>
+</head>
+<body>
+    <div id="toast" class="toast"></div>
+
+    <div class="flex min-h-screen">
+        <!-- Sidebar -->
+        <aside class="sidebar w-64 flex-shrink-0 flex flex-col">
+            <div class="p-6 border-b border-white/10 text-center">
+                <img src="assets/images/logo.png" alt="Logo" class="h-10 mx-auto mb-2 brightness-110">
+                <p class="text-[10px] text-blue-300 font-bold uppercase tracking-widest">Student Portal</p>
+            </div>
+            <nav class="flex-1 p-4 space-y-2">
+                <a href="#" onclick="showSection('dashboard')" id="nav-dashboard" class="active flex items-center gap-3 p-3 rounded-xl font-bold text-sm tracking-wide transition-all">
+                    <span>🏠</span> Dashboard
+                </a>
+                <a href="#" onclick="showSection('applications')" id="nav-applications" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 text-gray-400 font-medium text-sm tracking-wide transition-all">
+                    <span>📋</span> My Applications
+                </a>
+                <a href="#" onclick="showSection('apply')" id="nav-apply" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 text-gray-400 font-medium text-sm tracking-wide transition-all">
+                    <span>📝</span> Apply for Course
+                </a>
+                <a href="#" onclick="showSection('profile')" id="nav-profile" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 text-gray-400 font-medium text-sm tracking-wide transition-all">
+                    <span>👤</span> My Profile
+                </a>
+                <a href="index.html" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 text-gray-400 font-medium text-sm tracking-wide transition-all">
+                    <span>🌐</span> Back to Website
+                </a>
+            </nav>
+            <div class="p-4 border-t border-white/10">
+                <div class="px-3 py-2 mb-3">
+                    <p id="sidebarName" class="text-white font-bold text-sm">Student</p>
+                    <p id="sidebarEmail" class="text-blue-300 text-xs truncate">email@example.com</p>
+                </div>
+                <button onclick="logout()" class="w-full flex items-center justify-center gap-3 p-3 rounded-xl bg-red-500/10 text-red-400 font-bold text-sm tracking-wide hover:bg-red-500 hover:text-white transition-all">
+                    <span>🚪</span> Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col">
+            <!-- Mobile Header -->
+            <div class="mobile-header items-center justify-between p-4 bg-white shadow-sm">
+                <button onclick="toggleMobileSidebar()" class="text-2xl text-navy">☰</button>
+                <img src="assets/images/logo.png" alt="Logo" class="h-8">
+                <button onclick="logout()" class="text-sm font-bold text-red-500">Logout</button>
+            </div>
+
+            <!-- Dashboard Section -->
+            <div id="section-dashboard" class="section p-6 md:p-8 space-y-8 flex-1 overflow-y-auto">
+                <!-- Welcome Card -->
+                <div class="bg-gradient-to-r from-navy to-dark p-8 rounded-3xl text-white shadow-2xl relative overflow-hidden">
+                    <div class="relative z-10">
+                        <h1 class="text-2xl md:text-3xl font-heading font-extrabold uppercase mb-2">Jai Hind, <span id="welcomeName" class="text-primary italic">Cadet</span>!</h1>
+                        <p class="text-blue-200 leading-relaxed max-w-xl">Welcome to your dashboard. Track your preparation, applications, and stay updated with academy announcements.</p>
+                    </div>
+                    <div class="absolute right-[-20px] bottom-[-20px] opacity-10 blur-sm pointer-events-none">
+                        <img src="assets/images/logo.png" alt="Watermark" class="h-48">
+                    </div>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="stat-card bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-5">
+                        <div class="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center text-2xl">📋</div>
+                        <div>
+                            <p class="text-[10px] uppercase font-bold text-gray-400 tracking-widest">Total Applications</p>
+                            <p id="totalApps" class="text-2xl font-bold font-heading text-navy">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-5">
+                        <div class="w-14 h-14 bg-amber-100 rounded-xl flex items-center justify-center text-2xl">⏳</div>
+                        <div>
+                            <p class="text-[10px] uppercase font-bold text-gray-400 tracking-widest">Pending Review</p>
+                            <p id="pendingApps" class="text-2xl font-bold font-heading text-navy">0</p>
+                        </div>
+                    </div>
+                    <div class="stat-card bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-5">
+                        <div class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center text-2xl">✅</div>
+                        <div>
+                            <p class="text-[10px] uppercase font-bold text-gray-400 tracking-widest">Approved</p>
+                            <p id="approvedApps" class="text-2xl font-bold font-heading text-navy">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div onclick="showSection('apply')" class="bg-gradient-to-br from-primary to-orange-600 p-6 rounded-2xl text-white cursor-pointer hover:scale-[1.02] transition-all shadow-lg">
+                        <h3 class="font-heading font-bold text-lg mb-1">📝 Apply for a Course</h3>
+                        <p class="text-white/80 text-sm">Submit a new application for any training program</p>
+                    </div>
+                    <a href="contact.html" class="bg-gradient-to-br from-navy to-blue-800 p-6 rounded-2xl text-white hover:scale-[1.02] transition-all shadow-lg block">
+                        <h3 class="font-heading font-bold text-lg mb-1">📞 Help & Support</h3>
+                        <p class="text-white/80 text-sm">Contact us for any queries or assistance</p>
+                    </a>
+                </div>
+
+                <!-- Recent Applications Table -->
+                <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="p-6 border-b border-gray-50 flex items-center justify-between">
+                        <h3 class="font-heading font-bold text-navy uppercase tracking-widest text-sm">Recent Applications</h3>
+                        <button onclick="showSection('applications')" class="text-xs font-bold text-primary hover:underline">View All →</button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead class="bg-gray-50 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+                                <tr>
+                                    <th class="px-6 py-4">Course Name</th>
+                                    <th class="px-6 py-4">Applied Date</th>
+                                    <th class="px-6 py-4">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="recentAppsTable" class="text-sm font-medium">
+                                <tr><td colspan="3" class="px-6 py-12 text-center text-gray-400">Loading...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Applications Section -->
+            <div id="section-applications" class="section p-6 md:p-8 space-y-6 flex-1 overflow-y-auto hidden">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-xl font-heading font-bold text-navy uppercase tracking-wider">All My Applications</h2>
+                    <button onclick="showSection('apply')" class="bg-primary text-white px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-navy transition">+ New Application</button>
+                </div>
+                <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead class="bg-gray-50 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+                                <tr>
+                                    <th class="px-6 py-4">Course</th>
+                                    <th class="px-6 py-4">Name</th>
+                                    <th class="px-6 py-4">Education</th>
+                                    <th class="px-6 py-4">Applied</th>
+                                    <th class="px-6 py-4">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="allAppsTable" class="text-sm font-medium">
+                                <tr><td colspan="5" class="px-6 py-12 text-center text-gray-400">Loading...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Apply Section -->
+            <div id="section-apply" class="section p-6 md:p-8 flex-1 overflow-y-auto hidden">
+                <h2 class="text-xl font-heading font-bold text-navy uppercase tracking-wider mb-6">Apply for a Course</h2>
+                <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-8 max-w-2xl">
+                    <form id="applyForm" class="space-y-5">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Select Course</label>
+                            <select id="appCourse" required class="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none transition font-medium bg-white">
+                                <option value="">-- Choose a Course --</option>
+                                <option>Police Bharti Training</option>
+                                <option>Army Agniveer Preparation</option>
+                                <option>PSI Recruitment Batch</option>
+                                <option>STI Recruitment Batch</option>
+                                <option>ASO Recruitment Batch</option>
+                                <option>Talathi Training Program</option>
+                                <option>Gramsevak Recruitment</option>
+                                <option>RPF Recruitment Program</option>
+                                <option>SSC Recruitment Training</option>
+                                <option>Railway Recruitment Prep</option>
+                            </select>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Full Name</label>
+                                <input type="text" id="appName" required class="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none transition font-medium">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Mobile Number</label>
+                                <input type="tel" id="appMobile" required class="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none transition font-medium">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Email</label>
+                                <input type="email" id="appEmail" required class="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none transition font-medium">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Education</label>
+                                <select id="appEdu" class="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none transition font-medium bg-white">
+                                    <option>10th Pass</option>
+                                    <option>12th Pass</option>
+                                    <option>Graduate</option>
+                                    <option>Post Graduate</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Address</label>
+                            <textarea id="appAddress" rows="3" class="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none transition font-medium resize-none"></textarea>
+                        </div>
+                        <button type="submit" class="bg-primary text-white py-4 px-8 rounded-xl font-bold uppercase tracking-widest text-sm btn-glow transition-all">Submit Application</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Profile Section -->
+            <div id="section-profile" class="section p-6 md:p-8 flex-1 overflow-y-auto hidden">
+                <h2 class="text-xl font-heading font-bold text-navy uppercase tracking-wider mb-6">My Profile</h2>
+                <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-8 max-w-2xl">
+                    <div class="flex items-center gap-6 mb-8 pb-8 border-b border-gray-100">
+                        <div class="w-20 h-20 bg-gradient-to-br from-primary to-orange-600 rounded-2xl flex items-center justify-center text-3xl text-white font-bold" id="profileAvatar">R</div>
+                        <div>
+                            <h3 id="profileName" class="text-xl font-heading font-bold text-navy">Name</h3>
+                            <p id="profileRole" class="text-sm text-primary font-bold uppercase tracking-widest">Student</p>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-xl">
+                            <span class="text-lg">📧</span>
+                            <div>
+                                <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Email</p>
+                                <p id="profileEmail" class="font-medium text-navy">email@example.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-xl">
+                            <span class="text-lg">📱</span>
+                            <div>
+                                <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Phone</p>
+                                <p id="profilePhone" class="font-medium text-navy">+91 00000 00000</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-xl">
+                            <span class="text-lg">📅</span>
+                            <div>
+                                <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Member Since</p>
+                                <p id="profileDate" class="font-medium text-navy">-</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="mobileOverlay" class="mobile-overlay hidden" onclick="toggleMobileSidebar()"></div>
+    <aside id="mobileSidebar" class="mobile-sidebar sidebar">
+        <div class="p-6 border-b border-white/10 flex justify-between items-center">
+            <img src="assets/images/logo.png" alt="Logo" class="h-8">
+            <button onclick="toggleMobileSidebar()" class="text-white text-2xl">×</button>
+        </div>
+        <nav class="p-4 space-y-2">
+            <a href="#" onclick="showSection('dashboard');toggleMobileSidebar()" class="flex items-center gap-3 p-3 rounded-xl text-white font-bold text-sm">🏠 Dashboard</a>
+            <a href="#" onclick="showSection('applications');toggleMobileSidebar()" class="flex items-center gap-3 p-3 rounded-xl text-gray-400 font-medium text-sm">📋 Applications</a>
+            <a href="#" onclick="showSection('apply');toggleMobileSidebar()" class="flex items-center gap-3 p-3 rounded-xl text-gray-400 font-medium text-sm">📝 Apply</a>
+            <a href="#" onclick="showSection('profile');toggleMobileSidebar()" class="flex items-center gap-3 p-3 rounded-xl text-gray-400 font-medium text-sm">👤 Profile</a>
+            <a href="index.html" class="flex items-center gap-3 p-3 rounded-xl text-gray-400 font-medium text-sm">🌐 Website</a>
+        </nav>
+        <div class="p-4 border-t border-white/10 mt-auto">
+            <button onclick="logout()" class="w-full p-3 rounded-xl bg-red-500/10 text-red-400 font-bold text-sm hover:bg-red-500 hover:text-white transition">🚪 Logout</button>
+        </div>
+    </aside>
+
+    <script src="mock-auth.js"></script>
+    <script>
+        let currentUser = null;
+
+        function showToast(msg, type) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.className = 'toast toast-' + type + ' show';
+            setTimeout(() => { t.classList.remove('show'); }, 3500);
+        }
+
+        function toggleMobileSidebar() {
+            document.getElementById('mobileSidebar').classList.toggle('open');
+            document.getElementById('mobileOverlay').classList.toggle('active');
+        }
+
+        function showSection(name) {
+            document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+            document.getElementById('section-' + name).classList.remove('hidden');
+            // Update nav active state
+            document.querySelectorAll('.sidebar nav a').forEach(a => {
+                a.classList.remove('active', 'bg-primary', 'text-white');
+                a.classList.add('hover:bg-white/5', 'text-gray-400');
+            });
+            const activeNav = document.getElementById('nav-' + name);
+            if (activeNav) {
+                activeNav.classList.add('active');
+                activeNav.classList.remove('text-gray-400');
+            }
+            if (name === 'applications') loadApplications();
+            if (name === 'apply') prefillForm();
+        }
+
+        async function loadDashboard() {
+            const res = await fetch('/api/auth/profile');
+            if (!res.ok) { window.location.href = 'login.html'; return; }
+            currentUser = await res.json();
+            
+            // Redirect admin to admin dashboard
+            if (currentUser.role === 'admin') {
+                window.location.href = 'admin-dashboard.html';
+                return;
+            }
+
+            // Update UI
+            document.getElementById('welcomeName').textContent = currentUser.fullName.split(' ')[0];
+            document.getElementById('sidebarName').textContent = currentUser.fullName;
+            document.getElementById('sidebarEmail').textContent = currentUser.email;
+
+            // Profile
+            document.getElementById('profileName').textContent = currentUser.fullName;
+            document.getElementById('profileEmail').textContent = currentUser.email;
+            document.getElementById('profilePhone').textContent = currentUser.phone || 'Not provided';
+            document.getElementById('profileDate').textContent = new Date(currentUser.createdAt).toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' });
+            document.getElementById('profileAvatar').textContent = currentUser.fullName.charAt(0).toUpperCase();
+
+            // Load applications
+            const appRes = await fetch('/api/applications/my-applications');
+            const apps = await appRes.json();
+
+            document.getElementById('totalApps').textContent = apps.length;
+            document.getElementById('pendingApps').textContent = apps.filter(a => a.status === 'pending').length;
+            document.getElementById('approvedApps').textContent = apps.filter(a => a.status === 'approved').length;
+
+            renderAppsTable('recentAppsTable', apps.slice(-3).reverse(), true);
+        }
+
+        async function loadApplications() {
+            const res = await fetch('/api/applications/my-applications');
+            const apps = await res.json();
+            renderAppsTable('allAppsTable', apps, false);
+        }
+
+        function renderAppsTable(tableId, apps, isRecent) {
+            const tbody = document.getElementById(tableId);
+            if (apps.length === 0) {
+                const cols = isRecent ? 3 : 5;
+                tbody.innerHTML = `<tr><td colspan="${cols}" class="px-6 py-12 text-center text-gray-400">No applications found. <button onclick="showSection('apply')" class="text-primary font-bold hover:underline">Apply Now →</button></td></tr>`;
+                return;
+            }
+            tbody.innerHTML = apps.map(app => {
+                const statusClass = app.status === 'pending' ? 'status-pending' : app.status === 'approved' ? 'status-approved' : 'status-rejected';
+                const date = new Date(app.createdAt).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+                if (isRecent) {
+                    return `<tr class="border-t border-gray-50 hover:bg-gray-50 transition-colors">
+                        <td class="px-6 py-4 font-bold text-navy">${app.courseName}</td>
+                        <td class="px-6 py-4 text-gray-500">${date}</td>
+                        <td class="px-6 py-4"><span class="status-badge ${statusClass}">${app.status}</span></td>
+                    </tr>`;
+                }
+                return `<tr class="border-t border-gray-50 hover:bg-gray-50 transition-colors">
+                    <td class="px-6 py-4 font-bold text-navy">${app.courseName}</td>
+                    <td class="px-6 py-4 text-gray-500">${app.fullName}</td>
+                    <td class="px-6 py-4 text-gray-500">${app.education || '-'}</td>
+                    <td class="px-6 py-4 text-gray-500">${date}</td>
+                    <td class="px-6 py-4"><span class="status-badge ${statusClass}">${app.status}</span></td>
+                </tr>`;
+            }).join('');
+        }
+
+        function prefillForm() {
+            if (!currentUser) return;
+            document.getElementById('appName').value = currentUser.fullName;
+            document.getElementById('appEmail').value = currentUser.email;
+            document.getElementById('appMobile').value = currentUser.phone || '';
+        }
+
+        document.getElementById('applyForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const res = await fetch('/api/applications/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    course: document.getElementById('appCourse').value,
+                    fullName: document.getElementById('appName').value,
+                    mobile: document.getElementById('appMobile').value,
+                    email: document.getElementById('appEmail').value,
+                    education: document.getElementById('appEdu').value,
+                    address: document.getElementById('appAddress').value
+                })
+            });
+            const data = await res.json();
+            if (res.ok) {
+                showToast('✅ ' + data.message, 'success');
+                document.getElementById('applyForm').reset();
+                setTimeout(() => { showSection('dashboard'); loadDashboard(); }, 1000);
+            } else {
+                showToast('❌ ' + data.message, 'error');
+            }
+        });
+
+        async function logout() {
+            await fetch('/api/auth/logout', { method: 'POST' });
+            window.location.href = 'login.html';
+        }
+
+        // Initialize
+        loadDashboard();
+    </script>
+</body>
+</html>

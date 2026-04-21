@@ -1,0 +1,170 @@
+/* about_premium.css - Defense & Security Redesign */
+
+:root {
+    --primary-color: #FF9933; /* Saffron */
+    --secondary-color: #138808; /* Green */
+    --accent-color: #000080; /* Navy Blue */
+    --text-dark: #1A1A2E;
+    --text-light: #F8FAFC;
+    --glass-bg: rgba(255, 255, 255, 0.08);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --shadow-premium: 0 25px 50px -12px rgba(0, 0, 128, 0.15);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #0F172A; /* Deep Space Slate */
+    color: var(--text-light);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 800;
+}
+
+/* === ANIMATIONS === */
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInLeft {
+    from { opacity: 0; transform: translateX(-50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+    from { opacity: 0; transform: translateX(50px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleUp {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+.animate-fade-up { animation: fadeInUp 1s ease-out forwards; }
+.animate-fade-left { animation: fadeInLeft 1s ease-out forwards; }
+.animate-fade-right { animation: fadeInRight 1s ease-out forwards; }
+.animate-scale { animation: scaleUp 0.8s ease-out forwards; }
+.animate-float { animation: float 4s ease-in-out infinite; }
+
+/* === PREMIUM COMPONENTS === */
+
+.glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 2.5rem;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: var(--primary-color);
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #FF9933, #FFD700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.section-label {
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    font-size: 0.75rem;
+    color: var(--primary-color);
+    display: block;
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.stat-glow {
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: white;
+    text-shadow: 0 0 20px rgba(255, 153, 51, 0.5);
+}
+
+/* === SECTION SPECIFIC === */
+
+.hero-about {
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    position: relative;
+    background: linear-gradient(to bottom, rgba(26, 26, 46, 0.8), rgba(15, 23, 42, 1)), url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2040&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.mission-vision-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+}
+
+.why-choose-us-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.choose-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.choose-card i {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+}
+
+/* Scroll Indicator */
+.scroll-reveal {
+    opacity: 0;
+    transition: all 1s ease-out;
+}
+
+.scroll-reveal.visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+/* Image Hover Mask */
+.image-mask {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+}
+
+.image-mask img {
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.image-mask:hover img {
+    transform: scale(1.1);
+}

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | THE CHAMPIONS ACADEMY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF9933',
+                        secondary: '#138808',
+                        navy: '#000080',
+                        dark: '#1A1A2E',
+                    },
+                    fontFamily: {
+                        heading: ['Outfit', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link href="index.css" rel="stylesheet">
+    <style>
+        body { padding-top: 0 !important; background: linear-gradient(135deg, #1A1A2E 0%, #000080 50%, #1A1A2E 100%); }
+        .login-card { backdrop-filter: blur(20px); background: rgba(255,255,255,0.95); }
+        .toast { position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 16px 24px; border-radius: 12px; font-size: 14px; font-weight: 600; transform: translateX(400px); transition: transform 0.4s ease; }
+        .toast.show { transform: translateX(0); }
+        .toast-success { background: #d1fae5; color: #065f46; border-left: 4px solid #10b981; }
+        .toast-error { background: #fee2e2; color: #991b1b; border-left: 4px solid #ef4444; }
+        .input-field:focus { box-shadow: 0 0 0 3px rgba(255,153,51,0.15); }
+        .strength-bar { height: 4px; border-radius: 2px; transition: all 0.3s; }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center p-4 font-body">
+    <div id="toast" class="toast"></div>
+
+    <div class="max-w-md w-full login-card rounded-3xl shadow-2xl overflow-hidden">
+        <div class="bg-navy p-8 text-center relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10">
+                <div class="absolute w-40 h-40 rounded-full bg-primary -top-10 -right-10"></div>
+                <div class="absolute w-24 h-24 rounded-full bg-secondary -bottom-6 -left-6"></div>
+            </div>
+            <a href="index.html"><img src="assets/images/logo.png" alt="Logo" class="h-14 mx-auto mb-4 relative z-10"></a>
+            <h1 class="text-2xl font-heading font-bold text-white uppercase tracking-wider relative z-10">Create Account</h1>
+            <p class="text-blue-200 text-sm mt-2 relative z-10">Join the elite training academy</p>
+        </div>
+        <form id="registerForm" class="p-8 space-y-5">
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Full Name</label>
+                <input type="text" id="fullName" required class="input-field w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:border-primary outline-none transition font-medium" placeholder="John Doe">
+            </div>
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Email Address</label>
+                <input type="email" id="email" required class="input-field w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:border-primary outline-none transition font-medium" placeholder="john@example.com">
+            </div>
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Phone Number</label>
+                <input type="tel" id="phone" required class="input-field w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:border-primary outline-none transition font-medium" placeholder="+91 00000 00000">
+            </div>
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Password</label>
+                <input type="password" id="password" required minlength="4" class="input-field w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:border-primary outline-none transition font-medium" placeholder="••••••••" oninput="checkStrength(this.value)">
+                <div class="flex gap-1 mt-2">
+                    <div id="str1" class="strength-bar flex-1 bg-gray-200"></div>
+                    <div id="str2" class="strength-bar flex-1 bg-gray-200"></div>
+                    <div id="str3" class="strength-bar flex-1 bg-gray-200"></div>
+                    <div id="str4" class="strength-bar flex-1 bg-gray-200"></div>
+                </div>
+                <p id="strText" class="text-[10px] mt-1 font-bold uppercase tracking-widest text-gray-400"></p>
+            </div>
+            <button type="submit" id="registerBtn" class="w-full bg-primary text-white py-4 rounded-xl font-bold uppercase tracking-widest text-sm btn-glow transition-all duration-300 mt-4 flex items-center justify-center gap-2">
+                <span id="regBtnText">Create Account</span>
+                <span id="regSpinner" class="hidden">⏳</span>
+            </button>
+            <p class="text-center text-sm text-gray-500 mt-6">Already have an account? <a href="login.html" class="text-primary font-bold hover:underline">Login Now</a></p>
+        </form>
+    </div>
+
+    <script src="mock-auth.js"></script>
+    <script>
+        function showToast(msg, type) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.className = 'toast toast-' + type + ' show';
+            setTimeout(() => { t.classList.remove('show'); }, 3500);
+        }
+
+        function checkStrength(pw) {
+            let score = 0;
+            if (pw.length >= 4) score++;
+            if (pw.length >= 6) score++;
+            if (/[A-Z]/.test(pw) && /[a-z]/.test(pw)) score++;
+            if (/[0-9]/.test(pw) || /[^A-Za-z0-9]/.test(pw)) score++;
+            const colors = ['bg-red-400','bg-orange-400','bg-yellow-400','bg-green-400'];
+            const labels = ['Weak','Fair','Good','Strong'];
+            for(let i=1;i<=4;i++){
+                document.getElementById('str'+i).className = 'strength-bar flex-1 ' + (i<=score ? colors[score-1] : 'bg-gray-200');
+            }
+            document.getElementById('strText').textContent = score > 0 ? labels[score-1] : '';
+        }
+
+        // Check if already logged in
+        if (window.MockAuth && window.MockAuth.isLoggedIn()) {
+            window.location.href = 'dashboard.html';
+        }
+
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const fullName = document.getElementById('fullName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const password = document.getElementById('password').value;
+
+            document.getElementById('regBtnText').textContent = 'Creating...';
+            document.getElementById('regSpinner').classList.remove('hidden');
+
+            try {
+                const res = await fetch('/api/auth/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ fullName, email, phone, password })
+                });
+                const data = await res.json();
+                if (res.ok) {
+                    showToast('✅ ' + data.message, 'success');
+                    setTimeout(() => { window.location.href = 'dashboard.html'; }, 1000);
+                } else {
+                    showToast('❌ ' + data.message, 'error');
+                }
+            } catch (err) {
+                console.error(err);
+                showToast('❌ Connection error. Please try again.', 'error');
+            } finally {
+                document.getElementById('regBtnText').textContent = 'Create Account';
+                document.getElementById('regSpinner').classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

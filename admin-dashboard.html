@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | THE CHAMPIONS ACADEMY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF9933',
+                        secondary: '#138808',
+                        navy: '#000080',
+                        dark: '#1A1A2E',
+                    },
+                    fontFamily: {
+                        heading: ['Outfit', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link href="index.css" rel="stylesheet">
+    <style>
+        body { padding-top: 0 !important; background: #f0f2f5; font-family: 'Inter', sans-serif; }
+        .admin-sidebar { background: linear-gradient(180deg, #1A1A2E 0%, #0F172A 100%); min-height: 100vh; }
+        .admin-sidebar a.active { background: linear-gradient(135deg, #FF9933, #FF6600); color: white; box-shadow: 0 4px 15px rgba(255,153,51,0.3); }
+        .stat-card { transition: all 0.3s ease; border-radius: 1.25rem; }
+        .stat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px -8px rgba(0,0,128,0.15); }
+        .table-row:hover { background: #f8fafc; }
+        .toast { position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 16px 24px; border-radius: 12px; font-size: 14px; font-weight: 600; transform: translateX(400px); transition: transform 0.4s ease; max-width: 400px; }
+        .toast.show { transform: translateX(0); }
+        .toast-success { background: #d1fae5; color: #065f46; border-left: 4px solid #10b981; }
+        .toast-error { background: #fee2e2; color: #991b1b; border-left: 4px solid #ef4444; }
+        .toast-info { background: #dbeafe; color: #1e40af; border-left: 4px solid #3b82f6; }
+        .status-badge { padding: 4px 12px; border-radius: 20px; font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; display: inline-block; }
+        .status-pending { background: #fef3c7; color: #92400e; }
+        .status-approved { background: #d1fae5; color: #065f46; }
+        .status-rejected { background: #fee2e2; color: #991b1b; }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,128,0.6); backdrop-filter: blur(8px); z-index: 200; display: none; align-items: center; justify-content: center; padding: 16px; }
+        .modal-overlay.active { display: flex; }
+        .mobile-header { display: none; }
+        @media (max-width: 1024px) {
+            .admin-sidebar { display: none; }
+            .mobile-header { display: flex; }
+        }
+        @media (min-width: 1025px) {
+            .mobile-sidebar, .mobile-overlay { display: none !important; }
+        }
+        .mobile-sidebar { position: fixed; top: 0; left: -320px; width: 300px; height: 100vh; z-index: 300; transition: left 0.3s ease; }
+        .mobile-sidebar.open { left: 0; }
+        .mobile-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 299; display: none; }
+        .mobile-overlay.active { display: block; }
+        .admin-badge { background: linear-gradient(135deg, #ef4444, #dc2626); padding: 2px 10px; border-radius: 6px; font-size: 9px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: white; }
+        .count-badge { background: #ef4444; color: white; font-size: 10px; font-weight: 800; width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; }
+        .search-input { background: #f8fafc; border: 1px solid #e2e8f0; }
+        .search-input:focus { border-color: #FF9933; box-shadow: 0 0 0 3px rgba(255,153,51,0.1); }
+    </style>
+</head>
+<body>
+    <div id="toast" class="toast"></div>
+
+    <div class="flex min-h-screen">
+        <!-- Admin Sidebar -->
+        <aside class="admin-sidebar w-72 flex-shrink-0 flex flex-col">
+            <div class="p-6 border-b border-white/10">
+                <div class="flex items-center gap-3">
+                    <img src="assets/images/logo.png" alt="Logo" class="h-10 brightness-110">
+                    <div>
+                        <p class="text-white font-heading font-bold text-sm">Champions Academy</p>
+                        <span class="admin-badge">Admin Panel</span>
+                    </div>
+                </div>
+            </div>
+            <nav class="flex-1 p-4 space-y-1.5" id="sidebarNav">
+                <a href="#" onclick="showSection('overview')" id="nav-overview" class="active flex items-center gap-3 p-3 rounded-xl font-semibold text-sm tracking-wide transition-all">
+                    <span>📊</span> Overview
+                </a>
+                <a href="#" onclick="showSection('students')" id="nav-students" class="flex items-center gap-3 p-3 rounded-xl text-gray-400 font-medium text-sm tracking-wide transition-all hover:bg-white/5">
+                    <span>👥</span> Students
+                </a>
+                <a href="#" onclick="showSection('applications')" id="nav-applications" class="flex items-center gap-3 p-3 rounded-xl text-gray-400 font-medium text-sm tracking-wide transition-all hover:bg-white/5">
+                    <span>📋</span> Applications <span id="appsBadge" class="count-badge ml-auto hidden">0</span>
+                </a>
+                <a href="#" onclick="showSection('contacts')" id="nav-contacts" class="flex items-center gap-3 p-3 rounded-xl text-gray-400 font-medium text-sm tracking-wide transition-all hover:bg-white/5">
+                    <span>📩</span> Messages <span id="contactsBadge" class="count-badge ml-auto hidden">0</span>
+                </a>
+                <a href="#" onclick="showSection('callbacks')" id="nav-callbacks" class="flex items-center gap-3 p-3 rounded-xl text-gray-400 font-medium text-sm tracking-wide transition-all hover:bg-white/5">
+                    <span>📞</span> Callbacks
+                </a>
+                <a href="#" onclick="showSection('announcements')" id="nav-announcements" class="flex items-center gap-3 p-3 rounded-xl text-gray-400 font-medium text-sm tracking-wide transition-all hover:bg-white/5">
+                    <span>📢</span> Announcements
+                </a>
+                <a href="#" onclick="showSection('gallery')" id="nav-gallery" class="flex items-center gap-3 p-3 rounded-xl text-gray-400 font-medium text-sm tracking-wide transition-all hover:bg-white/5">
+                    <span>🖼️</span> Gallery
+                </a>
+                <a href="#" onclick="showSection('testimonials')" id="nav-testimonials" class="flex items-center gap-3 p-3 rounded-xl text-gray-400 font-medium text-sm tracking-wide transition-all hover:bg-white/5">
+                    <span>💬</span> Testimonials
+                </a>
+                <a href="#" onclick="showSection('training-action')" id="nav-training-action" class="flex items-center gap-3 p-3 rounded-xl text-gray-400 font-medium text-sm tracking-wide transition-all hover:bg-white/5">
+                    <span>🎥</span> Training Action
+                </a>
+                <div class="h-px bg-white/5 my-4"></div>
+                <a href="#" onclick="showSection('settings')" id="nav-settings" class="flex items-center gap-3 p-3 rounded-xl text-gray-400 font-medium text-sm tracking-wide transition-all hover:bg-white/5">
+                    <span>⚙️</span> Settings
+                </a>
+                <a href="index.html" class="flex items-center gap-3 p-3 rounded-xl text-gray-400 font-medium text-sm tracking-wide transition-all hover:bg-white/5">
+                    <span>🌐</span> View Website
+                </a>
+            </nav>
+            <div class="p-4 border-t border-white/10">
+                <div class="flex items-center gap-3 px-3 py-2 mb-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-red-500 to-red-700 rounded-xl flex items-center justify-center text-white font-bold text-sm">A</div>
+                    <div class="min-w-0">
+                        <p id="adminName" class="text-white font-bold text-sm truncate">Admin</p>
+                        <p id="adminEmail" class="text-gray-500 text-xs truncate">admin@champions.com</p>
+                    </div>
+                </div>
+                <button onclick="logout()" class="w-full flex items-center justify-center gap-2 p-3 rounded-xl bg-red-500/10 text-red-400 font-bold text-sm tracking-wide hover:bg-red-500 hover:text-white transition-all">
+                    🚪 Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col min-w-0">
+            <!-- Mobile Header -->
+            <div class="mobile-header items-center justify-between p-4 bg-white shadow-sm">
+                <button onclick="toggleMobileSidebar()" class="text-2xl text-navy">☰</button>
+                <div class="flex items-center gap-2">
+                    <img src="assets/images/logo.png" alt="Logo" class="h-8">
+                    <span class="admin-badge">Admin</span>
+                </div>
+                <button onclick="logout()" class="text-sm font-bold text-red-500">Logout</button>
+            </div>
+
+            <!-- ==================== OVERVIEW SECTION ==================== -->
+            <div id="section-overview" class="section p-6 lg:p-8 space-y-8 flex-1 overflow-y-auto">
+                <div>
+                    <h1 class="text-2xl font-heading font-extrabold text-navy uppercase tracking-wider">Admin Dashboard</h1>
+                    <p class="text-gray-500 text-sm mt-1">Welcome back, <span id="overviewName" class="font-bold text-primary">Admin</span>. Here's what's happening today.</p>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+                    <div class="stat-card bg-white p-5 border border-gray-100 shadow-sm">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-2xl">👥</span>
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Students</span>
+                        </div>
+                        <p id="statStudents" class="text-3xl font-heading font-extrabold text-navy">0</p>
+                        <p class="text-xs text-green-500 font-bold mt-1">Registered users</p>
+                    </div>
+                    <div class="stat-card bg-white p-5 border border-gray-100 shadow-sm">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-2xl">📋</span>
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Applications</span>
+                        </div>
+                        <p id="statApplications" class="text-3xl font-heading font-extrabold text-navy">0</p>
+                        <p class="text-xs text-blue-500 font-bold mt-1">Total received</p>
+                    </div>
+                    <div class="stat-card bg-white p-5 border border-gray-100 shadow-sm">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-2xl">⏳</span>
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Pending</span>
+                        </div>
+                        <p id="statPending" class="text-3xl font-heading font-extrabold text-amber-600">0</p>
+                        <p class="text-xs text-amber-500 font-bold mt-1">Awaiting review</p>
+                    </div>
+                    <div class="stat-card bg-white p-5 border border-gray-100 shadow-sm">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-2xl">📩</span>
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Messages</span>
+                        </div>
+                        <p id="statContacts" class="text-3xl font-heading font-extrabold text-navy">0</p>
+                        <p class="text-xs font-bold mt-1"><span id="statUnread" class="text-red-500">0</span> unread</p>
+                    </div>
+                </div>
+
+                <!-- Quick Stats Row -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                    <div class="bg-gradient-to-br from-green-500 to-emerald-600 p-5 rounded-2xl text-white">
+                        <p class="text-white/70 text-xs font-bold uppercase tracking-widest">Approved</p>
+                        <p id="statApproved" class="text-3xl font-heading font-extrabold mt-1">0</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-red-500 to-rose-600 p-5 rounded-2xl text-white">
+                        <p class="text-white/70 text-xs font-bold uppercase tracking-widest">Rejected</p>
+                        <p id="statRejected" class="text-3xl font-heading font-extrabold mt-1">0</p>
+                    </div>
+                    <div class="bg-gradient-to-br from-blue-500 to-indigo-600 p-5 rounded-2xl text-white">
+                        <p class="text-white/70 text-xs font-bold uppercase tracking-widest">Callbacks</p>
+                        <p id="statCallbacks" class="text-3xl font-heading font-extrabold mt-1">0</p>
+                    </div>
+                </div>
+
+                <!-- Recent Registrations -->
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="p-6 border-b border-gray-50 flex items-center justify-between">
+                        <h3 class="font-heading font-bold text-navy uppercase tracking-widest text-sm">Recent Registrations</h3>
+                        <button onclick="showSection('students')" class="text-xs font-bold text-primary hover:underline">View All →</button>
+                    </div>
+                    <div id="recentStudents" class="divide-y divide-gray-50">
+                        <p class="p-8 text-center text-gray-400 text-sm">Loading...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== STUDENTS SECTION ==================== -->
+            <div id="section-students" class="section p-6 lg:p-8 space-y-6 flex-1 overflow-y-auto hidden">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <h2 class="text-xl font-heading font-bold text-navy uppercase tracking-wider">All Students</h2>
+                    <input type="text" id="searchStudents" placeholder="🔍 Search students..." class="search-input px-4 py-2.5 rounded-xl text-sm font-medium outline-none w-full sm:w-64" oninput="filterStudents()">
+                </div>
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead class="bg-gray-50 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+                                <tr>
+                                    <th class="px-6 py-4">Name</th>
+                                    <th class="px-6 py-4">Email</th>
+                                    <th class="px-6 py-4">Phone</th>
+                                    <th class="px-6 py-4">Joined</th>
+                                    <th class="px-6 py-4">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="studentsTable" class="text-sm font-medium"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== APPLICATIONS SECTION ==================== -->
+            <div id="section-applications" class="section p-6 lg:p-8 space-y-6 flex-1 overflow-y-auto hidden">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <h2 class="text-xl font-heading font-bold text-navy uppercase tracking-wider">All Applications</h2>
+                    <div class="flex items-center gap-3">
+                        <select id="filterAppStatus" onchange="loadApplications()" class="px-4 py-2.5 rounded-xl text-sm font-medium border border-gray-200 outline-none bg-white">
+                            <option value="all">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="approved">Approved</option>
+                            <option value="rejected">Rejected</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead class="bg-gray-50 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+                                <tr>
+                                    <th class="px-6 py-4">Student</th>
+                                    <th class="px-6 py-4">Course</th>
+                                    <th class="px-6 py-4">Education</th>
+                                    <th class="px-6 py-4">Date</th>
+                                    <th class="px-6 py-4">Status</th>
+                                    <th class="px-6 py-4">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="applicationsTable" class="text-sm font-medium"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== CONTACTS / MESSAGES SECTION ==================== -->
+            <div id="section-contacts" class="section p-6 lg:p-8 space-y-6 flex-1 overflow-y-auto hidden">
+                <h2 class="text-xl font-heading font-bold text-navy uppercase tracking-wider">Contact Messages</h2>
+                <div id="contactsList" class="space-y-4"></div>
+            </div>
+
+            <!-- ==================== CALLBACKS SECTION ==================== -->
+            <div id="section-callbacks" class="section p-6 lg:p-8 space-y-6 flex-1 overflow-y-auto hidden">
+                <h2 class="text-xl font-heading font-bold text-navy uppercase tracking-wider">Callback Requests</h2>
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead class="bg-gray-50 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+                                <tr>
+                                    <th class="px-6 py-4">Name</th>
+                                    <th class="px-6 py-4">Phone</th>
+                                    <th class="px-6 py-4">Course</th>
+                                    <th class="px-6 py-4">Date</th>
+                                    <th class="px-6 py-4">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="callbacksTable" class="text-sm font-medium"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== ANNOUNCEMENTS SECTION ==================== -->
+            <div id="section-announcements" class="section p-6 lg:p-8 space-y-6 flex-1 overflow-y-auto hidden">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <h2 class="text-xl font-heading font-bold text-navy uppercase tracking-wider">Announcements</h2>
+                    <button onclick="openAnnouncementModal()" class="bg-primary text-white px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-navy transition">+ New Announcement</button>
+                </div>
+                <div id="announcementsList" class="space-y-4"></div>
+            </div>
+
+            <!-- ==================== GALLERY SECTION ==================== -->
+            <div id="section-gallery" class="section p-6 lg:p-8 space-y-6 flex-1 overflow-y-auto hidden">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <h2 class="text-xl font-heading font-bold text-navy uppercase tracking-wider">Gallery Management</h2>
+                    <button onclick="openGalleryModal()" class="bg-primary text-white px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-navy transition">+ Add Image</button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="galleryAdminList">
+                </div>
+            </div>
+
+            
+            <!-- ==================== TRAINING ACTION SECTION ==================== -->
+            <div id="section-training-action" class="section p-6 lg:p-8 space-y-6 flex-1 overflow-y-auto hidden">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <h2 class="text-xl font-heading font-bold text-navy uppercase tracking-wider">Training Action Management</h2>
+                    <button onclick="openTrainingActionModal()" class="bg-primary text-white px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-navy transition">+ Add Video/Reel</button>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="trainingActionAdminList">
+                </div>
+            </div>
+
+            <!-- ==================== TESTIMONIALS SECTION ==================== -->
+            <div id="section-testimonials" class="section p-6 lg:p-8 space-y-6 flex-1 overflow-y-auto hidden">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                    <h2 class="text-xl font-heading font-bold text-navy uppercase tracking-wider">Testimonials Management</h2>
+                    <button onclick="openTestimonialModal()" class="bg-primary text-white px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-navy transition">+ Add Testimonial</button>
+                </div>
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead class="bg-gray-50 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+                                <tr>
+                                    <th class="px-6 py-4">Student Name</th>
+                                    <th class="px-6 py-4">Course/Achievment</th>
+                                    <th class="px-6 py-4">Rating</th>
+                                    <th class="px-6 py-4">Message</th>
+                                    <th class="px-6 py-4 text-right">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="testimonialsAdminTable" class="text-sm font-medium"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== SETTINGS SECTION ==================== -->
+            <div id="section-settings" class="section p-6 lg:p-8 space-y-6 flex-1 overflow-y-auto hidden">
+                <h2 class="text-xl font-heading font-bold text-navy uppercase tracking-wider">Settings</h2>
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 max-w-2xl space-y-6">
+                    <div class="flex items-center gap-6 pb-6 border-b border-gray-100">
+                        <div class="w-16 h-16 bg-gradient-to-br from-red-500 to-red-700 rounded-2xl flex items-center justify-center text-2xl text-white font-bold" id="settAvatar">A</div>
+                        <div>
+                            <h3 id="settName" class="text-lg font-heading font-bold text-navy">Admin Officer</h3>
+                            <p id="settEmail" class="text-sm text-gray-500">admin@champions.com</p>
+                            <span class="admin-badge">Administrator</span>
+                        </div>
+                    </div>
+                    <div>
+                        <h4 class="font-heading font-bold text-navy text-sm uppercase tracking-widest mb-4">Data Management</h4>
+                        <div class="space-y-3">
+                            <button onclick="exportData()" class="w-full sm:w-auto bg-navy text-white px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-primary transition-all shadow-md">📥 Export All Data (JSON)</button>
+                            <button onclick="confirmResetDB()" class="w-full sm:w-auto bg-red-500 text-white px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-red-700 transition-all shadow-md ml-0 sm:ml-3">🔄 Reset Database</button>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-3">Reset will restore all data to the original demo seed values.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-heading font-bold text-navy text-sm uppercase tracking-widest mb-4">Demo Accounts</h4>
+                        <div class="bg-blue-50 border border-blue-100 rounded-xl p-4 text-sm">
+                            <p class="font-bold text-blue-800 mb-2">Pre-configured Login Credentials:</p>
+                            <p class="text-blue-700"><b>Admin:</b> admin@champions.com / admin123</p>
+                            <p class="text-blue-700"><b>Student:</b> student@champions.com / student123</p>
+                            <p class="text-blue-600 text-xs mt-2">All data is stored in your browser's localStorage.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Announcement Modal -->
+    <div id="announcementModal" class="modal-overlay">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-8 relative">
+            <button onclick="closeAnnouncementModal()" class="absolute top-4 right-4 text-gray-400 hover:text-navy text-2xl">×</button>
+            <h3 class="font-heading font-bold text-navy text-lg uppercase tracking-wider mb-6">New Announcement</h3>
+            <form id="announcementForm" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Title</label>
+                    <input type="text" id="annTitle" required class="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none focus:border-primary transition font-medium">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Content</label>
+                    <textarea id="annContent" required rows="4" class="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none focus:border-primary transition font-medium resize-none"></textarea>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Priority</label>
+                    <select id="annPriority" class="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none focus:border-primary bg-white font-medium">
+                        <option value="low">Low</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full bg-primary text-white py-3.5 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-navy transition">Publish Announcement</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Gallery Modal -->
+    <div id="galleryModal" class="modal-overlay">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-8 relative">
+            <button onclick="closeGalleryModal()" class="absolute top-4 right-4 text-gray-400 hover:text-navy text-2xl">×</button>
+            <h3 class="font-heading font-bold text-navy text-lg uppercase tracking-wider mb-6">Add New Image</h3>
+            <form id="galleryForm" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Image URL</label>
+                    <input type="url" id="galUrl" required placeholder="https://..." class="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none focus:border-primary transition font-medium">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Category</label>
+                    <select id="galCategory" class="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none focus:border-primary bg-white font-medium">
+                        <option value="Police Bharti">Police Bharti</option>
+                        <option value="Army Bharti">Army Bharti</option>
+                        <option value="Classroom">Classroom</option>
+                        <option value="Ground Training">Ground Training</option>
+                        <option value="Events">Events</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Alt Text (Optional)</label>
+                    <input type="text" id="galAlt" placeholder="Description..." class="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none focus:border-primary transition font-medium">
+                </div>
+                <button type="submit" class="w-full bg-primary text-white py-3.5 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-navy transition">Add Image</button>
+            </form>
+        </div>
+    </div>
+
+    
+    <!-- Training Action Modal -->
+    <div id="trainingActionModal" class="modal-overlay">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-8 relative">
+            <button onclick="closeTrainingActionModal()" class="absolute top-4 right-4 text-gray-400 hover:text-navy text-2xl">×</button>
+            <h3 class="font-heading font-bold text-navy text-lg uppercase tracking-wider mb-6">Add Training Action</h3>
+            <form id="trainingActionForm" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Embed Code / Link</label>
+                    <textarea id="taEmbed" required placeholder="Paste YouTube/Instagram Iframe or Embed Code here..." class="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none focus:border-primary transition font-medium h-32"></textarea>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Type</label>
+                    <select id="taType" class="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none focus:border-primary bg-white font-medium">
+                        <option value="YouTube">YouTube Video</option>
+                        <option value="Instagram">Instagram Reel</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full bg-primary text-white py-3.5 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-navy transition">Add Media</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Testimonial Modal -->
+    <div id="testimonialModal" class="modal-overlay">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-lg w-full p-8 relative">
+            <button onclick="closeTestimonialModal()" class="absolute top-4 right-4 text-gray-400 hover:text-navy text-2xl">×</button>
+            <h3 class="font-heading font-bold text-navy text-lg uppercase tracking-wider mb-6">Add Testimonial</h3>
+            <form id="testimonialForm" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Student Name</label>
+                    <input type="text" id="testName" required placeholder="e.g. Rahul Sharma" class="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none focus:border-primary transition font-medium">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Course / achievement</label>
+                    <input type="text" id="testCourse" required placeholder="e.g. Police Bharti Success" class="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none focus:border-primary transition font-medium">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Message</label>
+                    <textarea id="testMsg" required rows="3" placeholder="Write the testimonial message here..." class="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none focus:border-primary transition font-medium resize-none"></textarea>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Rating</label>
+                    <select id="testRating" class="w-full px-4 py-3 rounded-xl border border-gray-200 outline-none focus:border-primary bg-white font-medium">
+                        <option value="5">★★★★★ (5 Stars)</option>
+                        <option value="4">★★★★☆ (4 Stars)</option>
+                        <option value="3">★★★☆☆ (3 Stars)</option>
+                    </select>
+                </div>
+                <button type="submit" class="w-full bg-primary text-white py-3.5 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-navy transition">Save Testimonial</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirm Modal -->
+    <div id="confirmModal" class="modal-overlay">
+        <div class="bg-white rounded-3xl shadow-2xl max-w-md w-full p-8 text-center">
+            <div class="text-5xl mb-4">⚠️</div>
+            <h3 id="confirmTitle" class="font-heading font-bold text-navy text-lg mb-2">Are you sure?</h3>
+            <p id="confirmMsg" class="text-gray-500 text-sm mb-6">This action cannot be undone.</p>
+            <div class="flex gap-3 justify-center">
+                <button onclick="closeConfirmModal()" class="px-6 py-3 rounded-xl border border-gray-200 text-gray-600 font-bold text-sm uppercase tracking-widest hover:bg-gray-50 transition">Cancel</button>
+                <button id="confirmBtn" class="px-6 py-3 rounded-xl bg-red-500 text-white font-bold text-sm uppercase tracking-widest hover:bg-red-700 transition">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Sidebar -->
+    <div id="mobileOverlay" class="mobile-overlay" onclick="toggleMobileSidebar()"></div>
+    <aside id="mobileSidebar" class="mobile-sidebar admin-sidebar">
+        <div class="p-6 border-b border-white/10 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <img src="assets/images/logo.png" alt="Logo" class="h-8">
+                <span class="admin-badge">Admin</span>
+            </div>
+            <button onclick="toggleMobileSidebar()" class="text-white text-2xl">×</button>
+        </div>
+        <nav class="p-4 space-y-1.5">
+            <a href="#" onclick="showSection('overview');toggleMobileSidebar()" class="flex items-center gap-3 p-3 rounded-xl text-white font-bold text-sm">📊 Overview</a>
+            <a href="#" onclick="showSection('students');toggleMobileSidebar()" class="flex items-center gap-3 p-3 rounded-xl text-gray-400 font-medium text-sm">👥 Students</a>
+            <a href="#" onclick="showSection('applications');toggleMobileSidebar()" class="flex items-center gap-3 p-3 rounded-xl text-gray-400 font-medium text-sm">📋 Applications</a>
+            <a href="#" onclick="showSection('contacts');toggleMobileSidebar()" class="flex items-center gap-3 p-3 rounded-xl text-gray-400 font-medium text-sm">📩 Messages</a>
+            <a href="#" onclick="showSection('callbacks');toggleMobileSidebar()" class="flex items-center gap-3 p-3 rounded-xl text-gray-400 font-medium text-sm">📞 Callbacks</a>
+            <a href="#" onclick="showSection('announcements');toggleMobileSidebar()" class="flex items-center gap-3 p-3 rounded-xl text-gray-400 font-medium text-sm">📢 Announcements</a>
+            <a href="#" onclick="showSection('gallery');toggleMobileSidebar()" class="flex items-center gap-3 p-3 rounded-xl text-gray-400 font-medium text-sm">🖼️ Gallery</a>
+            <a href="#" onclick="showSection('testimonials');toggleMobileSidebar()" class="flex items-center gap-3 p-3 rounded-xl text-gray-400 font-medium text-sm">💬 Testimonials</a>
+            <a href="#" onclick="showSection('training-action');toggleMobileSidebar()" class="flex items-center gap-3 p-3 rounded-xl text-gray-400 font-medium text-sm">🎥 Training Action</a>
+            <a href="#" onclick="showSection('settings');toggleMobileSidebar()" class="flex items-center gap-3 p-3 rounded-xl text-gray-400 font-medium text-sm">⚙️ Settings</a>
+            <a href="index.html" class="flex items-center gap-3 p-3 rounded-xl text-gray-400 font-medium text-sm">🌐 Website</a>
+        </nav>
+        <div class="p-4 border-t border-white/10 mt-auto">
+            <button onclick="logout()" class="w-full p-3 rounded-xl bg-red-500/10 text-red-400 font-bold text-sm hover:bg-red-500 hover:text-white transition">🚪 Logout</button>
+        </div>
+    </aside>
+
+    <script src="mock-auth.js"></script>
+    <script>
+        let allStudents = [];
+        let allApplications = [];
+
+        // ==================== UTILITIES ====================
+        function showToast(msg, type) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.className = 'toast toast-' + type + ' show';
+            setTimeout(() => { t.classList.remove('show'); }, 3500);
+        }
+
+        function toggleMobileSidebar() {
+            document.getElementById('mobileSidebar').classList.toggle('open');
+            document.getElementById('mobileOverlay').classList.toggle('active');
+        }
+
+        function fmtDate(d) {
+            return new Date(d).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+        }
+
+        function showSection(name) {
+            document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+            document.getElementById('section-' + name).classList.remove('hidden');
+            // Update sidebar active
+            document.querySelectorAll('#sidebarNav a').forEach(a => {
+                a.classList.remove('active');
+                a.classList.add('text-gray-400');
+            });
+            const nav = document.getElementById('nav-' + name);
+            if (nav) { nav.classList.add('active'); nav.classList.remove('text-gray-400'); }
+
+            // Load data for section
+            if (name === 'students') loadStudents();
+            if (name === 'applications') loadApplications();
+            if (name === 'contacts') loadContacts();
+            if (name === 'callbacks') loadCallbacks();
+            if (name === 'announcements') loadAnnouncements();
+            if (name === 'gallery') loadGalleryAdmin();
+            if (name === 'testimonials') loadTestimonialsAdmin();
+            if (name === 'training-action') loadTrainingActionAdmin();
+            if (name === 'settings') loadSettings();
+        }
+
+        // ==================== AUTH CHECK ====================
+        async function initAdmin() {
+            const res = await fetch('/api/auth/profile');
+            if (!res.ok) { window.location.href = 'login.html'; return; }
+            const user = await res.json();
+            if (user.role !== 'admin') { window.location.href = 'dashboard.html'; return; }
+
+            document.getElementById('adminName').textContent = user.fullName;
+            document.getElementById('adminEmail').textContent = user.email;
+            document.getElementById('overviewName').textContent = user.fullName.split(' ')[0];
+
+            loadOverview();
+        }
+
+        // ==================== OVERVIEW ====================
+        async function loadOverview() {
+            const res = await fetch('/api/admin/stats');
+            const stats = await res.json();
+
+            document.getElementById('statStudents').textContent = stats.totalStudents;
+            document.getElementById('statApplications').textContent = stats.totalApplications;
+            document.getElementById('statPending').textContent = stats.pendingApplications;
+            document.getElementById('statContacts').textContent = stats.totalContacts;
+            document.getElementById('statUnread').textContent = stats.unreadContacts;
+            document.getElementById('statApproved').textContent = stats.approvedApplications;
+            document.getElementById('statRejected').textContent = stats.rejectedApplications;
+            document.getElementById('statCallbacks').textContent = stats.totalCallbacks;
+
+            // Badges
+            if (stats.pendingApplications > 0) {
+                document.getElementById('appsBadge').textContent = stats.pendingApplications;
+                document.getElementById('appsBadge').classList.remove('hidden');
+            }
+            if (stats.unreadContacts > 0) {
+                document.getElementById('contactsBadge').textContent = stats.unreadContacts;
+                document.getElementById('contactsBadge').classList.remove('hidden');
+            }
+
+            // Recent registrations
+            const container = document.getElementById('recentStudents');
+            if (stats.recentRegistrations.length === 0) {
+                container.innerHTML = '<p class="p-8 text-center text-gray-400 text-sm">No recent registrations</p>';
+            } else {
+                container.innerHTML = stats.recentRegistrations.map(u => `
+                    <div class="flex items-center gap-4 p-4 hover:bg-gray-50 transition-colors">
+                        <div class="w-10 h-10 bg-gradient-to-br from-primary to-orange-600 rounded-xl flex items-center justify-center text-white font-bold text-sm">${u.fullName.charAt(0)}</div>
+                        <div class="min-w-0 flex-1">
+                            <p class="font-bold text-navy text-sm truncate">${u.fullName}</p>
+                            <p class="text-gray-400 text-xs truncate">${u.email}</p>
+                        </div>
+                        <p class="text-gray-400 text-xs">${fmtDate(u.createdAt)}</p>
+                    </div>
+                `).join('');
+            }
+        }
+
+        // ==================== STUDENTS ====================
+        async function loadStudents() {
+            const res = await fetch('/api/admin/users');
+            allStudents = await res.json();
+            renderStudents(allStudents.filter(u => u.role !== 'admin'));
+        }
+
+        function filterStudents() {
+            const q = document.getElementById('searchStudents').value.toLowerCase();
+            const filtered = allStudents.filter(u => u.role !== 'admin' && (
+                u.fullName.toLowerCase().includes(q) ||
+                u.email.toLowerCase().includes(q) ||
+                (u.phone && u.phone.includes(q))
+            ));
+            renderStudents(filtered);
+        }
+
+        function renderStudents(students) {
+            const tbody = document.getElementById('studentsTable');
+            if (students.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="px-6 py-12 text-center text-gray-400">No students found</td></tr>';
+                return;
+            }
+            tbody.innerHTML = students.map(u => `
+                <tr class="table-row border-t border-gray-50 transition-colors">
+                    <td class="px-6 py-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 bg-gradient-to-br from-primary to-orange-600 rounded-lg flex items-center justify-center text-white font-bold text-xs">${u.fullName.charAt(0)}</div>
+                            <span class="font-bold text-navy">${u.fullName}</span>
+                        </div>
+                    </td>
+                    <td class="px-6 py-4 text-gray-500">${u.email}</td>
+                    <td class="px-6 py-4 text-gray-500">${u.phone || '-'}</td>
+                    <td class="px-6 py-4 text-gray-500">${fmtDate(u.createdAt)}</td>
+                    <td class="px-6 py-4">
+                        <button onclick="confirmDeleteUser('${u.id}','${u.fullName}')" class="text-red-500 hover:text-red-700 text-xs font-bold uppercase tracking-widest transition">Delete</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function confirmDeleteUser(id, name) {
+            showConfirm('Delete Student', `Are you sure you want to delete "${name}"? This will also remove all their applications.`, async () => {
+                await fetch('/api/admin/users', {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId: id })
+                });
+                showToast('✅ Student deleted', 'success');
+                loadStudents();
+                loadOverview();
+            });
+        }
+
+        // ==================== APPLICATIONS ====================
+        async function loadApplications() {
+            const res = await fetch('/api/admin/applications');
+            allApplications = await res.json();
+            const filter = document.getElementById('filterAppStatus').value;
+            const filtered = filter === 'all' ? allApplications : allApplications.filter(a => a.status === filter);
+            renderApplications(filtered);
+        }
+
+        function renderApplications(apps) {
+            const tbody = document.getElementById('applicationsTable');
+            if (apps.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-12 text-center text-gray-400">No applications found</td></tr>';
+                return;
+            }
+            tbody.innerHTML = apps.map(app => {
+                const statusClass = app.status === 'pending' ? 'status-pending' : app.status === 'approved' ? 'status-approved' : 'status-rejected';
+                return `
+                <tr class="table-row border-t border-gray-50 transition-colors">
+                    <td class="px-6 py-4">
+                        <p class="font-bold text-navy">${app.fullName}</p>
+                        <p class="text-gray-400 text-xs">${app.email}</p>
+                    </td>
+                    <td class="px-6 py-4 font-medium text-navy">${app.courseName}</td>
+                    <td class="px-6 py-4 text-gray-500">${app.education || '-'}</td>
+                    <td class="px-6 py-4 text-gray-500">${fmtDate(app.createdAt)}</td>
+                    <td class="px-6 py-4"><span class="status-badge ${statusClass}">${app.status}</span></td>
+                    <td class="px-6 py-4">
+                        <div class="flex items-center gap-2">
+                            ${app.status !== 'approved' ? `<button onclick="updateAppStatus('${app.id}','approved')" class="text-green-600 hover:text-green-800 text-xs font-bold transition" title="Approve">✅</button>` : ''}
+                            ${app.status !== 'rejected' ? `<button onclick="updateAppStatus('${app.id}','rejected')" class="text-red-500 hover:text-red-800 text-xs font-bold transition" title="Reject">❌</button>` : ''}
+                            ${app.status !== 'pending' ? `<button onclick="updateAppStatus('${app.id}','pending')" class="text-amber-500 hover:text-amber-700 text-xs font-bold transition" title="Set Pending">⏳</button>` : ''}
+                            <button onclick="confirmDeleteApp('${app.id}')" class="text-gray-400 hover:text-red-500 text-xs font-bold transition ml-1" title="Delete">🗑️</button>
+                        </div>
+                    </td>
+                </tr>`;
+            }).join('');
+        }
+
+        async function updateAppStatus(id, status) {
+            await fetch('/api/admin/applications', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ applicationId: id, status: status })
+            });
+            showToast(`✅ Application ${status}`, 'success');
+            loadApplications();
+            loadOverview();
+        }
+
+        function confirmDeleteApp(id) {
+            showConfirm('Delete Application', 'Are you sure you want to delete this application?', async () => {
+                await fetch('/api/admin/applications', {
+                    method: 'DELETE',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ applicationId: id })
+                });
+                showToast('✅ Application deleted', 'success');
+                loadApplications();
+                loadOverview();
+            });
+        }
+
+        // ==================== CONTACTS ====================
+        async function loadContacts() {
+            const res = await fetch('/api/admin/contacts');
+            const contacts = await res.json();
+            const container = document.getElementById('contactsList');
+            if (contacts.length === 0) {
+                container.innerHTML = '<div class="bg-white rounded-2xl p-12 text-center text-gray-400 border border-gray-100">No messages yet</div>';
+                return;
+            }
+            container.innerHTML = contacts.map(c => `
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 ${!c.read ? 'border-l-4 border-l-primary' : ''}">
+                    <div class="flex flex-col sm:flex-row items-start justify-between gap-3 mb-3">
+                        <div>
+                            <div class="flex items-center gap-2">
+                                <h4 class="font-bold text-navy">${c.name}</h4>
+                                ${!c.read ? '<span class="status-badge status-pending">New</span>' : ''}
+                            </div>
+                            <p class="text-xs text-gray-400">${c.email} • ${fmtDate(c.createdAt)}</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            ${!c.read ? `<button onclick="markContactRead('${c.id}')" class="text-xs font-bold text-blue-500 hover:text-blue-700 transition uppercase tracking-widest">Mark Read</button>` : ''}
+                            <button onclick="deleteContact('${c.id}')" class="text-xs font-bold text-red-500 hover:text-red-700 transition uppercase tracking-widest">Delete</button>
+                        </div>
+                    </div>
+                    <p class="text-xs font-bold text-primary uppercase tracking-widest mb-1">${c.subject || 'General'}</p>
+                    <p class="text-gray-600 text-sm leading-relaxed">${c.message}</p>
+                </div>
+            `).join('');
+        }
+
+        async function markContactRead(id) {
+            await fetch('/api/admin/contacts', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ contactId: id })
+            });
+            showToast('✅ Marked as read', 'info');
+            loadContacts();
+            loadOverview();
+        }
+
+        async function deleteContact(id) {
+            await fetch('/api/admin/contacts', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ contactId: id })
+            });
+            showToast('✅ Message deleted', 'success');
+            loadContacts();
+            loadOverview();
+        }
+
+        // ==================== CALLBACKS ====================
+        async function loadCallbacks() {
+            const res = await fetch('/api/admin/callbacks');
+            const callbacks = await res.json();
+            const tbody = document.getElementById('callbacksTable');
+            if (callbacks.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="px-6 py-12 text-center text-gray-400">No callback requests</td></tr>';
+                return;
+            }
+            tbody.innerHTML = callbacks.map(cb => {
+                const statusClass = cb.status === 'pending' ? 'status-pending' : 'status-approved';
+                return `
+                <tr class="table-row border-t border-gray-50 transition-colors">
+                    <td class="px-6 py-4 font-bold text-navy">${cb.name}</td>
+                    <td class="px-6 py-4 text-gray-500">${cb.phone}</td>
+                    <td class="px-6 py-4 text-gray-500">${cb.course}</td>
+                    <td class="px-6 py-4 text-gray-500">${fmtDate(cb.createdAt)}</td>
+                    <td class="px-6 py-4"><span class="status-badge ${statusClass}">${cb.status}</span></td>
+                </tr>`;
+            }).join('');
+        }
+
+        // ==================== ANNOUNCEMENTS ====================
+        async function loadAnnouncements() {
+            const res = await fetch('/api/admin/announcements');
+            const anns = await res.json();
+            const container = document.getElementById('announcementsList');
+            if (anns.length === 0) {
+                container.innerHTML = '<div class="bg-white rounded-2xl p-12 text-center text-gray-400 border border-gray-100">No announcements yet. Create one!</div>';
+                return;
+            }
+            const priorityColors = { high: 'border-l-red-500 bg-red-50/30', medium: 'border-l-primary bg-orange-50/30', low: 'border-l-blue-400 bg-blue-50/30' };
+            container.innerHTML = anns.reverse().map(a => `
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 border-l-4 ${priorityColors[a.priority] || ''} p-6">
+                    <div class="flex flex-col sm:flex-row items-start justify-between gap-3 mb-2">
+                        <div>
+                            <h4 class="font-bold text-navy text-lg">${a.title}</h4>
+                            <p class="text-xs text-gray-400">${fmtDate(a.createdAt)} • Priority: <span class="font-bold uppercase">${a.priority}</span></p>
+                        </div>
+                        <button onclick="deleteAnnouncement('${a.id}')" class="text-xs font-bold text-red-500 hover:text-red-700 transition uppercase tracking-widest">Delete</button>
+                    </div>
+                    <p class="text-gray-600 text-sm leading-relaxed">${a.content}</p>
+                </div>
+            `).join('');
+        }
+
+        function openAnnouncementModal() {
+            document.getElementById('announcementModal').classList.add('active');
+        }
+        function closeAnnouncementModal() {
+            document.getElementById('announcementModal').classList.remove('active');
+        }
+
+        document.getElementById('announcementForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            await fetch('/api/admin/announcements', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    title: document.getElementById('annTitle').value,
+                    content: document.getElementById('annContent').value,
+                    priority: document.getElementById('annPriority').value
+                })
+            });
+            showToast('✅ Announcement published', 'success');
+            closeAnnouncementModal();
+            document.getElementById('announcementForm').reset();
+            loadAnnouncements();
+        });
+
+        async function deleteAnnouncement(id) {
+            await fetch('/api/admin/announcements', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ announcementId: id })
+            });
+            showToast('✅ Announcement deleted', 'success');
+            loadAnnouncements();
+        }
+
+        // ==================== GALLERY ====================
+        function loadGalleryAdmin() {
+            const imgs = JSON.parse(localStorage.getItem('ca_custom_gallery') || '[]');
+            const container = document.getElementById('galleryAdminList');
+            if (imgs.length === 0) {
+                container.innerHTML = '<div class="col-span-full bg-white rounded-2xl p-12 text-center text-gray-400 border border-gray-100">No custom images added.</div>';
+                return;
+            }
+            container.innerHTML = imgs.reverse().map(img => `
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden relative group">
+                    <img src="${img.url}" class="w-full h-48 object-cover bg-gray-100" onerror="this.src='https://placehold.co/400x300?text=Invalid+Image'" />
+                    <div class="p-4">
+                        <span class="status-badge bg-blue-100 text-blue-800 mb-2">${img.category}</span>
+                        <p class="text-xs font-bold text-gray-700 truncate">${img.alt || 'No description'}</p>
+                    </div>
+                    <button onclick="deleteGalleryImage('${img.id}')" class="absolute top-2 right-2 bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow-md hover:bg-red-700 opacity-0 group-hover:opacity-100 transition">×</button>
+                </div>
+            `).join('');
+        }
+
+        function openGalleryModal() {
+            document.getElementById('galleryModal').classList.add('active');
+        }
+        function closeGalleryModal() {
+            document.getElementById('galleryModal').classList.remove('active');
+        }
+
+        document.getElementById('galleryForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const imgs = JSON.parse(localStorage.getItem('ca_custom_gallery') || '[]');
+            imgs.push({
+                id: 'gal_' + Date.now(),
+                url: document.getElementById('galUrl').value,
+                category: document.getElementById('galCategory').value,
+                alt: document.getElementById('galAlt').value,
+                addedAt: new Date().toISOString()
+            });
+            localStorage.setItem('ca_custom_gallery', JSON.stringify(imgs));
+            showToast('✅ Image added to Gallery', 'success');
+            closeGalleryModal();
+            document.getElementById('galleryForm').reset();
+            loadGalleryAdmin();
+        });
+
+        function deleteGalleryImage(id) {
+            let imgs = JSON.parse(localStorage.getItem('ca_custom_gallery') || '[]');
+            imgs = imgs.filter(img => img.id !== id);
+            localStorage.setItem('ca_custom_gallery', JSON.stringify(imgs));
+            showToast('✅ Image deleted', 'success');
+            loadGalleryAdmin();
+        }
+
+        
+        // ==================== TRAINING ACTION ====================
+        function loadTrainingActionAdmin() {
+            const list = document.getElementById('trainingActionAdminList');
+            const media = JSON.parse(localStorage.getItem('ca_training_action_media') || '[]');
+            if (media.length === 0) {
+                list.innerHTML = '<div class="col-span-full py-12 text-center text-gray-400 bg-white rounded-2xl border border-gray-100 italic">No media added yet. Add YouTube/Instagram embeds to display on the homepage.</div>';
+                return;
+            }
+            list.innerHTML = media.map(m => `
+                <div class="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden group relative flex flex-col">
+                    <div class="h-48 bg-gray-100 flex items-center justify-center p-2 break-all overflow-hidden relative">
+                        <div class="w-full h-full relative" style="pointer-events:none;">
+                            ${m.embed}
+                        </div>
+                        <div class="absolute inset-0 bg-black/50 hidden items-center justify-center group-hover:flex transition">
+                            <span class="text-white font-bold tracking-widest uppercase text-xs">${m.type}</span>
+                        </div>
+                    </div>
+                    <button onclick="deleteTrainingAction('${m.id}')" class="absolute top-2 right-2 bg-red-500 text-white w-8 h-8 rounded-full flex items-center justify-center font-bold shadow-md hover:bg-red-700 opacity-0 group-hover:opacity-100 transition">×</button>
+                </div>
+            `).join('');
+        }
+
+        function openTrainingActionModal() { document.getElementById('trainingActionModal').classList.add('active'); }
+        function closeTrainingActionModal() { document.getElementById('trainingActionModal').classList.remove('active'); }
+
+        document.getElementById('trainingActionForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const mediaList = JSON.parse(localStorage.getItem('ca_training_action_media') || '[]');
+            mediaList.push({
+                id: 'ta_' + Date.now(),
+                embed: document.getElementById('taEmbed').value,
+                type: document.getElementById('taType').value,
+                addedAt: new Date().toISOString()
+            });
+            localStorage.setItem('ca_training_action_media', JSON.stringify(mediaList));
+            showToast('✅ Media added', 'success');
+            closeTrainingActionModal();
+            document.getElementById('trainingActionForm').reset();
+            loadTrainingActionAdmin();
+        });
+
+        function deleteTrainingAction(id) {
+            let mediaList = JSON.parse(localStorage.getItem('ca_training_action_media') || '[]');
+            mediaList = mediaList.filter(m => m.id !== id);
+            localStorage.setItem('ca_training_action_media', JSON.stringify(mediaList));
+            showToast('✅ Media deleted', 'success');
+            loadTrainingActionAdmin();
+        }
+
+        // ==================== TESTIMONIALS ====================
+        function loadTestimonialsAdmin() {
+            const list = JSON.parse(localStorage.getItem('ca_testimonials') || '[]');
+            const tbody = document.getElementById('testimonialsAdminTable');
+            if (list.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" class="px-6 py-12 text-center text-gray-400">No custom testimonials added yet. Their UI on index page will remain standard.</td></tr>';
+                return;
+            }
+            tbody.innerHTML = list.reverse().map(t => `
+                <tr class="table-row border-t border-gray-50 transition-colors">
+                    <td class="px-6 py-4 font-bold text-navy">${t.name}</td>
+                    <td class="px-6 py-4 text-primary font-mono text-xs uppercase">${t.course}</td>
+                    <td class="px-6 py-4 text-amber-500">${'★'.repeat(t.rating)}${'☆'.repeat(5-t.rating)}</td>
+                    <td class="px-6 py-4 text-gray-500 max-w-xs truncate">${t.text}</td>
+                    <td class="px-6 py-4 text-right">
+                        <button onclick="deleteTestimonial('${t.id}')" class="text-red-500 hover:text-red-700 font-bold">Delete</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function openTestimonialModal() { document.getElementById('testimonialModal').classList.add('active'); }
+        function closeTestimonialModal() { document.getElementById('testimonialModal').classList.remove('active'); }
+
+        document.getElementById('testimonialForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const list = JSON.parse(localStorage.getItem('ca_testimonials') || '[]');
+            list.push({
+                id: 'test_' + Date.now(),
+                name: document.getElementById('testName').value,
+                course: document.getElementById('testCourse').value,
+                text: document.getElementById('testMsg').value,
+                rating: parseInt(document.getElementById('testRating').value),
+                addedAt: new Date().toISOString()
+            });
+            localStorage.setItem('ca_testimonials', JSON.stringify(list));
+            showToast('✅ Testimonial saved successfully', 'success');
+            closeTestimonialModal();
+            document.getElementById('testimonialForm').reset();
+            loadTestimonialsAdmin();
+        });
+
+        function deleteTestimonial(id) {
+            let list = JSON.parse(localStorage.getItem('ca_testimonials') || '[]');
+            list = list.filter(t => t.id !== id);
+            localStorage.setItem('ca_testimonials', JSON.stringify(list));
+            showToast('✅ Testimonial deleted', 'success');
+            loadTestimonialsAdmin();
+        }
+
+        // ==================== SETTINGS ====================
+        function loadSettings() {
+            const user = window.MockAuth.getCurrentUser();
+            if (user) {
+                document.getElementById('settAvatar').textContent = user.fullName.charAt(0);
+                document.getElementById('settName').textContent = user.fullName;
+                document.getElementById('settEmail').textContent = user.email;
+            }
+        }
+
+        function exportData() {
+            const data = {
+                users: JSON.parse(localStorage.getItem('ca_users') || '[]'),
+                applications: JSON.parse(localStorage.getItem('ca_applications') || '[]'),
+                contacts: JSON.parse(localStorage.getItem('ca_contacts') || '[]'),
+                callbacks: JSON.parse(localStorage.getItem('ca_callbacks') || '[]'),
+                announcements: JSON.parse(localStorage.getItem('ca_announcements') || '[]'),
+                exportedAt: new Date().toISOString()
+            };
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'champions-academy-data-' + Date.now() + '.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast('✅ Data exported successfully', 'success');
+        }
+
+        function confirmResetDB() {
+            showConfirm('Reset Database', 'This will delete ALL data and restore the original demo values. Are you absolutely sure?', async () => {
+                await fetch('/api/admin/reset', { method: 'POST' });
+                showToast('✅ Database reset to defaults', 'success');
+                setTimeout(() => location.reload(), 1000);
+            });
+        }
+
+        // ==================== CONFIRM MODAL ====================
+        let confirmCallback = null;
+        function showConfirm(title, msg, callback) {
+            document.getElementById('confirmTitle').textContent = title;
+            document.getElementById('confirmMsg').textContent = msg;
+            confirmCallback = callback;
+            document.getElementById('confirmModal').classList.add('active');
+        }
+        function closeConfirmModal() {
+            document.getElementById('confirmModal').classList.remove('active');
+            confirmCallback = null;
+        }
+        document.getElementById('confirmBtn').addEventListener('click', () => {
+            if (confirmCallback) confirmCallback();
+            closeConfirmModal();
+        });
+
+        // ==================== LOGOUT ====================
+        async function logout() {
+            await fetch('/api/auth/logout', { method: 'POST' });
+            window.location.href = 'login.html';
+        }
+
+        // ==================== INIT ====================
+        initAdmin();
+    </script>
+</body>
+</html>

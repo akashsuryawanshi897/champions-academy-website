@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery | THE CHAMPIONS ACADEMY</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="View the training sessions, campus life, and successful students at THE CHAMPIONS ACADEMY. Our gallery highlights our journey since 2018.">
+    
+    <!-- Google Fonts & Tailwind -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF9933',
+                        secondary: '#138808',
+                        navy: '#000080',
+                        dark: '#1A1A2E',
+                        slate: '#0F172A',
+                        'off-white': '#FAFAFA',
+                    },
+                    fontFamily: {
+                        heading: ['Outfit', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                        mono: ['Space Grotesk', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link href="index.css" rel="stylesheet">
+
+    <style>
+        /* Gallery Lightbox */
+        .lightbox-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: rgba(10, 10, 30, 0.95);
+            backdrop-filter: blur(20px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .lightbox-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+        .lightbox-img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: 16px;
+            box-shadow: 0 30px 80px -20px rgba(255, 153, 51, 0.3);
+            transform: scale(0.9);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .lightbox-overlay.active .lightbox-img {
+            transform: scale(1);
+        }
+        .lightbox-caption {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            background: rgba(0,0,0,0.5);
+            padding: 10px 28px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 28px;
+            right: 32px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        .lightbox-close:hover {
+            background: #FF9933;
+            border-color: #FF9933;
+            transform: rotate(90deg);
+        }
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: white;
+            font-size: 22px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        .lightbox-nav:hover {
+            background: #FF9933;
+            border-color: #FF9933;
+        }
+        .lightbox-prev { left: 24px; }
+        .lightbox-next { right: 24px; }
+
+        /* Gallery card hover cursor */
+        .gallery-item { cursor: pointer; }
+        .gallery-item:hover .gallery-zoom-icon {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .gallery-zoom-icon {
+            opacity: 0;
+            transform: scale(0.6);
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="text-gray-800 font-body bg-[#FAFAFA] min-h-screen">
+
+    
+    <div id="header-placeholder"></div>
+
+    <main>
+       
+
+        <!-- Gallery Hero Header -->
+        <section class="bg-white py-14 pt-32 text-center border-b border-gray-100">
+            <span class="inline-block text-xs font-bold uppercase tracking-[0.2em] text-primary mb-3" style="font-family:'Space Grotesk',sans-serif;">📷 Campus & Training</span>
+            <h1 class="text-xl md:text-2xl font-bold font-heading uppercase mb-2 text-dark">Our <span class="text-primary">Gallery</span></h1>
+            <div class="h-1 w-20 mx-auto rounded-full mt-4" style="background: linear-gradient(90deg, #FF9933 33%, #FFFFFF 33%, #FFFFFF 66%, #138808 66%);"></div>
+            <p class="text-sm text-gray-500 max-w-xl mx-auto mt-4 uppercase tracking-widest font-semibold">Witness the transformation of our champions in action. 🇮🇳</p>
+        </section>
+
+        <!-- Gallery Masonry Grid with AI Images -->
+        <section class="py-12 bg-gray-50">
+            <div id="gallery-container" class="container mx-auto px-4 columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+                <!-- Images will be rendered here dynamically -->
+            </div>
+        </section>
+    </main>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox-overlay" id="galleryLightbox">
+        <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">✕</button>
+        <button class="lightbox-nav lightbox-prev" onclick="navigateLightbox(-1)" aria-label="Previous">❮</button>
+        <button class="lightbox-nav lightbox-next" onclick="navigateLightbox(1)" aria-label="Next">❯</button>
+        <img class="lightbox-img" id="lightboxImg" src="" alt="Gallery Image">
+        <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+
+    
+    
+
+    <div id="footer-placeholder"></div>
+    
+
+    <script src="mock-auth.js"></script>
+    <script src="components.js"></script>
+    <script src="script.js"></script>
+
+    <!-- Gallery Lightbox Script -->
+    <script>
+        let galleryImages = [
+            { src: 'assets/images/gallery-ground-practice.png', caption: 'Ground Practice' },
+            { src: 'assets/images/gallery-successful-selection.png', caption: 'Successful Selection' },
+            { src: 'assets/images/gallery-fitness-drill.png', caption: 'Fitness Drill' },
+            { src: 'assets/images/gallery-academy-infra.png', caption: 'Academy Infrastructure' },
+            { src: 'assets/images/gallery-hostel-life.png', caption: 'Hostel Life' },
+            { src: 'assets/images/gallery-awards-ceremony.png', caption: 'Awards Ceremony' },
+            { src: 'assets/images/gallery-academic-batch.png', caption: 'Academic Batch' },
+            { src: 'assets/images/gallery-motivational-seminar.png', caption: 'Motivational Seminar' },
+        ];
+
+        // Load custom images from local storage
+        const customImages = JSON.parse(localStorage.getItem('ca_custom_gallery') || '[]');
+        customImages.reverse().forEach(img => {
+            galleryImages.unshift({ src: img.url, caption: img.alt || img.category });
+        });
+
+        const galleryContainer = document.getElementById('gallery-container');
+
+        function renderGallery() {
+            if (!galleryContainer) return;
+            galleryContainer.innerHTML = galleryImages.map((img, index) => `
+                <div class="gallery-item gallery-img rounded-xl shadow-xl border border-gray-200 overflow-hidden relative group reveal mb-6 bg-dark inline-block w-full" onclick="openLightbox(${index})">
+                    <img src="${img.src}" alt="${img.caption}" class="w-full h-auto object-cover transition duration-700 group-hover:scale-110 group-hover:opacity-80" onerror="this.src='https://placehold.co/600x400?text=Image+Not+Found'">
+                    <div class="absolute inset-x-0 bottom-0 top-1/2 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="gallery-zoom-icon w-14 h-14 rounded-full bg-primary/80 backdrop-blur-sm flex items-center justify-center text-white text-2xl shadow-lg">🔍</div>
+                    </div>
+                    <div class="absolute inset-x-0 bottom-0 p-6 z-10 transition-transform duration-300 transform translate-y-2 group-hover:translate-y-0">
+                        <p class="font-bold text-base uppercase text-white tracking-widest drop-shadow-lg">${img.caption}</p>
+                        <span class="text-[10px] text-primary font-bold uppercase tracking-widest mt-1 block opacity-0 group-hover:opacity-100 transition-opacity">Click to enlarge →</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        renderGallery();
+
+        let currentIndex = 0;
+
+        function openLightbox(index) {
+            currentIndex = index;
+            const overlay = document.getElementById('galleryLightbox');
+            const img = document.getElementById('lightboxImg');
+            const caption = document.getElementById('lightboxCaption');
+            
+            img.src = galleryImages[index].src;
+            caption.textContent = galleryImages[index].caption;
+            
+            overlay.style.display = 'flex';
+            requestAnimationFrame(() => {
+                overlay.classList.add('active');
+            });
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const overlay = document.getElementById('galleryLightbox');
+            overlay.classList.remove('active');
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 400);
+            document.body.style.overflow = '';
+        }
+
+        function navigateLightbox(direction) {
+            currentIndex = (currentIndex + direction + galleryImages.length) % galleryImages.length;
+            const img = document.getElementById('lightboxImg');
+            const caption = document.getElementById('lightboxCaption');
+            
+            img.style.opacity = '0';
+            img.style.transform = 'scale(0.9)';
+            
+            setTimeout(() => {
+                img.src = galleryImages[currentIndex].src;
+                caption.textContent = galleryImages[currentIndex].caption;
+                img.style.opacity = '1';
+                img.style.transform = 'scale(1)';
+            }, 200);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const overlay = document.getElementById('galleryLightbox');
+            if (!overlay.classList.contains('active')) return;
+            
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') navigateLightbox(-1);
+            if (e.key === 'ArrowRight') navigateLightbox(1);
+        });
+
+        // Click outside image to close
+        document.getElementById('galleryLightbox').addEventListener('click', (e) => {
+            if (e.target.id === 'galleryLightbox') closeLightbox();
+        });
+    </script>
+</body>
+</html>
