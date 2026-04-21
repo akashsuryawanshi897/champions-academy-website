@@ -20,7 +20,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 // Static Files
-app.use(express.static(__dirname));
+app.use(express.static(path.join(__dirname, '.'), {
+    extensions: ['html', 'htm']
+}));
 
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));
@@ -42,11 +44,21 @@ app.use('/api', (req, res, next) => {
 
 // Page Routes
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.resolve(__dirname, 'index.html'));
 });
 
 app.get('/dashboard', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dashboard.html'));
+    res.sendFile(path.resolve(__dirname, 'dashboard.html'));
+});
+
+// Catch-all for other html pages (if not caught by static)
+app.get('/:page', (req, res, next) => {
+    const page = req.params.page;
+    if (page.includes('.')) return next(); // Let static handle files with extensions
+    const filePath = path.resolve(__dirname, `${page}.html`);
+    res.sendFile(filePath, (err) => {
+        if (err) next();
+    });
 });
 
 module.exports = app;
