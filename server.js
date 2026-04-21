@@ -19,7 +19,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, '/')));
+// Static Files
+app.use(express.static(__dirname));
 
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));
@@ -39,7 +40,11 @@ app.use('/api', (req, res, next) => {
     next();
 });
 
-// Dashboard Route
+// Page Routes
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
 app.get('/dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, 'dashboard.html'));
 });
