@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Dashboard | THE CHAMPIONS ACADEMY</title>
+    <meta name="description" content="Your personal Champions Academy student dashboard - track applications, training progress, and batch information.">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -24,47 +25,70 @@
             }
         }
     </script>
-    
-    <link href="index.css" rel="stylesheet">
+    <style>
+        body { padding-top: 0 !important; font-family: 'Inter', sans-serif; }
+        .sidebar {
+            background: linear-gradient(180deg, #1A1A2E 0%, #000080 100%);
+            color: white;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in { animation: fadeIn 0.5s ease forwards; }
+    </style>
 </head>
-<body class="min-h-screen flex">
+<body class="min-h-screen flex bg-gray-50">
 
     <!-- Sidebar -->
-    <aside class="sidebar w-64 md:flex flex-col hidden">
+    <aside class="sidebar w-64 md:flex flex-col hidden shadow-2xl min-h-screen sticky top-0">
         <div class="p-6 border-b border-white/10 text-center">
-            <img src="assets/images/logo.png" alt="Logo" class="h-10 mx-auto mb-2 filter brightness-110">
-            <p class="text-[10px] text-blue-300 font-bold uppercase tracking-widest">THE CHAMPIONS ACADEMY</p>
+            <a href="index.html"><img src="assets/images/logo.png" alt="Logo" class="h-10 mx-auto mb-2 filter brightness-110"></a>
+            <p class="text-[10px] text-blue-300 font-bold uppercase tracking-widest">Student Portal</p>
         </div>
         <nav class="flex-1 p-4 space-y-2">
-            <a href="#" class="flex items-center gap-3 p-3 rounded-xl bg-primary text-white font-bold text-sm tracking-wide transition-all shadow-lg shadow-primary/20">
+            <a href="dashboard.html" class="flex items-center gap-3 p-3 rounded-xl bg-primary text-white font-bold text-sm tracking-wide transition-all shadow-lg shadow-primary/20">
                 <span>🏠</span> Dashboard
             </a>
             <a href="admission.html" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 text-gray-400 font-medium text-sm tracking-wide transition-all">
-                <span>📝</span> Application Form
+                <span>📝</span> Apply for Course
+            </a>
+            <a href="index.html" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 text-gray-400 font-medium text-sm tracking-wide transition-all">
+                <span>🏛️</span> Home Page
             </a>
             <a href="contact.html" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 text-gray-400 font-medium text-sm tracking-wide transition-all">
                 <span>📞</span> Help & Support
             </a>
         </nav>
         <div class="p-4 border-t border-white/10">
+            <div id="sidebarUserInfo" class="p-3 mb-3 bg-white/5 rounded-xl">
+                <p id="sidebarUserName" class="text-sm font-bold text-white truncate">Student</p>
+                <p id="sidebarUserEmail" class="text-[10px] text-blue-300 truncate">email@example.com</p>
+            </div>
             <button id="logoutBtn" class="w-full flex items-center justify-center gap-3 p-3 rounded-xl bg-red-500/10 text-red-500 font-bold text-sm tracking-wide hover:bg-red-500 hover:text-white transition-all">
                 <span>🚪</span> Logout
             </button>
         </div>
     </aside>
 
-    <!-- Main Content -->
-    <main class="flex-1 flex flex-col">
-        <!-- Top Nav -->
-        <div id="header-placeholder"></div>
+    <!-- Mobile Header (visible on small screens) -->
+    <div class="md:hidden fixed top-0 left-0 right-0 bg-navy text-white px-4 py-3 flex justify-between items-center z-50 shadow-xl">
+        <a href="index.html"><img src="assets/images/logo.png" alt="Logo" class="h-8"></a>
+        <div class="flex items-center gap-3">
+            <span id="mobileUserName" class="text-xs font-bold text-primary"></span>
+            <button id="mobileLogoutBtn" class="px-3 py-1 bg-red-500/20 text-red-400 rounded-lg text-xs font-bold">Logout</button>
+        </div>
+    </div>
 
-        <!-- Dashboard Content -->
-        <div class="p-8 space-y-8 flex-1 overflow-y-auto">
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col min-h-screen">
+        <div class="p-6 md:p-8 space-y-8 flex-1 overflow-y-auto mt-14 md:mt-0 animate-fade-in">
+
             <!-- Welcome Card -->
-            <div class="bg-gradient-to-r from-navy to-[#1a1a2e] p-8 rounded-3xl text-white shadow-2xl relative overflow-hidden">
+            <div class="bg-gradient-to-r from-navy to-dark p-8 rounded-3xl text-white shadow-2xl relative overflow-hidden">
                 <div class="relative z-10">
-                    <h1 class="text-3xl font-heading font-extrabold uppercase mb-2">Jai Hind, <span id="welcomeName" class="text-primary italic">Cadet</span>!</h1>
-                    <p class="text-blue-200 leading-relaxed max-w-xl">Welcome to your dashboard. Here you can track your batch details, preparation progress, and application status.</p>
+                    <h1 class="text-2xl md:text-3xl font-heading font-extrabold uppercase mb-2">Jai Hind, <span id="welcomeName" class="text-primary italic">Cadet</span>!</h1>
+                    <p class="text-blue-200 leading-relaxed max-w-xl text-sm md:text-base">Welcome to your dashboard. Track your applications, training progress, and batch details.</p>
                 </div>
                 <div class="absolute right-[-20px] bottom-[-20px] opacity-10 blur-sm pointer-events-none">
                     <img src="assets/images/logo.png" alt="Watermark" class="h-48">
@@ -72,23 +96,23 @@
             </div>
 
             <!-- Stats Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-5">
-                    <div class="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center text-2xl">📋</div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-6">
+                <div class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4 md:gap-5">
+                    <div class="w-12 h-12 md:w-14 md:h-14 bg-blue-100 rounded-xl flex items-center justify-center text-2xl">📋</div>
                     <div>
                         <p class="text-[10px] uppercase font-bold text-gray-400 tracking-widest">Total Applications</p>
                         <p id="totalApps" class="text-xl font-bold font-heading text-navy">0</p>
                     </div>
                 </div>
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-5">
-                    <div class="w-14 h-14 bg-amber-100 rounded-xl flex items-center justify-center text-2xl">⏳</div>
+                <div class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4 md:gap-5">
+                    <div class="w-12 h-12 md:w-14 md:h-14 bg-amber-100 rounded-xl flex items-center justify-center text-2xl">⏳</div>
                     <div>
                         <p class="text-[10px] uppercase font-bold text-gray-400 tracking-widest">Pending Review</p>
                         <p id="pendingApps" class="text-xl font-bold font-heading text-navy">0</p>
                     </div>
                 </div>
-                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-5">
-                    <div class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center text-2xl">✅</div>
+                <div class="bg-white p-5 md:p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4 md:gap-5">
+                    <div class="w-12 h-12 md:w-14 md:h-14 bg-emerald-100 rounded-xl flex items-center justify-center text-2xl">✅</div>
                     <div>
                         <p class="text-[10px] uppercase font-bold text-gray-400 tracking-widest">Approved</p>
                         <p id="approvedApps" class="text-xl font-bold font-heading text-navy">0</p>
@@ -98,9 +122,9 @@
 
             <!-- Applications Table -->
             <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
-                <div class="p-6 border-b border-gray-50 flex items-center justify-between">
-                    <h3 class="font-heading font-bold text-navy uppercase tracking-widest">My Applications</h3>
-                    <a href="admission.html" class="text-xs font-bold text-primary hover:underline">Apply New +</a>
+                <div class="p-5 md:p-6 border-b border-gray-50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                    <h3 class="font-heading font-bold text-navy uppercase tracking-widest text-sm md:text-base">My Applications</h3>
+                    <a href="admission.html" class="bg-primary text-white px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-navy transition-all">Apply New +</a>
                 </div>
                 <div class="overflow-x-auto">
                     <table class="w-full text-left">
@@ -112,7 +136,6 @@
                             </tr>
                         </thead>
                         <tbody id="applicationTableBody" class="text-sm font-medium">
-                            <!-- Rows loaded by JS -->
                             <tr>
                                 <td colspan="3" class="px-6 py-12 text-center text-gray-400">Loading your applications...</td>
                             </tr>
@@ -120,68 +143,94 @@
                     </table>
                 </div>
             </div>
+
+            <!-- Quick Actions -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <a href="admission.html" class="bg-white p-5 rounded-2xl border border-gray-100 hover:border-primary transition-all text-center shadow-sm hover:shadow-md">
+                    <span class="text-2xl block mb-2">📝</span>
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-gray-600">New Application</span>
+                </a>
+                <a href="facilities.html" class="bg-white p-5 rounded-2xl border border-gray-100 hover:border-primary transition-all text-center shadow-sm hover:shadow-md">
+                    <span class="text-2xl block mb-2">🏋️</span>
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-gray-600">Facilities</span>
+                </a>
+                <a href="gallery.html" class="bg-white p-5 rounded-2xl border border-gray-100 hover:border-primary transition-all text-center shadow-sm hover:shadow-md">
+                    <span class="text-2xl block mb-2">📷</span>
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-gray-600">Gallery</span>
+                </a>
+                <a href="contact.html" class="bg-white p-5 rounded-2xl border border-gray-100 hover:border-primary transition-all text-center shadow-sm hover:shadow-md">
+                    <span class="text-2xl block mb-2">📞</span>
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-gray-600">Contact Us</span>
+                </a>
+            </div>
         </div>
     </main>
-    <div id="footer-placeholder"></div>
 
+    <script src="mock-auth.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            try {
-                // Fetch Profile
-                const profileRes = await fetch('/api/auth/profile');
-                if (!profileRes.ok) {
-                    window.location.href = 'login.html';
-                    return;
-                }
-                const user = await profileRes.json();
-                document.getElementById('userNameDisplay').textContent = user.fullName;
-                document.getElementById('userEmailDisplay').textContent = user.email;
-                document.getElementById('welcomeName').textContent = user.fullName.split(' ')[0];
+        document.addEventListener('DOMContentLoaded', function() {
+            var user = MockAuth.getCurrentUser();
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
 
-                // Fetch Applications
-                const appRes = await fetch('/api/applications/my-applications');
-                const apps = await appRes.json();
-                
-                const tableBody = document.getElementById('applicationTableBody');
-                tableBody.innerHTML = '';
+            // If admin, redirect to admin panel
+            if (user.role === 'admin') {
+                window.location.href = 'admin.html';
+                return;
+            }
 
-                if (apps.length === 0) {
-                    tableBody.innerHTML = '<tr><td colspan="3" class="px-6 py-12 text-center text-gray-400">No applications found.</td></tr>';
-                } else {
-                    document.getElementById('totalApps').textContent = apps.length;
-                    document.getElementById('pendingApps').textContent = apps.filter(a => a.status === 'pending').length;
-                    document.getElementById('approvedApps').textContent = apps.filter(a => a.status === 'approved').length;
+            // Populate user info
+            var firstName = user.fullName ? user.fullName.split(' ')[0] : 'Cadet';
+            document.getElementById('welcomeName').textContent = firstName;
 
-                    apps.forEach(app => {
-                        const row = `
-                            <tr class="border-t border-gray-50 hover:bg-gray-50 transition-colors">
-                                <td class="px-6 py-4 font-bold text-navy">${app.courseName}</td>
-                                <td class="px-6 py-4 text-gray-500">${new Date(app.createdAt).toLocaleDateString()}</td>
-                                <td class="px-6 py-4">
-                                    <span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ${app.status === 'pending' ? 'bg-amber-100 text-amber-600' : 'bg-emerald-100 text-emerald-600' }">${app.status}</span>
-                                </td>
-                            </tr>
-                        `;
-                        tableBody.innerHTML += row;
-                    });
-                }
-            } catch (err) {
-                console.error(err);
-                // window.location.href = 'login.html';
+            var sidebarName = document.getElementById('sidebarUserName');
+            var sidebarEmail = document.getElementById('sidebarUserEmail');
+            var mobileName = document.getElementById('mobileUserName');
+            if (sidebarName) sidebarName.textContent = user.fullName;
+            if (sidebarEmail) sidebarEmail.textContent = user.email;
+            if (mobileName) mobileName.textContent = firstName;
+
+            // Load applications
+            var apps = MockAuth.getApplications();
+            var tableBody = document.getElementById('applicationTableBody');
+            tableBody.innerHTML = '';
+
+            if (apps.length === 0) {
+                tableBody.innerHTML = '<tr><td colspan="3" class="px-6 py-12 text-center text-gray-400"><div class="space-y-2"><span class="text-4xl block">📭</span><p>No applications yet.</p><a href="admission.html" class="text-primary font-bold text-xs uppercase hover:underline">Apply for a course →</a></div></td></tr>';
+            } else {
+                document.getElementById('totalApps').textContent = apps.length;
+                document.getElementById('pendingApps').textContent = apps.filter(function(a) { return a.status === 'pending'; }).length;
+                document.getElementById('approvedApps').textContent = apps.filter(function(a) { return a.status === 'approved'; }).length;
+
+                apps.forEach(function(app) {
+                    var statusClass = app.status === 'pending' ? 'bg-amber-100 text-amber-600' :
+                                      app.status === 'approved' ? 'bg-emerald-100 text-emerald-600' :
+                                      'bg-red-100 text-red-600';
+                    var row = '<tr class="border-t border-gray-50 hover:bg-gray-50 transition-colors">' +
+                        '<td class="px-6 py-4 font-bold text-navy">' + app.courseName + '</td>' +
+                        '<td class="px-6 py-4 text-gray-500">' + new Date(app.createdAt).toLocaleDateString() + '</td>' +
+                        '<td class="px-6 py-4"><span class="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest ' + statusClass + '">' + app.status + '</span></td>' +
+                    '</tr>';
+                    tableBody.innerHTML += row;
+                });
             }
         });
 
-        document.getElementById('logoutBtn').addEventListener('click', async () => {
-            await fetch('/api/auth/logout', { method: 'POST' });
+        // Logout handlers
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            MockAuth.logout();
             window.location.href = 'login.html';
         });
+
+        var mobileLogout = document.getElementById('mobileLogoutBtn');
+        if (mobileLogout) {
+            mobileLogout.addEventListener('click', function() {
+                MockAuth.logout();
+                window.location.href = 'login.html';
+            });
+        }
     </script>
-    <script src="components.js"></script>
-    <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
-

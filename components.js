@@ -58,7 +58,7 @@ const SHARED_NAV = `
                 <div id="auth-links-shared" class="hidden sm:flex items-center gap-2">
                     <a href="login.html" class="btn-glow bg-[#000080] text-white px-6 py-3 rounded-xl font-bold uppercase text-[10px] tracking-widest hover:bg-[#FF9933] transition-all shadow-xl shadow-blue-500/20">🔑 Login</a>
                 </div>
-                <a href="admission.html" class="btn-glow bg-[#FF9933] text-white px-6 py-3 rounded-xl font-bold uppercase text-[10px] tracking-widest hover:bg-[#000080] transition-all shadow-xl shadow-orange-500/20">Apply Now</a>
+                <a id="apply-btn-shared" href="admission.html" class="btn-glow bg-[#FF9933] text-white px-6 py-3 rounded-xl font-bold uppercase text-[10px] tracking-widest hover:bg-[#000080] transition-all shadow-xl shadow-orange-500/20">Apply Now</a>
                 <button class="xl:hidden text-2xl p-2 h-12 w-12 flex items-center justify-center hover:bg-gray-50 rounded-xl transition-all" id="mobile-menu-btn-shared">☰</button>
             </div>
         </div>
@@ -84,7 +84,7 @@ const SHARED_NAV = `
             <a href="gallery.html" class="py-4 border-b border-gray-50 text-[#000080] hover:text-[#FF9933] transition">Gallery</a>
             <a href="contact.html" class="py-4 border-b border-gray-50 text-[#000080] hover:text-[#FF9933] transition">Contact Us</a>
             
-            <div class="mt-10 flex flex-col gap-4">
+            <div id="mobile-auth-shared" class="mt-10 flex flex-col gap-4">
                 <a href="login.html" class="bg-[#000080] text-center p-4 rounded-xl text-white text-[10px] tracking-widest font-black uppercase shadow-xl hover:bg-[#FF9933] transition-all">Account Login</a>
                 <a href="admission.html" class="bg-[#138808] text-center p-4 rounded-xl text-white text-[10px] tracking-widest font-black uppercase shadow-xl hover:bg-[#000080] transition-all">Register Now</a>
             </div>
@@ -211,6 +211,31 @@ const SHARED_FOOTER = `
                 mobileBtn.addEventListener('click', () => toggleMenu(true));
                 closeBtn.addEventListener('click', () => toggleMenu(false));
                 mobileOverlay.addEventListener('click', () => toggleMenu(false));
+            }
+
+            // Auth State Integration with MockAuth
+            if (typeof MockAuth !== 'undefined') {
+                const user = MockAuth.getCurrentUser();
+                const authLinksShared = document.getElementById('auth-links-shared');
+                if (user && authLinksShared) {
+                    const dashUrl = user.role === 'admin' ? 'admin.html' : 'dashboard.html';
+                    const label = user.role === 'admin' ? '🛡️ Admin Panel' : '👤 Dashboard';
+                    authLinksShared.innerHTML = `
+                        <a href="${dashUrl}" class="btn-glow bg-[#000080] text-white px-6 py-3 rounded-xl font-bold uppercase text-[10px] tracking-widest hover:bg-[#FF9933] transition-all shadow-xl shadow-blue-500/20">${label}</a>
+                        <button onclick="if(typeof MockAuth!=='undefined'){MockAuth.logout();window.location.reload();}" class="bg-red-500/10 text-red-500 px-4 py-3 rounded-xl font-bold uppercase text-[10px] tracking-widest hover:bg-red-500 hover:text-white transition-all">Logout</button>
+                    `;
+                    // Hide Apply Now and update mobile menu when logged in to prevent "double" dashboard/action buttons
+                    const applyBtn = document.getElementById('apply-btn-shared');
+                    if (applyBtn) applyBtn.classList.add('hidden');
+
+                    const mobileAuth = document.getElementById('mobile-auth-shared');
+                    if (mobileAuth) {
+                        mobileAuth.innerHTML = `
+                            <a href="${dashUrl}" class="bg-[#000080] text-center p-4 rounded-xl text-white text-[10px] tracking-widest font-black uppercase shadow-xl">${label}</a>
+                            <button onclick="if(typeof MockAuth!=='undefined'){MockAuth.logout();window.location.reload();}" class="text-[10px] text-red-500 text-center uppercase tracking-widest font-bold mt-2">Logout 🚪</button>
+                        `;
+                    }
+                }
             }
         }
         

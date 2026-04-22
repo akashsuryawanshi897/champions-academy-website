@@ -33,8 +33,9 @@ app.get('/api/health', (req, res) => {
 
 // DB availability guard
 app.use('/api', (req, res, next) => {
-    if (!dbConnected && req.path !== '/health') {
-        return res.status(503).json({ message: 'Database offline. Ensure MongoDB is running.' });
+    const isAuthRoute = req.path.startsWith('/auth/login') || req.path.startsWith('/auth/register');
+    if (!dbConnected && !isAuthRoute && req.path !== '/health') {
+        return res.status(503).json({ message: 'Database offline. Mock mode enabled for test@example.com' });
     }
     next();
 });

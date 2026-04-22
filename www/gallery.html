@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery | THE CHAMPIONS ACADEMY</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="View the training sessions, campus life, and successful students at THE CHAMPIONS ACADEMY. Our gallery highlights our journey since 2018.">
+    
+    <!-- Google Fonts & Tailwind -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF9933',
+                        secondary: '#138808',
+                        navy: '#000080',
+                        dark: '#1A1A2E',
+                        slate: '#0F172A',
+                        'off-white': '#FAFAFA',
+                    },
+                    fontFamily: {
+                        heading: ['Outfit', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                        mono: ['Space Grotesk', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link href="index.css" rel="stylesheet">
+
+    <style>
+        /* Gallery Lightbox */
+        .lightbox-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: rgba(10, 10, 30, 0.95);
+            backdrop-filter: blur(20px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .lightbox-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+        .lightbox-img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: 16px;
+            box-shadow: 0 30px 80px -20px rgba(255, 153, 51, 0.3);
+            transform: scale(0.9);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .lightbox-overlay.active .lightbox-img {
+            transform: scale(1);
+        }
+        .lightbox-caption {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            background: rgba(0,0,0,0.5);
+            padding: 10px 28px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 28px;
+            right: 32px;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        .lightbox-close:hover {
+            background: #FF9933;
+            border-color: #FF9933;
+            transform: rotate(90deg);
+        }
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: white;
+            font-size: 22px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        .lightbox-nav:hover {
+            background: #FF9933;
+            border-color: #FF9933;
+        }
+        .lightbox-prev { left: 24px; }
+        .lightbox-next { right: 24px; }
+
+        /* Gallery card hover cursor */
+        .gallery-item { cursor: pointer; }
+        .gallery-item:hover .gallery-zoom-icon {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .gallery-zoom-icon {
+            opacity: 0;
+            transform: scale(0.6);
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="text-gray-800 font-body bg-[#FAFAFA] min-h-screen">
+
+    
+    <div id="header-placeholder"></div>
+    <!-- Sidebar Mobile Menu -->
+    
+    <div class="fixed top-0 left-[-300px] bottom-0 w-[300px] bg-white z-[70] transition-all duration-500 shadow-2xl p-8 flex flex-col overflow-y-auto" id="mobile-sidebar">
+        <button class="self-end text-3xl mb-8" id="close-sidebar-btn">×</button>
+        <nav class="flex flex-col gap-4 font-bold text-lg uppercase">
+            <a href="index.html" class="text-primary border-b py-2">Home</a>
+            <div class="border-b py-2 flex flex-col">
+                <button class="flex justify-between items-center w-full uppercase">About <span>+</span></button>
+                <div class="hidden flex-col pl-4 text-base lowercase font-normal gap-2 mt-2">
+                    <a href="about.html">About Us</a>
+                    <a href="facilities.html">Facilities</a>
+                    <a href="eligibility-criteria.html">Eligibility</a>
+                </div>
+            </div>
+            <a href="facilities.html" class="border-b py-2">Facilities</a>
+            <a href="gallery.html" class="border-b py-2">Gallery</a>
+            <a href="contact.html" class="border-b py-2">Contact</a>
+                        <div id="mobile-auth-links" class="flex flex-col gap-3 mt-6">
+                <a href="login.html" class="text-center py-4 bg-navy text-white rounded-xl text-sm tracking-widest font-bold uppercase shadow-xl hover:bg-primary transition-all duration-300 flex items-center justify-center gap-2">
+                    <span>Account Login</span> 🔒
+                </a>
+                <p class="text-[10px] text-gray-400 text-center uppercase tracking-widest font-bold mt-2">New student? <a href="register.html" class="text-primary underline">Join academy now</a></p>
+            </div>
+            <a href="admission.html" class="mt-8 bg-secondary text-white text-center py-4 rounded-xl text-sm tracking-widest">Enquiry Now</a>
+        </nav>
+    </div>
+
+    <main>
+       
+
+        <!-- Gallery Hero Header -->
+        <section class="bg-white py-14 text-center border-b border-gray-100">
+            <span class="inline-block text-xs font-bold uppercase tracking-[0.2em] text-primary mb-3" style="font-family:'Space Grotesk',sans-serif;">📷 Campus & Training</span>
+            <h1 class="text-xl md:text-2xl font-bold font-heading uppercase mb-2 text-dark">Our <span class="text-primary">Gallery</span></h1>
+            <div class="h-1 w-20 mx-auto rounded-full mt-4" style="background: linear-gradient(90deg, #FF9933 33%, #FFFFFF 33%, #FFFFFF 66%, #138808 66%);"></div>
+            <p class="text-sm text-gray-500 max-w-xl mx-auto mt-4 uppercase tracking-widest font-semibold">Witness the transformation of our champions in action. 🇮🇳</p>
+        </section>
+
+        <!-- Gallery Masonry Grid with AI Images -->
+        <section class="py-12 bg-gray-50">
+            <div class="container mx-auto px-4 columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
+                
+                <!-- 1. Ground Practice -->
+                <div class="gallery-item gallery-img rounded-xl shadow-xl border border-gray-200 overflow-hidden relative group reveal aspect-square md:aspect-[4/3] bg-dark" onclick="openLightbox(0)">
+                    <img src="assets/images/gallery-ground-practice.png" alt="Ground Practice" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 group-hover:opacity-80">
+                    <div class="absolute inset-x-0 bottom-0 top-1/2 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="gallery-zoom-icon w-14 h-14 rounded-full bg-primary/80 backdrop-blur-sm flex items-center justify-center text-white text-2xl shadow-lg">🔍</div>
+                    </div>
+                    <div class="absolute inset-x-0 bottom-0 p-6 z-10 transition-transform duration-300 transform translate-y-2 group-hover:translate-y-0">
+                        <p class="font-bold text-base uppercase text-white tracking-widest drop-shadow-lg">Ground Practice</p>
+                        <span class="text-[10px] text-primary font-bold uppercase tracking-widest mt-1 block opacity-0 group-hover:opacity-100 transition-opacity">Click to enlarge →</span>
+                    </div>
+                </div>
+
+                <!-- 2. Successful Selection -->
+                <div class="gallery-item gallery-img rounded-xl shadow-xl border border-gray-200 overflow-hidden relative group reveal aspect-square md:aspect-[4/3] bg-dark" onclick="openLightbox(1)">
+                    <img src="assets/images/gallery-successful-selection.png" alt="Successful Selection" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 group-hover:opacity-80">
+                    <div class="absolute inset-x-0 bottom-0 top-1/2 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="gallery-zoom-icon w-14 h-14 rounded-full bg-primary/80 backdrop-blur-sm flex items-center justify-center text-white text-2xl shadow-lg">🔍</div>
+                    </div>
+                    <div class="absolute inset-x-0 bottom-0 p-6 z-10 transition-transform duration-300 transform translate-y-2 group-hover:translate-y-0">
+                        <p class="font-bold text-base uppercase text-white tracking-widest drop-shadow-lg">Successful Selection</p>
+                        <span class="text-[10px] text-primary font-bold uppercase tracking-widest mt-1 block opacity-0 group-hover:opacity-100 transition-opacity">Click to enlarge →</span>
+                    </div>
+                </div>
+
+                <!-- 3. Fitness Drill -->
+                <div class="gallery-item gallery-img rounded-xl shadow-xl border border-gray-200 overflow-hidden relative group reveal aspect-square md:aspect-[4/3] bg-dark" onclick="openLightbox(2)">
+                    <img src="assets/images/gallery-fitness-drill.png" alt="Fitness Drill" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 group-hover:opacity-80">
+                    <div class="absolute inset-x-0 bottom-0 top-1/2 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="gallery-zoom-icon w-14 h-14 rounded-full bg-primary/80 backdrop-blur-sm flex items-center justify-center text-white text-2xl shadow-lg">🔍</div>
+                    </div>
+                    <div class="absolute inset-x-0 bottom-0 p-6 z-10 transition-transform duration-300 transform translate-y-2 group-hover:translate-y-0">
+                        <p class="font-bold text-base uppercase text-white tracking-widest drop-shadow-lg">Fitness Drill</p>
+                        <span class="text-[10px] text-primary font-bold uppercase tracking-widest mt-1 block opacity-0 group-hover:opacity-100 transition-opacity">Click to enlarge →</span>
+                    </div>
+                </div>
+
+                <!-- 4. Academy Infrastructure -->
+                <div class="gallery-item gallery-img rounded-xl shadow-xl border border-gray-200 overflow-hidden relative group reveal aspect-video bg-dark" onclick="openLightbox(3)">
+                    <img src="assets/images/gallery-academy-infra.png" alt="Academy Infrastructure" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 group-hover:opacity-80">
+                    <div class="absolute inset-x-0 bottom-0 top-1/2 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="gallery-zoom-icon w-14 h-14 rounded-full bg-primary/80 backdrop-blur-sm flex items-center justify-center text-white text-2xl shadow-lg">🔍</div>
+                    </div>
+                    <div class="absolute inset-x-0 bottom-0 p-6 z-10 transition-transform duration-300 transform translate-y-2 group-hover:translate-y-0">
+                        <p class="font-bold text-base uppercase text-white tracking-widest drop-shadow-lg">Academy Infrastructure</p>
+                        <span class="text-[10px] text-primary font-bold uppercase tracking-widest mt-1 block opacity-0 group-hover:opacity-100 transition-opacity">Click to enlarge →</span>
+                    </div>
+                </div>
+
+                <!-- 5. Hostel Life -->
+                <div class="gallery-item gallery-img rounded-xl shadow-xl border border-gray-200 overflow-hidden relative group reveal aspect-video bg-dark" onclick="openLightbox(4)">
+                    <img src="assets/images/gallery-hostel-life.png" alt="Hostel Life" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 group-hover:opacity-80">
+                    <div class="absolute inset-x-0 bottom-0 top-1/2 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="gallery-zoom-icon w-14 h-14 rounded-full bg-primary/80 backdrop-blur-sm flex items-center justify-center text-white text-2xl shadow-lg">🔍</div>
+                    </div>
+                    <div class="absolute inset-x-0 bottom-0 p-6 z-10 transition-transform duration-300 transform translate-y-2 group-hover:translate-y-0">
+                        <p class="font-bold text-base uppercase text-white tracking-widest drop-shadow-lg">Hostel Life</p>
+                        <span class="text-[10px] text-primary font-bold uppercase tracking-widest mt-1 block opacity-0 group-hover:opacity-100 transition-opacity">Click to enlarge →</span>
+                    </div>
+                </div>
+
+                <!-- 6. Awards Ceremony -->
+                <div class="gallery-item gallery-img rounded-xl shadow-xl border border-gray-200 overflow-hidden relative group reveal aspect-video bg-dark" onclick="openLightbox(5)">
+                    <img src="assets/images/gallery-awards-ceremony.png" alt="Awards Ceremony" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 group-hover:opacity-80">
+                    <div class="absolute inset-x-0 bottom-0 top-1/2 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="gallery-zoom-icon w-14 h-14 rounded-full bg-primary/80 backdrop-blur-sm flex items-center justify-center text-white text-2xl shadow-lg">🔍</div>
+                    </div>
+                    <div class="absolute inset-x-0 bottom-0 p-6 z-10 transition-transform duration-300 transform translate-y-2 group-hover:translate-y-0">
+                        <p class="font-bold text-base uppercase text-white tracking-widest drop-shadow-lg">Awards Ceremony</p>
+                        <span class="text-[10px] text-primary font-bold uppercase tracking-widest mt-1 block opacity-0 group-hover:opacity-100 transition-opacity">Click to enlarge →</span>
+                    </div>
+                </div>
+
+                <!-- 7. Academic Batch -->
+                <div class="gallery-item gallery-img rounded-xl shadow-xl border border-gray-200 overflow-hidden relative group reveal aspect-video bg-dark" onclick="openLightbox(6)">
+                    <img src="assets/images/gallery-academic-batch.png" alt="Academic Batch" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 group-hover:opacity-80">
+                    <div class="absolute inset-x-0 bottom-0 top-1/2 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="gallery-zoom-icon w-14 h-14 rounded-full bg-primary/80 backdrop-blur-sm flex items-center justify-center text-white text-2xl shadow-lg">🔍</div>
+                    </div>
+                    <div class="absolute inset-x-0 bottom-0 p-6 z-10 transition-transform duration-300 transform translate-y-2 group-hover:translate-y-0">
+                        <p class="font-bold text-base uppercase text-white tracking-widest drop-shadow-lg">Academic Batch</p>
+                        <span class="text-[10px] text-primary font-bold uppercase tracking-widest mt-1 block opacity-0 group-hover:opacity-100 transition-opacity">Click to enlarge →</span>
+                    </div>
+                </div>
+
+                <!-- 8. Motivational Seminar -->
+                <div class="gallery-item gallery-img rounded-xl shadow-xl border border-gray-200 overflow-hidden relative group reveal aspect-video bg-dark" onclick="openLightbox(7)">
+                    <img src="assets/images/gallery-motivational-seminar.png" alt="Motivational Seminar" class="w-full h-full object-cover transition duration-700 group-hover:scale-110 group-hover:opacity-80">
+                    <div class="absolute inset-x-0 bottom-0 top-1/2 bg-gradient-to-t from-black/90 via-black/50 to-transparent"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="gallery-zoom-icon w-14 h-14 rounded-full bg-primary/80 backdrop-blur-sm flex items-center justify-center text-white text-2xl shadow-lg">🔍</div>
+                    </div>
+                    <div class="absolute inset-x-0 bottom-0 p-6 z-10 transition-transform duration-300 transform translate-y-2 group-hover:translate-y-0">
+                        <p class="font-bold text-base uppercase text-white tracking-widest drop-shadow-lg">Motivational Seminar</p>
+                        <span class="text-[10px] text-primary font-bold uppercase tracking-widest mt-1 block opacity-0 group-hover:opacity-100 transition-opacity">Click to enlarge →</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox-overlay" id="galleryLightbox">
+        <button class="lightbox-close" onclick="closeLightbox()" aria-label="Close">✕</button>
+        <button class="lightbox-nav lightbox-prev" onclick="navigateLightbox(-1)" aria-label="Previous">❮</button>
+        <button class="lightbox-nav lightbox-next" onclick="navigateLightbox(1)" aria-label="Next">❯</button>
+        <img class="lightbox-img" id="lightboxImg" src="" alt="Gallery Image">
+        <div class="lightbox-caption" id="lightboxCaption"></div>
+    </div>
+
+    
+    
+
+    <div id="footer-placeholder"></div>
+    
+
+    <script src="components.js"></script>
+    <script src="script.js"></script>
+
+    <!-- Gallery Lightbox Script -->
+    <script>
+        const galleryImages = [
+            { src: 'assets/images/gallery-ground-practice.png', caption: 'Ground Practice' },
+            { src: 'assets/images/gallery-successful-selection.png', caption: 'Successful Selection' },
+            { src: 'assets/images/gallery-fitness-drill.png', caption: 'Fitness Drill' },
+            { src: 'assets/images/gallery-academy-infra.png', caption: 'Academy Infrastructure' },
+            { src: 'assets/images/gallery-hostel-life.png', caption: 'Hostel Life' },
+            { src: 'assets/images/gallery-awards-ceremony.png', caption: 'Awards Ceremony' },
+            { src: 'assets/images/gallery-academic-batch.png', caption: 'Academic Batch' },
+            { src: 'assets/images/gallery-motivational-seminar.png', caption: 'Motivational Seminar' },
+        ];
+
+        let currentIndex = 0;
+
+        function openLightbox(index) {
+            currentIndex = index;
+            const overlay = document.getElementById('galleryLightbox');
+            const img = document.getElementById('lightboxImg');
+            const caption = document.getElementById('lightboxCaption');
+            
+            img.src = galleryImages[index].src;
+            caption.textContent = galleryImages[index].caption;
+            
+            overlay.style.display = 'flex';
+            requestAnimationFrame(() => {
+                overlay.classList.add('active');
+            });
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            const overlay = document.getElementById('galleryLightbox');
+            overlay.classList.remove('active');
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 400);
+            document.body.style.overflow = '';
+        }
+
+        function navigateLightbox(direction) {
+            currentIndex = (currentIndex + direction + galleryImages.length) % galleryImages.length;
+            const img = document.getElementById('lightboxImg');
+            const caption = document.getElementById('lightboxCaption');
+            
+            img.style.opacity = '0';
+            img.style.transform = 'scale(0.9)';
+            
+            setTimeout(() => {
+                img.src = galleryImages[currentIndex].src;
+                caption.textContent = galleryImages[currentIndex].caption;
+                img.style.opacity = '1';
+                img.style.transform = 'scale(1)';
+            }, 200);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const overlay = document.getElementById('galleryLightbox');
+            if (!overlay.classList.contains('active')) return;
+            
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') navigateLightbox(-1);
+            if (e.key === 'ArrowRight') navigateLightbox(1);
+        });
+
+        // Click outside image to close
+        document.getElementById('galleryLightbox').addEventListener('click', (e) => {
+            if (e.target.id === 'galleryLightbox') closeLightbox();
+        });
+    </script>
+</body>
+</html>

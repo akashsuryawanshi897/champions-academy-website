@@ -369,7 +369,7 @@
                     </div>
                 </div>
 
-                <a href="admission.html" class="btn-glow bg-primary text-white px-5 md:px-8 py-2 md:py-3 rounded-xl font-bold uppercase text-[10px] md:text-xs tracking-widest hover:bg-navy transition-all duration-300 shadow-lg shadow-primary/20 transform hover:-translate-y-1 hidden sm:block">
+                <a id="apply-btn" href="admission.html" class="btn-glow bg-primary text-white px-5 md:px-8 py-2 md:py-3 rounded-xl font-bold uppercase text-[10px] md:text-xs tracking-widest hover:bg-navy transition-all duration-300 shadow-lg shadow-primary/20 transform hover:-translate-y-1 hidden sm:block">
                     Apply Now
                 </a>
                 <button class="xl:hidden text-2xl p-2 h-12 w-12 flex items-center justify-center hover:bg-gray-50 rounded-xl transition-all" id="mobile-menu-btn">☰</button>
@@ -427,7 +427,7 @@
                 </a>
                 <p class="text-[10px] text-gray-400 text-center uppercase tracking-widest font-bold mt-2">New student? <a href="register.html" class="text-primary underline">Join academy now</a></p>
             </div>
-            <a href="admission.html" class="mt-6 bg-secondary text-white text-center py-4 rounded-sm text-sm tracking-widest hover:bg-dark transition uppercase font-bold">Apply Now</a>
+            <a id="mobile-apply-btn" href="admission.html" class="mt-6 bg-secondary text-white text-center py-4 rounded-sm text-sm tracking-widest hover:bg-dark transition uppercase font-bold">Apply Now</a>
         </nav>
     </div>
 
@@ -1058,32 +1058,6 @@
         </div>
     </footer>
 
-        <!-- Auth Check Script -->
-        <script>
-            document.addEventListener('DOMContentLoaded', async () => {
-                try {
-                    const res = await fetch('/api/auth/profile');
-                    const authLinks = document.getElementById('auth-links');
-                    const userInfo = document.getElementById('user-info');
-                    const mobileAuthLinks = document.getElementById('mobile-auth-links');
-
-                    if (res.ok) {
-                        const user = await res.json();
-                        authLinks.classList.add('hidden');
-                        authLinks.classList.remove('sm:flex');
-                        userInfo.classList.remove('hidden');
-                        userInfo.classList.add('flex');
-                        
-                        // Update mobile auth links to show dashboard
-                        mobileAuthLinks.innerHTML = `
-                            <a href="dashboard.html" class="text-center py-3 bg-navy text-white rounded-sm text-sm tracking-widest font-bold uppercase">Go to Dashboard</a>
-                        `;
-                    }
-                } catch (err) {
-                    console.log('User not logged in');
-                }
-            });
-        </script>
 
         <script src="script.js"></script>
 
@@ -1193,10 +1167,63 @@
     <!-- Scroll to top -->
     <button id="scroll-top" class="fixed bottom-8 right-8 w-12 h-12 bg-secondary text-white rounded-full hidden items-center justify-center shadow-2xl hover:-translate-y-2 transition duration-300 z-50">↑</button>
 
-
+    <script src="mock-auth.js"></script>
     <script>
-    // ===== INTERSECTION OBSERVER FOR SCROLL ANIMATIONS =====
     document.addEventListener('DOMContentLoaded', () => {
+        // ===== AUTH STATE CHECK (MOCK) =====
+        const user = MockAuth.getCurrentUser();
+        const authLinks = document.getElementById('auth-links');
+        const userInfo = document.getElementById('user-info');
+        const mobileAuthLinks = document.getElementById('mobile-auth-links');
+
+        if (user) {
+            if (authLinks && userInfo) {
+                authLinks.classList.add('hidden');
+                userInfo.classList.remove('hidden');
+                userInfo.classList.add('flex');
+                userInfo.querySelector('a').href = user.role === 'admin' ? 'admin.html' : 'dashboard.html';
+                userInfo.querySelector('a').innerHTML = `<span class="auth-icon text-primary">${user.role === 'admin' ? '🛡️' : '👤'}</span> ${user.role === 'admin' ? 'Admin Panel' : 'My Dashboard'}`;
+                
+                // Hide Apply Now when logged in to prevent "double" prominent buttons
+                const applyBtn = document.getElementById('apply-btn');
+                if (applyBtn) applyBtn.classList.add('hidden');
+            }
+            
+            if (mobileAuthLinks) {
+                mobileAuthLinks.innerHTML = `
+                    <a href="${user.role === 'admin' ? 'admin.html' : 'dashboard.html'}" class="text-center py-4 bg-navy text-white rounded-xl text-sm tracking-widest font-bold uppercase shadow-xl hover:bg-primary transition-all duration-300 flex items-center justify-center gap-2">
+                        <span>${user.role === 'admin' ? '🛡️ Admin Panel' : '👤 My Dashboard'}</span>
+                    </a>
+                    <button onclick="MockAuth.logout(); window.location.reload();" class="text-[10px] text-red-500 text-center uppercase tracking-widest font-bold mt-2">Logout 🚪</button>
+                `;
+                // Hide mobile apply now when logged in
+                const mobileApplyBtn = document.getElementById('mobile-apply-btn');
+                if (mobileApplyBtn) mobileApplyBtn.classList.add('hidden');
+            }
+        }
+
+        // ===== MOBILE MENU LOGIC =====
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const closeSidebarBtn = document.getElementById('close-sidebar-btn');
+        const mobileSidebar = document.getElementById('mobile-sidebar');
+        const mobileOverlay = document.getElementById('mobile-overlay');
+
+        if (mobileMenuBtn && mobileSidebar && mobileOverlay) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileSidebar.style.left = '0';
+                mobileOverlay.classList.remove('hidden');
+            });
+
+            const closeSidebar = () => {
+                mobileSidebar.style.left = '-300px';
+                mobileOverlay.classList.add('hidden');
+            };
+
+            closeSidebarBtn.addEventListener('click', closeSidebar);
+            mobileOverlay.addEventListener('click', closeSidebar);
+        }
+
+        // ===== REVEAL ON SCROLL =====
         const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .stagger-children');
         
         const revealObserver = new IntersectionObserver((entries) => {
@@ -1248,6 +1275,3 @@
     </script>
 </body>
 </html>
-
-
-

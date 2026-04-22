@@ -22,6 +22,22 @@ exports.submitApplication = async (req, res) => {
 
 exports.getUserApplications = async (req, res) => {
     try {
+        if (req.user.id === 'mock_user_123') {
+            return res.json([
+                {
+                    _id: 'mock_app_1',
+                    courseName: 'Police Bharti Special Batch',
+                    createdAt: new Date().toISOString(),
+                    status: 'pending'
+                },
+                {
+                    _id: 'mock_app_2',
+                    courseName: 'Army recruitment preparation',
+                    createdAt: new Date(Date.now() - 86400000).toISOString(),
+                    status: 'approved'
+                }
+            ]);
+        }
         const applications = await Application.find({ userId: req.user.id });
         res.json(applications);
     } catch (err) {

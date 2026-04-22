@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login | THE CHAMPIONS ACADEMY</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&swap=swap" rel="stylesheet">
+    <meta name="description" content="Login to your Champions Academy student account to track applications and training progress.">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -24,65 +25,125 @@
             }
         }
     </script>
-    
-    <link href="index.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 0 !important;
+            background: linear-gradient(135deg, #1A1A2E 0%, #000080 50%, #1A1A2E 100%);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .btn-glow:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px -8px rgba(255, 153, 51, 0.5);
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-in { animation: fadeInUp 0.6s ease forwards; }
+    </style>
 </head>
-<body class="min-h-screen flex items-center justify-center p-4">
-    <div class="max-w-md w-full glass rounded-3xl shadow-2xl overflow-hidden">
-        <div class="bg-navy p-8 text-center">
-            <a href="index.html"><img src="assets/images/logo.png" alt="Logo" class="h-12 mx-auto mb-4"></a>
-            <h1 class="text-2xl font-heading font-bold text-white uppercase tracking-wider">Login</h1>
-            <p class="text-blue-200 text-sm mt-2">Welcome back to the academy</p>
+<body class="p-4">
+    <div class="max-w-md w-full animate-in">
+        <!-- Logo & Header -->
+        <div class="text-center mb-8">
+            <a href="index.html"><img src="assets/images/logo.png" alt="The Champions Academy" class="h-14 mx-auto mb-4 drop-shadow-2xl"></a>
+            <p class="text-blue-200 text-[10px] uppercase tracking-[0.3em] font-bold">The Champions Academy</p>
         </div>
-        <form id="loginForm" class="p-8 space-y-5">
-            <div>
-                <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Email Address</label>
-                <input type="email" id="email" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition" placeholder="john@example.com">
+
+        <!-- Login Card -->
+        <div class="glass-card rounded-3xl shadow-2xl overflow-hidden">
+            <div class="bg-gradient-to-r from-navy to-dark p-8 text-center">
+                <h1 class="text-2xl font-heading font-bold text-white uppercase tracking-wider">Welcome Back</h1>
+                <p class="text-blue-200 text-sm mt-2">Login to your student dashboard</p>
             </div>
-            <div>
-                <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Password</label>
-                <input type="password" id="password" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition" placeholder="••••••••">
+
+            <!-- Status Message -->
+            <div id="loginMessage" class="hidden mx-6 mt-6 p-4 rounded-xl text-center text-xs font-bold uppercase tracking-widest"></div>
+
+            <form id="loginForm" class="p-8 space-y-5">
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Email Address</label>
+                    <input type="email" id="email" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition bg-gray-50" placeholder="john@example.com">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Password</label>
+                    <input type="password" id="password" required class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary focus:border-transparent outline-none transition bg-gray-50" placeholder="••••••••">
+                </div>
+                <button type="submit" id="loginBtn" class="w-full bg-primary text-white py-4 rounded-xl font-bold uppercase tracking-widest text-sm btn-glow transition-all duration-300 mt-4 hover:bg-navy">Login Now</button>
+                <p class="text-center text-sm text-gray-500 mt-6">Don't have an account? <a href="register.html" class="text-primary font-bold hover:underline">Register Here</a></p>
+            </form>
+
+            <!-- Quick Login Info Box -->
+            <div class="mx-8 mb-8 p-4 bg-blue-50 rounded-2xl border border-blue-100">
+                <p class="text-[10px] font-bold text-navy uppercase tracking-widest mb-2">🔑 Test Accounts</p>
+                <div class="space-y-1 text-[11px] text-gray-600">
+                    <p><strong>Student:</strong> test@example.com / password123</p>
+                    <p><strong>Admin:</strong> admin@example.com / adminpassword</p>
+                </div>
             </div>
-            <button type="submit" class="w-full bg-primary text-white py-4 rounded-xl font-bold uppercase tracking-widest text-sm btn-glow transition-all duration-300 mt-4">Login Now</button>
-            <p class="text-center text-sm text-gray-500 mt-6">Don't have an account? <a href="register.html" class="text-primary font-bold hover:underline">Register Here</a></p>
-        </form>
+        </div>
+
+        <!-- Back Link -->
+        <div class="text-center mt-6">
+            <a href="index.html" class="text-blue-300 text-xs uppercase tracking-widest font-bold hover:text-primary transition">← Back to Home</a>
+        </div>
     </div>
 
+    <script src="mock-auth.js"></script>
     <script>
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-
-            try {
-                const res = await fetch('/api/auth/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password })
-                });
-                const data = await res.json();
-                if (res.ok) {
-                    alert('Login successful!');
-                    window.location.href = 'dashboard.html';
-                } else {
-                    if (res.status === 503) {
-                        alert('⚠️ DATABASE OFFLINE: ' + data.message);
-                    } else {
-                        alert(data.message);
-                    }
-                }
-            } catch (err) {
-                console.error(err);
-                alert('Fatal Error: Authentication server unreachable.');
+        // Check if already logged in
+        (function() {
+            const user = MockAuth.getCurrentUser();
+            if (user) {
+                window.location.href = user.role === 'admin' ? 'admin.html' : 'dashboard.html';
+                return;
             }
+        })();
+
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const msgBox = document.getElementById('loginMessage');
+            const btn = document.getElementById('loginBtn');
+
+            btn.disabled = true;
+            btn.textContent = 'Logging in...';
+
+            // Small delay to simulate server call
+            setTimeout(function() {
+                const result = MockAuth.login(email, password);
+
+                if (result.success) {
+                    msgBox.className = 'mx-6 mt-6 p-4 rounded-xl text-center text-xs font-bold uppercase tracking-widest bg-green-100 text-green-700';
+                    msgBox.textContent = '✅ Login successful! Redirecting...';
+                    msgBox.classList.remove('hidden');
+
+                    setTimeout(function() {
+                        if (result.user.role === 'admin') {
+                            window.location.href = 'admin.html';
+                        } else {
+                            window.location.href = 'dashboard.html';
+                        }
+                    }, 1000);
+                } else {
+                    msgBox.className = 'mx-6 mt-6 p-4 rounded-xl text-center text-xs font-bold uppercase tracking-widest bg-red-100 text-red-700';
+                    msgBox.textContent = '❌ ' + (result.message || 'Invalid email or password');
+                    msgBox.classList.remove('hidden');
+                    btn.disabled = false;
+                    btn.textContent = 'Login Now';
+                }
+            }, 500);
         });
     </script>
-    <script src="components.js"></script>
-    <script src="script.js"></script>
 </body>
 </html>
-
-
-
-
-

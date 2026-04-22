@@ -169,29 +169,48 @@ document.addEventListener('DOMContentLoaded', () => {
     
     counters.forEach(c => counterObserver.observe(c));
 
-    // 7. Auth Check & Header Animation
-    const checkAuthStatus = async () => {
-        try {
-            const res = await fetch('/api/auth/profile');
-            const authLinks = document.getElementById('auth-links');
-            const userInfo = document.getElementById('user-info');
-            const mobileAuthLinks = document.getElementById('mobile-auth-links');
+    // 8. Auth Check & Header Animation
+    const checkAuthStatus = () => {
+        if (typeof MockAuth !== 'undefined') {
+            const user = MockAuth.getCurrentUser();
+            if (user) {
+                const authLinks = document.getElementById('auth-links');
+                const userInfo = document.getElementById('user-info');
+                const mobileAuthLinks = document.getElementById('mobile-auth-links');
+                const applyBtn = document.getElementById('apply-btn');
 
-            if (res.ok) {
-                const user = await res.json();
                 if(authLinks) authLinks.classList.add('hidden');
-                if(userInfo) userInfo.classList.remove('hidden');
-                if(userInfo) userInfo.classList.add('flex');
+                if(userInfo) {
+                    userInfo.classList.remove('hidden');
+                    userInfo.classList.add('flex');
+                }
+                if(applyBtn) applyBtn.classList.add('hidden');
                 
                 if (mobileAuthLinks) {
                     mobileAuthLinks.innerHTML = `
-                        <a href="dashboard.html" class="text-center py-4 bg-navy text-white rounded-xl text-sm tracking-widest font-bold uppercase shadow-xl hover:bg-primary transition-all duration-300">Go to Dashboard</a>
+                        <a href="${user.role === 'admin' ? 'admin.html' : 'dashboard.html'}" class="text-center py-4 bg-navy text-white rounded-xl text-sm tracking-widest font-bold uppercase shadow-xl hover:bg-primary transition-all duration-300">Go to Dashboard</a>
                     `;
+                    const mobileApplyBtn = document.getElementById('mobile-apply-btn');
+                    if (mobileApplyBtn) mobileApplyBtn.classList.add('hidden');
                 }
             }
-        } catch (err) {
-            console.log('User not logged in');
+            return;
         }
+
+        // Fallback for real API if needed
+        fetch(`${window.API_BASE || ''}/api/auth/profile`)
+            .then(res => res.ok ? res.json() : null)
+            .then(user => {
+                if (user) {
+                    const authLinks = document.getElementById('auth-links');
+                    const userInfo = document.getElementById('user-info');
+                    if(authLinks) authLinks.classList.add('hidden');
+                    if(userInfo) {
+                        userInfo.classList.remove('hidden');
+                        userInfo.classList.add('flex');
+                    }
+                }
+            }).catch(() => {});
     };
     checkAuthStatus();
     // 8. Callback Form Handler
@@ -205,7 +224,7 @@ document.addEventListener('DOMContentLoaded', () => {
             btn.textContent = 'Sending...';
             
             try {
-                const res = await fetch('/api/contact/callback', {
+                const res = await fetch(`${window.API_BASE || ''}/api/contact/callback`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({

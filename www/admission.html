@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admission Form | THE CHAMPIONS ACADEMY</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Apply for admission at THE CHAMPIONS ACADEMY. Start your career in Police and Defense services today with our expert coaching programs.">
+    
+    <!-- Google Fonts & Tailwind -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF9933',
+                        secondary: '#138808',
+                        navy: '#000080',
+                        dark: '#1A1A2E',
+                        slate: '#0F172A',
+                        'off-white': '#FAFAFA',
+                    },
+                    fontFamily: {
+                        heading: ['Outfit', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                        mono: ['Space Grotesk', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <link href="index.css" rel="stylesheet">
+</head>
+
+<body class="text-gray-800 font-body bg-[#FAFAFA] min-h-screen">
+
+    
+    <div id="header-placeholder"></div>\n    <!-- Sidebar Mobile Menu -->
+    
+    <div class="fixed top-0 left-[-300px] bottom-0 w-[300px] bg-white z-[70] transition-all duration-500 shadow-2xl p-8 flex flex-col overflow-y-auto" id="mobile-sidebar">
+        <button class="self-end text-3xl mb-8" id="close-sidebar-btn">×</button>
+        <nav class="flex flex-col gap-4 font-bold text-lg uppercase">
+            <a href="index.html" class="text-primary border-b py-2">Home</a>
+            <div class="border-b py-2 flex flex-col">
+                <button class="flex justify-between items-center w-full uppercase">About <span>+</span></button>
+                <div class="hidden flex-col pl-4 text-base lowercase font-normal gap-2 mt-2">
+                    <a href="about.html">About Us</a>
+                    <a href="facilities.html">Facilities</a>
+                    <a href="eligibility-criteria.html">Eligibility</a>
+                </div>
+            </div>
+            <a href="facilities.html" class="border-b py-2">Facilities</a>
+            <a href="gallery.html" class="border-b py-2">Gallery</a>
+            <a href="contact.html" class="border-b py-2">Contact</a>
+                        <div id="mobile-auth-links" class="flex flex-col gap-3 mt-6">
+                <a href="login.html" class="text-center py-4 bg-navy text-white rounded-xl text-sm tracking-widest font-bold uppercase shadow-xl hover:bg-primary transition-all duration-300 flex items-center justify-center gap-2">
+                    <span>Account Login</span> 🔒
+                </a>
+                <p class="text-[10px] text-gray-400 text-center uppercase tracking-widest font-bold mt-2">New student? <a href="register.html" class="text-primary underline">Join academy now</a></p>
+            </div>
+            <a href="admission.html" class="mt-8 bg-secondary text-white text-center py-4 rounded-xl text-sm tracking-widest">Enquiry Now</a>
+        </nav>
+    </div>
+
+    <main>
+        <section class="py-12 bg-dark text-white text-center">
+            <h1 class="text-3xl font-bold font-heading uppercase mb-2">Student Admission Form</h1>
+            <p class="text-gray-400">Please fill in the details below to register your interest.</p>
+        </section>
+
+        <section class="py-16 -mt-8 relative z-10">
+            <div class="container mx-auto px-4 max-w-4xl bg-white rounded-3xl shadow-2xl p-8 md:p-16">
+                
+                <form id="admissionForm">
+                    <!-- Personal Info -->
+                    <div class="form-section">
+                        <h3 class="text-lg font-bold uppercase tracking-widest text-dark mb-6">Personal Details</h3>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="flex flex-col gap-2">
+                                <label class="text-xs font-bold text-gray-500 uppercase">Student's Full Name</label>
+                                <input type="text" id="fullName" placeholder="Johnathan Doe" class="p-4 bg-gray-50 border-b-2 border-gray-200 focus:border-primary outline-none transition" required>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label class="text-xs font-bold text-gray-500 uppercase">Father's Name</label>
+                                <input type="text" id="fatherName" placeholder="Robert Doe" class="p-4 bg-gray-50 border-b-2 border-gray-200 focus:border-primary outline-none transition" required>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label class="text-xs font-bold text-gray-500 uppercase">Date of Birth</label>
+                                <input type="date" id="dob" class="p-4 bg-gray-50 border-b-2 border-gray-200 focus:border-primary outline-none transition" required>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label class="text-xs font-bold text-gray-500 uppercase">Gender</label>
+                                <select id="gender" class="p-4 bg-gray-50 border-b-2 border-gray-200 focus:border-primary outline-none transition">
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Details -->
+                    <div class="form-section mt-12">
+                        <h3 class="text-lg font-bold uppercase tracking-widest text-dark mb-6">Contact & Course Details</h3>
+                        <div class="grid md:grid-cols-2 gap-8">
+                            <div class="flex flex-col gap-2">
+                                <label class="text-xs font-bold text-gray-500 uppercase">Mobile Number</label>
+                                <input type="tel" id="mobile" placeholder="+91 90000 00000" class="p-4 bg-gray-50 border-b-2 border-gray-200 focus:border-primary outline-none transition" required>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label class="text-xs font-bold text-gray-500 uppercase">Email Address</label>
+                                <input type="email" id="email" placeholder="john@example.com" class="p-4 bg-gray-50 border-b-2 border-gray-200 focus:border-primary outline-none transition" required>
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label class="text-xs font-bold text-gray-500 uppercase">Educational Qualification</label>
+                                <input type="text" id="education" placeholder="12th / Graduate" class="p-4 bg-gray-50 border-b-2 border-gray-200 focus:border-primary outline-none transition">
+                            </div>
+                            <div class="flex flex-col gap-2">
+                                <label class="text-xs font-bold text-gray-500 uppercase">Select Course Applied For</label>
+                                <select id="course" class="p-4 bg-gray-50 border-b-2 border-gray-200 focus:border-primary outline-none transition">
+                                    <option value="PSI">PSI Batch</option>
+                                    <option value="STI">STI Batch</option>
+                                    <option value="Defense">Defense (SSC Recruitment)</option>
+                                    <option value="Gramsevak">Gramsevak/Talathi Training</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Permanent Address -->
+                    <div class="form-section mt-12">
+                        <h3 class="text-lg font-bold uppercase tracking-widest text-dark mb-6">Permanent address</h3>
+                        <div class="flex flex-col gap-4">
+                            <textarea id="address" placeholder="House No, Street, City, State, Pincode" class="p-4 bg-gray-50 border-b-2 border-gray-200 focus:border-primary outline-none transition h-24" required></textarea>
+                            <label class="flex items-center gap-3 text-sm text-gray-600">
+                                <input type="checkbox" id="agreement" class="w-4 h-4 accent-primary" required> I agree to the terms and conditions and affirm that the information provided is correct.
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="form-message" class="mt-6 hidden p-4 rounded-xl text-center font-bold uppercase text-xs tracking-widest"></div>
+
+                    <button type="submit" id="submitBtn" class="w-full mt-10 bg-navy text-white py-5 rounded-2xl font-bold uppercase tracking-widest text-base hover:bg-primary hover:shadow-2xl transition transform active:scale-95 shadow-xl">Submit Application Form</button>
+                    
+                </form>
+
+                <script>
+                    // Handle URL Course Parameter
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const selectedCourse = urlParams.get('course');
+                    if (selectedCourse) {
+                        const courseSelect = document.getElementById('course');
+                        if (courseSelect) courseSelect.value = selectedCourse;
+                    }
+
+                    // Form Submission Logic
+                    const admissionForm = document.getElementById('admissionForm');
+                    const formMessage = document.getElementById('form-message');
+                    const submitBtn = document.getElementById('submitBtn');
+
+                    if (admissionForm) {
+                        admissionForm.addEventListener('submit', async (e) => {
+                            e.preventDefault();
+                            
+                            submitBtn.disabled = true;
+                            submitBtn.textContent = 'Processing...';
+                            formMessage.classList.add('hidden');
+
+                            const formData = {
+                                fullName: document.getElementById('fullName').value,
+                                fatherName: document.getElementById('fatherName').value,
+                                dob: document.getElementById('dob').value,
+                                gender: document.getElementById('gender').value,
+                                mobile: document.getElementById('mobile').value,
+                                email: document.getElementById('email').value,
+                                education: document.getElementById('education').value,
+                                course: document.getElementById('course').value,
+                                address: document.getElementById('address').value
+                            };
+
+                            try {
+                                const response = await fetch('/api/applications/submit', {
+                                    method: 'POST',
+                                    headers: { 'Content-Type': 'application/json' },
+                                    body: JSON.stringify(formData)
+                                });
+
+                                const data = await response.json();
+
+                                if (response.ok) {
+                                    formMessage.textContent = 'Application Submitted Successfully! Redirecting to dashboard...';
+                                    formMessage.className = 'mt-6 p-4 rounded-xl text-center font-bold uppercase text-xs tracking-widest bg-green-100 text-green-700';
+                                    formMessage.classList.remove('hidden');
+                                    
+                                    setTimeout(() => {
+                                        window.location.href = 'dashboard.html';
+                                    }, 2000);
+                                } else {
+                                    if (response.status === 401) {
+                                        formMessage.textContent = 'Please Login first to submit an application.';
+                                        setTimeout(() => { window.location.href = 'login.html'; }, 2000);
+                                    } else {
+                                        formMessage.textContent = data.message || 'Submission failed. Please try again.';
+                                    }
+                                    formMessage.className = 'mt-6 p-4 rounded-xl text-center font-bold uppercase text-xs tracking-widest bg-red-100 text-red-700';
+                                    formMessage.classList.remove('hidden');
+                                }
+                            } catch (error) {
+                                console.error('Error:', error);
+                                formMessage.textContent = 'An error occurred. Please check your connection.';
+                                formMessage.className = 'mt-6 p-4 rounded-xl text-center font-bold uppercase text-xs tracking-widest bg-red-100 text-red-700';
+                                formMessage.classList.remove('hidden');
+                            } finally {
+                                submitBtn.disabled = false;
+                                submitBtn.textContent = 'Submit Application Form';
+                            }
+                        });
+                    }
+                </script>
+            </div>
+        </section>
+    </main>
+
+    
+    <div id="footer-placeholder"></div>
+    
+    
+
+    
+
+    <script src="components.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+
