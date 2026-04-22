@@ -974,21 +974,6 @@
         }).join('');
     }
 
-    // ===== STUDY MATERIALS =====
-    const MATERIALS = [
-        { id:1, title:'Police Bharti Physical Guide', size:'2.4 MB', type:'PDF', cat:'police', icon:'📋', color:'#eff6ff' },
-        { id:2, title:'Maharashtra Police Syllabus 2026', size:'1.1 MB', type:'PDF', cat:'police', icon:'📜', color:'#eff6ff' },
-        { id:3, title:'Police Bharti Running Tips', size:'0.8 MB', type:'PDF', cat:'police', icon:'🏃', color:'#eff6ff' },
-        { id:4, title:'Army Agniveer Full Syllabus', size:'3.2 MB', type:'PDF', cat:'army', icon:'⚔️', color:'#f0fdf4' },
-        { id:5, title:'Physical Standards - Army Recruitment', size:'1.5 MB', type:'PDF', cat:'army', icon:'💪', color:'#f0fdf4' },
-        { id:6, title:'NDA Entrance Exam Guide', size:'4.1 MB', type:'PDF', cat:'army', icon:'🎯', color:'#f0fdf4' },
-        { id:7, title:'PSI Prelim Question Bank', size:'5.3 MB', type:'PDF', cat:'psi', icon:'🏛️', color:'#faf5ff' },
-        { id:8, title:'STI Subject Notes - Marathi', size:'2.8 MB', type:'PDF', cat:'psi', icon:'📝', color:'#faf5ff' },
-        { id:9, title:'General Knowledge 2026', size:'6.2 MB', type:'PDF', cat:'general', icon:'📖', color:'#fff7ed' },
-        { id:10, title:'Current Affairs - April 2026', size:'1.9 MB', type:'PDF', cat:'general', icon:'📰', color:'#fff7ed' },
-        { id:11, title:'Marathi Grammar Notes', size:'2.1 MB', type:'PDF', cat:'general', icon:'🔡', color:'#fff7ed' },
-        { id:12, title:'Maths Shortcuts for Competitive Exams', size:'3.0 MB', type:'PDF', cat:'general', icon:'➕', color:'#fff7ed' },
-    ];
     let activeCat = 'all';
     function filterMaterials(cat, btn) {
         activeCat = cat;
@@ -996,14 +981,32 @@
         if(btn) btn.classList.add('active');
         renderMaterials();
     }
-    function renderMaterials() {
-        const list = activeCat==='all' ? MATERIALS : MATERIALS.filter(m=>m.cat===activeCat);
-        document.getElementById('matGrid').innerHTML = list.map(m => `
-            <div class="material-card" onclick="downloadMaterial(${m.id},'${m.title}')">
-                <div class="mat-icon" style="background:${m.color};">${m.icon}</div>
+
+    let activeCat = 'all';
+    let allMaterials = [];
+    function filterMaterials(cat, btn) {
+        activeCat = cat;
+        document.querySelectorAll('.mat-tab').forEach(b => b.classList.remove('active'));
+        if(btn) btn.classList.add('active');
+        renderMaterials();
+    }
+    async function renderMaterials() {
+        if (!allMaterials.length) {
+            const res = await fetch('/api/materials');
+            if (res.ok) allMaterials = await res.json();
+        }
+        const list = activeCat==='all' ? allMaterials : allMaterials.filter(m=>m.cat===activeCat);
+        const grid = document.getElementById('matGrid');
+        if (!list.length) {
+            grid.innerHTML = '<div class="empty" style="grid-column:1/-1;"><div class="e-icon">📚</div>No materials found for this category.</div>';
+            return;
+        }
+        grid.innerHTML = list.map(m => `
+            <div class="material-card" onclick="downloadMaterial('${m.id}','${m.title}')">
+                <div class="mat-icon" style="background:${m.color || '#eff6ff'};">${m.icon || '📄'}</div>
                 <div style="flex:1;min-width:0;">
                     <div style="font-weight:700;font-size:13px;color:#000080;margin-bottom:3px;">${m.title}</div>
-                    <div style="font-size:11px;color:#94a3b8;">${m.type} • ${m.size}</div>
+                    <div style="font-size:11px;color:#94a3b8;">${m.type || 'PDF'} • ${m.size || '1.0 MB'}</div>
                 </div>
                 <span style="font-size:20px;color:#94a3b8;">⬇️</span>
             </div>
@@ -1015,20 +1018,19 @@
         setTimeout(() => toast(`✅ "${title}" is ready!`, 'success'), 1800);
     }
 
-    // ===== EXAM SCHEDULE =====
-    const EXAMS = [
-        { name:'Maharashtra Police Bharti 2026', date:'2026-05-15', status:'upcoming', dept:'Maharashtra Police', seats:'8,000+', cat:'police' },
-        { name:'Army Agniveer Rally - Pune', date:'2026-05-22', status:'upcoming', dept:'Indian Army', seats:'200+', cat:'army' },
-        { name:'PSI Direct Recruitment 2026', date:'2026-06-10', status:'upcoming', dept:'MPSC', seats:'330', cat:'psi' },
-        { name:'STI Exam 2026', date:'2026-06-28', status:'upcoming', dept:'MPSC', seats:'125', cat:'psi' },
-        { name:'Talathi Bharti 2026', date:'2026-07-05', status:'upcoming', dept:'Revenue Dept.', seats:'4,000+', cat:'talathi' },
-        { name:'RPF Constable Recruitment', date:'2026-07-20', status:'upcoming', dept:'Railway', seats:'4,660', cat:'railway' },
-        { name:'SSC GD Constable 2026', date:'2026-08-12', status:'upcoming', dept:'SSC', seats:'26,146', cat:'ssc' },
-        { name:'IBPS PO 2026', date:'2026-09-06', status:'upcoming', dept:'IBPS', seats:'2,000+', cat:'bank' },
-    ];
-    function renderSchedule() {
+    let allExams = [];
+    async function renderSchedule() {
+        if (!allExams.length) {
+            const res = await fetch('/api/exams');
+            if (res.ok) allExams = await res.json();
+        }
         const now = new Date();
-        document.getElementById('scheduleList').innerHTML = EXAMS.map(ex => {
+        const list = document.getElementById('scheduleList');
+        if (!allExams.length) {
+            list.innerHTML = '<div class="empty"><div class="e-icon">🗓️</div>No exam schedules available at the moment.</div>';
+            return;
+        }
+        list.innerHTML = allExams.map(ex => {
             const d = new Date(ex.date);
             const days = Math.ceil((d - now) / 86400000);
             const label = days < 0 ? 'Past' : days === 0 ? 'Today!' : `${days} days left`;

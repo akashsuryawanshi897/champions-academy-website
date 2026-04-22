@@ -216,9 +216,14 @@
             <button class="nav-item"        id="mn-contacts"      onclick="showSection('contacts')">      <span class="ni">📩</span> Messages <span class="nav-badge" id="mMsgBadge">0</span></button>
             <button class="nav-item"        id="mn-callbacks"     onclick="showSection('callbacks')">     <span class="ni">📞</span> Callbacks</button>
             <button class="nav-item"        id="mn-announcements" onclick="showSection('announcements')"> <span class="ni">📢</span> Announcements</button>
+            <button class="nav-item"        id="mn-materials"     onclick="showSection('materials')">     <span class="ni">📚</span> Study Materials</button>
+            <button class="nav-item"        id="mn-exams"         onclick="showSection('exams')">         <span class="ni">🗓️</span> Exam Schedule</button>
             <button class="nav-item"        id="mn-gallery"       onclick="showSection('gallery')">       <span class="ni">🖼️</span> Gallery</button>
             <button class="nav-item"        id="mn-testimonials"  onclick="showSection('testimonials')">  <span class="ni">💬</span> Testimonials</button>
             <button class="nav-item"        id="mn-training"      onclick="showSection('training')">      <span class="ni">🎥</span> Training Media</button>
+            <div class="nav-cat">Resources</div>
+            <button class="nav-item"        id="mn-materials"     onclick="showSection('materials')">     <span class="ni">📚</span> Study Materials</button>
+            <button class="nav-item"        id="mn-exams"         onclick="showSection('exams')">         <span class="ni">🗓️</span> Exam Schedule</button>
             <div class="nav-div"></div>
             <button class="nav-item"        id="mn-settings"      onclick="showSection('settings')">      <span class="ni">⚙️</span> Settings</button>
             <a href="index.html" class="nav-item"><span class="ni">🌐</span> View Website</a>
@@ -248,9 +253,14 @@
                 <button class="nav-item"        id="d-callbacks"     onclick="showSection('callbacks')">     <span class="ni">📞</span> Callbacks</button>
                 <div class="nav-cat">Content</div>
                 <button class="nav-item"        id="d-announcements" onclick="showSection('announcements')"> <span class="ni">📢</span> Announcements</button>
+                <button class="nav-item"        id="d-materials"     onclick="showSection('materials')">     <span class="ni">📚</span> Study Materials</button>
+                <button class="nav-item"        id="d-exams"         onclick="showSection('exams')">         <span class="ni">🗓️</span> Exam Schedule</button>
                 <button class="nav-item"        id="d-gallery"       onclick="showSection('gallery')">       <span class="ni">🖼️</span> Gallery</button>
                 <button class="nav-item"        id="d-testimonials"  onclick="showSection('testimonials')">  <span class="ni">💬</span> Testimonials</button>
                 <button class="nav-item"        id="d-training"      onclick="showSection('training')">      <span class="ni">🎥</span> Training Media</button>
+                <div class="nav-cat">Resources</div>
+                <button class="nav-item"        id="d-materials"     onclick="showSection('materials')">     <span class="ni">📚</span> Study Materials</button>
+                <button class="nav-item"        id="d-exams"         onclick="showSection('exams')">         <span class="ni">🗓️</span> Exam Schedule</button>
                 <div class="nav-div"></div>
                 <button class="nav-item"        id="d-settings"      onclick="showSection('settings')">      <span class="ni">⚙️</span> Settings</button>
                 <a href="index.html" class="nav-item"><span class="ni">🌐</span> View Website</a>
@@ -462,6 +472,44 @@
                         <button class="btn-primary" onclick="openModal('annModal')">+ New Announcement</button>
                     </div>
                     <div id="annList"></div>
+                </section>
+
+                <!-- ========== STUDY MATERIALS ========== -->
+                <section id="s-materials" class="section">
+                    <div class="sec-head">
+                        <div>
+                            <div class="sec-title">📚 Study Materials</div>
+                            <div class="sec-sub">Manage downloadable resources for students</div>
+                        </div>
+                        <button class="btn-primary" onclick="openModal('matModal')">+ Add Material</button>
+                    </div>
+                    <div class="card">
+                        <div class="table-wrap">
+                            <table class="data-table">
+                                <thead><tr><th>Title</th><th>Category</th><th>Size</th><th>Type</th><th>Actions</th></tr></thead>
+                                <tbody id="matsTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========== EXAM SCHEDULE ========== -->
+                <section id="s-exams" class="section">
+                    <div class="sec-head">
+                        <div>
+                            <div class="sec-title">🗓️ Exam Schedule</div>
+                            <div class="sec-sub">Manage upcoming recruitment exams</div>
+                        </div>
+                        <button class="btn-primary" onclick="openModal('examModal')">+ Schedule Exam</button>
+                    </div>
+                    <div class="card">
+                        <div class="table-wrap">
+                            <table class="data-table">
+                                <thead><tr><th>Exam Name</th><th>Date</th><th>Department</th><th>Seats</th><th>Actions</th></tr></thead>
+                                <tbody id="examsTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
                 </section>
 
                 <!-- ========== GALLERY ========== -->
@@ -679,6 +727,93 @@
         </div>
     </div>
 
+    <!-- Study Material Modal -->
+    <div id="matModal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('matModal')">×</button>
+            <div class="modal-title">📚 Add Study Material</div>
+            <form id="matForm">
+                <div class="form-group">
+                    <label class="form-label">Material Title *</label>
+                    <input type="text" id="matTitle" required class="form-input" placeholder="e.g. Police Bharti Physical Guide">
+                </div>
+                <div class="form-grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Category</label>
+                        <select id="matCat" class="form-input">
+                            <option value="police">🚔 Police</option>
+                            <option value="army">⚔️ Army</option>
+                            <option value="psi">🏛️ PSI / STI</option>
+                            <option value="general">📖 General</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">File Type</label>
+                        <select id="matType" class="form-input">
+                            <option value="PDF">PDF Document</option>
+                            <option value="DOCX">Word Document</option>
+                            <option value="ZIP">ZIP Archive</option>
+                            <option value="Link">Web Link</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-grid-2">
+                    <div class="form-group">
+                        <label class="form-label">File Size</label>
+                        <input type="text" id="matSize" class="form-input" placeholder="e.g. 2.4 MB">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Icon (Emoji)</label>
+                        <input type="text" id="matIcon" class="form-input" placeholder="e.g. 📋">
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary" style="width:100%;padding:13px;">Add Material</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Exam Modal -->
+    <div id="examModal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('examModal')">×</button>
+            <div class="modal-title">🗓️ Schedule New Exam</div>
+            <form id="examForm">
+                <div class="form-group">
+                    <label class="form-label">Exam Name *</label>
+                    <input type="text" id="examName" required class="form-input" placeholder="e.g. Maharashtra Police Bharti 2026">
+                </div>
+                <div class="form-grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Exam Date *</label>
+                        <input type="date" id="examDate" required class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Department *</label>
+                        <input type="text" id="examDept" required class="form-input" placeholder="e.g. MPSC / Police">
+                    </div>
+                </div>
+                <div class="form-grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Total Seats</label>
+                        <input type="text" id="examSeats" class="form-input" placeholder="e.g. 8,000+">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Category</label>
+                        <select id="examCat" class="form-input">
+                            <option value="police">Police</option>
+                            <option value="army">Army</option>
+                            <option value="psi">PSI / STI</option>
+                            <option value="talathi">Talathi</option>
+                            <option value="ssc">SSC</option>
+                            <option value="bank">Banking</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary" style="width:100%;padding:13px;">Schedule Exam</button>
+            </form>
+        </div>
+    </div>
+
     <!-- Confirm Modal -->
     <div id="confirmModal" class="modal-overlay">
         <div class="modal-box" style="max-width:420px;text-align:center;">
@@ -731,7 +866,7 @@
     function closeMobSidebar() { document.getElementById('mobSidebar').classList.remove('open'); document.getElementById('mobOverlay').classList.remove('show'); document.body.style.overflow=''; }
 
     // ===== SECTION SWITCHING =====
-    const SECTIONS = ['overview','students','applications','contacts','callbacks','announcements','gallery','testimonials','training','settings'];
+    const SECTIONS = ['overview','students','applications','contacts','callbacks','announcements','gallery','testimonials','training','materials','exams','settings'];
     function showSection(name) {
         closeMobSidebar();
         SECTIONS.forEach(s => {
@@ -755,6 +890,8 @@
         if(name==='contacts')      loadContacts();
         if(name==='callbacks')     loadCallbacks();
         if(name==='announcements') loadAnnouncements();
+        if(name==='materials')     loadMaterials();
+        if(name==='exams')         loadExams();
         if(name==='gallery')       loadGallery();
         if(name==='testimonials')  loadTestimonials();
         if(name==='training')      loadTraining();
@@ -1097,6 +1234,87 @@
         });
     }
 
+    // ===== STUDY MATERIALS =====
+    async function loadMaterials() {
+        const res = await fetch('/api/materials');
+        const mats = await res.json();
+        const tb = document.getElementById('matsTable');
+        if(!mats.length) { tb.innerHTML=`<tr><td colspan="5"><div class="empty"><div class="ei">📚</div>No materials found</div></td></tr>`; return; }
+        tb.innerHTML = [...mats].reverse().map(m=>`
+            <tr>
+                <td style="font-weight:700;color:#000080;">${m.icon||'📄'} ${m.title}</td>
+                <td><span class="badge" style="background:#f1f5f9;color:#475569;">${m.cat}</span></td>
+                <td style="color:#64748b;">${m.size||'-'}</td>
+                <td style="color:#64748b;">${m.type||'-'}</td>
+                <td>
+                    <button onclick="deleteMaterial('${m.id}')" class="btn-danger" style="font-size:11px;padding:5px 9px;">Delete</button>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    document.getElementById('matForm').addEventListener('submit', async e => {
+        e.preventDefault();
+        const cat = document.getElementById('matCat').value;
+        const colors = { police:'#eff6ff', army:'#f0fdf4', psi:'#faf5ff', general:'#fff7ed' };
+        const body = {
+            title: document.getElementById('matTitle').value,
+            cat:   cat,
+            type:  document.getElementById('matType').value,
+            size:  document.getElementById('matSize').value || '1.0 MB',
+            icon:  document.getElementById('matIcon').value || '📄',
+            color: colors[cat] || '#eff6ff'
+        };
+        await fetch('/api/admin/materials', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) });
+        toast('✅ Material added','success'); closeModal('matModal'); e.target.reset(); loadMaterials();
+    });
+
+    async function deleteMaterial(id) {
+        showConfirm('Delete Material','Delete this study material?', async () => {
+            await fetch('/api/admin/materials', { method:'DELETE', headers:{'Content-Type':'application/json'}, body:JSON.stringify({materialId:id}) });
+            toast('🗑️ Deleted','success'); loadMaterials();
+        });
+    }
+
+    // ===== EXAM SCHEDULE =====
+    async function loadExams() {
+        const res = await fetch('/api/exams');
+        const exams = await res.json();
+        const tb = document.getElementById('examsTable');
+        if(!exams.length) { tb.innerHTML=`<tr><td colspan="5"><div class="empty"><div class="ei">🗓️</div>No exams scheduled</div></td></tr>`; return; }
+        tb.innerHTML = [...exams].reverse().map(ex=>`
+            <tr>
+                <td style="font-weight:700;color:#000080;">${ex.name}</td>
+                <td style="color:#64748b;">${new Date(ex.date).toLocaleDateString('en-IN')}</td>
+                <td style="color:#64748b;">${ex.dept}</td>
+                <td style="font-weight:600;color:#374151;">${ex.seats}</td>
+                <td>
+                    <button onclick="deleteExam('${ex.id}')" class="btn-danger" style="font-size:11px;padding:5px 9px;">Delete</button>
+                </td>
+            </tr>
+        `).join('');
+    }
+
+    document.getElementById('examForm').addEventListener('submit', async e => {
+        e.preventDefault();
+        const body = {
+            name:  document.getElementById('examName').value,
+            date:  document.getElementById('examDate').value,
+            dept:  document.getElementById('examDept').value,
+            seats: document.getElementById('examSeats').value || 'TBA',
+            cat:   document.getElementById('examCat').value
+        };
+        await fetch('/api/admin/exams', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) });
+        toast('✅ Exam scheduled','success'); closeModal('examModal'); e.target.reset(); loadExams();
+    });
+
+    async function deleteExam(id) {
+        showConfirm('Delete Exam','Remove this exam from schedule?', async () => {
+            await fetch('/api/admin/exams', { method:'DELETE', headers:{'Content-Type':'application/json'}, body:JSON.stringify({examId:id}) });
+            toast('🗑️ Removed','success'); loadExams();
+        });
+    }
+
     // ===== GALLERY =====
     function loadGallery() {
         const imgs = JSON.parse(localStorage.getItem('ca_custom_gallery')||'[]');
@@ -1243,6 +1461,8 @@
             contacts:      JSON.parse(localStorage.getItem('ca_contacts')||'[]'),
             callbacks:     JSON.parse(localStorage.getItem('ca_callbacks')||'[]'),
             announcements: JSON.parse(localStorage.getItem('ca_announcements')||'[]'),
+            materials:     JSON.parse(localStorage.getItem('ca_materials')||'[]'),
+            exams:         JSON.parse(localStorage.getItem('ca_exams')||'[]'),
             gallery:       JSON.parse(localStorage.getItem('ca_custom_gallery')||'[]'),
             testimonials:  JSON.parse(localStorage.getItem('ca_testimonials')||'[]'),
             exportedAt:    new Date().toISOString()

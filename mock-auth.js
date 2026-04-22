@@ -627,6 +627,13 @@
             return { status: 200, data: { message: 'Material deleted' } };
         },
 
+        // Admin: Get all materials
+        'GET /api/admin/materials': function() {
+            const session = getSession();
+            if (!session || session.role !== 'admin') return { status: 403, data: { message: 'Admin access required' } };
+            return { status: 200, data: DB.get('materials') };
+        },
+
         // Public: Get exams
         'GET /api/exams': function() {
             const session = getSession();
@@ -662,6 +669,13 @@
             exams = exams.filter(e => e.id !== body.examId);
             DB.set('exams', exams);
             return { status: 200, data: { message: 'Exam deleted' } };
+        },
+
+        // Admin: Get all exams
+        'GET /api/admin/exams': function() {
+            const session = getSession();
+            if (!session || session.role !== 'admin') return { status: 403, data: { message: 'Admin access required' } };
+            return { status: 200, data: DB.get('exams') };
         },
 
         // Admin: Dashboard stats
@@ -829,7 +843,7 @@
         getCurrentUser: getSession,
         resetDatabase: function() {
             localStorage.removeItem('ca_db_seeded');
-            ['users','applications','contacts','callbacks','announcements','session'].forEach(k => {
+            ['users','applications','contacts','callbacks','announcements','materials','exams','session'].forEach(k => {
                 localStorage.removeItem('ca_' + k);
             });
             seedDatabase();
