@@ -245,6 +245,28 @@
         ];
         DB.set('announcements', announcements);
 
+        // Seed Materials
+        const materials = [
+            { id: 'mat_001', title: 'Police Bharti Physical Guide', size: '2.4 MB', type: 'PDF', cat: 'police', icon: '📋', color: '#eff6ff', createdAt: '2026-04-01T10:00:00Z' },
+            { id: 'mat_002', title: 'Maharashtra Police Syllabus 2026', size: '1.1 MB', type: 'PDF', cat: 'police', icon: '📜', color: '#eff6ff', createdAt: '2026-04-02T10:00:00Z' },
+            { id: 'mat_003', title: 'Police Bharti Running Tips', size: '0.8 MB', type: 'PDF', cat: 'police', icon: '🏃', color: '#eff6ff', createdAt: '2026-04-03T10:00:00Z' },
+            { id: 'mat_004', title: 'Army Agniveer Full Syllabus', size: '3.2 MB', type: 'PDF', cat: 'army', icon: '⚔️', color: '#f0fdf4', createdAt: '2026-04-04T10:00:00Z' },
+            { id: 'mat_005', title: 'Physical Standards - Army Recruitment', size: '1.5 MB', type: 'PDF', cat: 'army', icon: '💪', color: '#f0fdf4', createdAt: '2026-04-05T10:00:00Z' },
+            { id: 'mat_006', title: 'PSI Prelim Question Bank', size: '5.3 MB', type: 'PDF', cat: 'psi', icon: '🏛️', color: '#faf5ff', createdAt: '2026-04-06T10:00:00Z' },
+            { id: 'mat_007', title: 'General Knowledge 2026', size: '6.2 MB', type: 'PDF', cat: 'general', icon: '📖', color: '#fff7ed', createdAt: '2026-04-07T10:00:00Z' }
+        ];
+        DB.set('materials', materials);
+
+        // Seed Exams
+        const exams = [
+            { id: 'ex_001', name: 'Maharashtra Police Bharti 2026', date: '2026-05-15', status: 'upcoming', dept: 'Maharashtra Police', seats: '8,000+', cat: 'police', createdAt: '2026-04-01T10:00:00Z' },
+            { id: 'ex_002', name: 'Army Agniveer Rally - Pune', date: '2026-05-22', status: 'upcoming', dept: 'Indian Army', seats: '200+', cat: 'army', createdAt: '2026-04-02T10:00:00Z' },
+            { id: 'ex_003', name: 'PSI Direct Recruitment 2026', date: '2026-06-10', status: 'upcoming', dept: 'MPSC', seats: '330', cat: 'psi', createdAt: '2026-04-03T10:00:00Z' },
+            { id: 'ex_004', name: 'Talathi Bharti 2026', date: '2026-07-05', status: 'upcoming', dept: 'Revenue Dept.', seats: '4,000+', cat: 'talathi', createdAt: '2026-04-04T10:00:00Z' },
+            { id: 'ex_005', name: 'SSC GD Constable 2026', date: '2026-08-12', status: 'upcoming', dept: 'SSC', seats: '26,146', cat: 'ssc', createdAt: '2026-04-05T10:00:00Z' }
+        ];
+        DB.set('exams', exams);
+
         DB.setOne('db_seeded', true);
         console.log('✅ Mock database seeded successfully');
     }
@@ -457,6 +479,40 @@
             return { status: 200, data: { message: 'Application deleted' } };
         },
 
+        // Public: Submit contact message (no auth required)
+        'POST /api/contact/message': function(body) {
+            const contact = {
+                id: genId('contact'),
+                name: body.name,
+                email: body.email,
+                phone: body.phone || '',
+                subject: body.subject || 'General Enquiry',
+                message: body.message,
+                read: false,
+                createdAt: new Date().toISOString()
+            };
+            const contacts = DB.get('contacts');
+            contacts.push(contact);
+            DB.set('contacts', contacts);
+            return { status: 201, data: { message: 'Message sent successfully' } };
+        },
+
+        // Public: Submit callback request (no auth required)
+        'POST /api/callback': function(body) {
+            const cb = {
+                id: genId('cb'),
+                name: body.name,
+                phone: body.phone,
+                course: body.course || '',
+                status: 'pending',
+                createdAt: new Date().toISOString()
+            };
+            const callbacks = DB.get('callbacks');
+            callbacks.push(cb);
+            DB.set('callbacks', callbacks);
+            return { status: 201, data: { message: 'Callback request submitted' } };
+        },
+
         // Admin: Get all contacts
         'GET /api/admin/contacts': function() {
             const session = getSession();
@@ -498,6 +554,14 @@
             return { status: 200, data: DB.get('announcements') };
         },
 
+        // Public: Get active announcements (accessible by any logged-in user)
+        'GET /api/announcements': function() {
+            const session = getSession();
+            if (!session) return { status: 401, data: { message: 'Not authenticated' } };
+            const anns = DB.get('announcements').filter(a => a.active !== false);
+            return { status: 200, data: anns };
+        },
+
         // Admin: Create announcement
         'POST /api/admin/announcements': function(body) {
             const session = getSession();
@@ -526,6 +590,80 @@
             return { status: 200, data: { message: 'Announcement deleted' } };
         },
 
+        // Public: Get materials
+        'GET /api/materials': function() {
+            const session = getSession();
+            if (!session) return { status: 401, data: { message: 'Not authenticated' } };
+            return { status: 200, data: DB.get('materials') };
+        },
+
+        // Admin: Create material
+        'POST /api/admin/materials': function(body) {
+            const session = getSession();
+            if (!session || session.role !== 'admin') return { status: 403, data: { message: 'Admin access required' } };
+            const mat = {
+                id: genId('mat'),
+                title: body.title,
+                size: body.size || '1.0 MB',
+                type: body.type || 'PDF',
+                cat: body.cat || 'general',
+                icon: body.icon || '📄',
+                color: body.color || '#eff6ff',
+                createdAt: new Date().toISOString()
+            };
+            const mats = DB.get('materials');
+            mats.push(mat);
+            DB.set('materials', mats);
+            return { status: 201, data: { message: 'Material added', material: mat } };
+        },
+
+        // Admin: Delete material
+        'DELETE /api/admin/materials': function(body) {
+            const session = getSession();
+            if (!session || session.role !== 'admin') return { status: 403, data: { message: 'Admin access required' } };
+            let mats = DB.get('materials');
+            mats = mats.filter(m => m.id !== body.materialId);
+            DB.set('materials', mats);
+            return { status: 200, data: { message: 'Material deleted' } };
+        },
+
+        // Public: Get exams
+        'GET /api/exams': function() {
+            const session = getSession();
+            if (!session) return { status: 401, data: { message: 'Not authenticated' } };
+            return { status: 200, data: DB.get('exams') };
+        },
+
+        // Admin: Create exam
+        'POST /api/admin/exams': function(body) {
+            const session = getSession();
+            if (!session || session.role !== 'admin') return { status: 403, data: { message: 'Admin access required' } };
+            const ex = {
+                id: genId('ex'),
+                name: body.name,
+                date: body.date,
+                status: body.status || 'upcoming',
+                dept: body.dept || 'General',
+                seats: body.seats || 'TBD',
+                cat: body.cat || 'general',
+                createdAt: new Date().toISOString()
+            };
+            const exams = DB.get('exams');
+            exams.push(ex);
+            DB.set('exams', exams);
+            return { status: 201, data: { message: 'Exam scheduled', exam: ex } };
+        },
+
+        // Admin: Delete exam
+        'DELETE /api/admin/exams': function(body) {
+            const session = getSession();
+            if (!session || session.role !== 'admin') return { status: 403, data: { message: 'Admin access required' } };
+            let exams = DB.get('exams');
+            exams = exams.filter(e => e.id !== body.examId);
+            DB.set('exams', exams);
+            return { status: 200, data: { message: 'Exam deleted' } };
+        },
+
         // Admin: Dashboard stats
         'GET /api/admin/stats': function() {
             const session = getSession();
@@ -534,6 +672,7 @@
             const apps = DB.get('applications');
             const contacts = DB.get('contacts');
             const callbacks = DB.get('callbacks');
+            const announcements = DB.get('announcements');
             return {
                 status: 200,
                 data: {
@@ -546,9 +685,80 @@
                     unreadContacts: contacts.filter(c => !c.read).length,
                     totalCallbacks: callbacks.length,
                     pendingCallbacks: callbacks.filter(c => c.status === 'pending').length,
+                    totalAnnouncements: announcements.filter(a => a.active !== false).length,
                     recentRegistrations: users.filter(u => u.role === 'user').slice(-5).reverse()
                 }
             };
+        },
+
+        // Admin: Edit/Toggle announcement
+        'PUT /api/admin/announcements': function(body) {
+            const session = getSession();
+            if (!session || session.role !== 'admin') return { status: 403, data: { message: 'Admin access required' } };
+            let anns = DB.get('announcements');
+            const idx = anns.findIndex(a => a.id === body.announcementId);
+            if (idx === -1) return { status: 404, data: { message: 'Announcement not found' } };
+            anns[idx] = { ...anns[idx], ...body, announcementId: undefined, id: anns[idx].id };
+            DB.set('announcements', anns);
+            return { status: 200, data: { message: 'Announcement updated', announcement: anns[idx] } };
+        },
+
+        // Admin: Delete a specific application
+        'DELETE /api/admin/applications': function(body) {
+            const session = getSession();
+            if (!session || session.role !== 'admin') return { status: 403, data: { message: 'Admin access required' } };
+            let apps = DB.get('applications');
+            apps = apps.filter(a => a.id !== body.applicationId);
+            DB.set('applications', apps);
+            return { status: 200, data: { message: 'Application deleted' } };
+        },
+
+        // Admin: Delete a student user
+        'DELETE /api/admin/users': function(body) {
+            const session = getSession();
+            if (!session || session.role !== 'admin') return { status: 403, data: { message: 'Admin access required' } };
+            let users = DB.get('users');
+            users = users.filter(u => u.id !== body.userId);
+            DB.set('users', users);
+            // Also remove their applications
+            let apps = DB.get('applications');
+            apps = apps.filter(a => a.userId !== body.userId);
+            DB.set('applications', apps);
+            return { status: 200, data: { message: 'User deleted' } };
+        },
+
+        // Admin: Mark contact as read
+        'PUT /api/admin/contacts': function(body) {
+            const session = getSession();
+            if (!session || session.role !== 'admin') return { status: 403, data: { message: 'Admin access required' } };
+            let contacts = DB.get('contacts');
+            const idx = contacts.findIndex(c => c.id === body.contactId);
+            if (idx === -1) return { status: 404, data: { message: 'Contact not found' } };
+            contacts[idx].read = true;
+            DB.set('contacts', contacts);
+            return { status: 200, data: { message: 'Marked as read' } };
+        },
+
+        // Admin: Delete a contact message
+        'DELETE /api/admin/contacts': function(body) {
+            const session = getSession();
+            if (!session || session.role !== 'admin') return { status: 403, data: { message: 'Admin access required' } };
+            let contacts = DB.get('contacts');
+            contacts = contacts.filter(c => c.id !== body.contactId);
+            DB.set('contacts', contacts);
+            return { status: 200, data: { message: 'Message deleted' } };
+        },
+
+        // Admin: Update callback status
+        'PUT /api/admin/callbacks': function(body) {
+            const session = getSession();
+            if (!session || session.role !== 'admin') return { status: 403, data: { message: 'Admin access required' } };
+            let cbs = DB.get('callbacks');
+            const idx = cbs.findIndex(c => c.id === body.callbackId);
+            if (idx === -1) return { status: 404, data: { message: 'Callback not found' } };
+            cbs[idx].status = body.status || 'completed';
+            DB.set('callbacks', cbs);
+            return { status: 200, data: { message: 'Callback updated' } };
         },
 
         // Admin: Reset database

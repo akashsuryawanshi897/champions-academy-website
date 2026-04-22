@@ -4,458 +4,1074 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Dashboard | THE CHAMPIONS ACADEMY</title>
+    <meta name="description" content="Student portal for The Champions Academy – track applications, announcements, study materials and your profile.">
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#FF9933',
-                        secondary: '#138808',
-                        navy: '#000080',
-                        dark: '#1A1A2E',
-                    },
-                    fontFamily: {
-                        heading: ['Outfit', 'sans-serif'],
-                        body: ['Inter', 'sans-serif'],
-                    },
-                }
-            }
-        }
-    </script>
-    <link href="index.css" rel="stylesheet">
     <style>
-        body { padding-top: 0 !important; background: #f0f2f5; font-family: 'Inter', sans-serif; }
-        .sidebar { background: linear-gradient(180deg, #000080 0%, #1A1A2E 100%); min-height: 100vh; }
-        .sidebar a.active { background: #FF9933; color: white; }
-        .stat-card { transition: all 0.3s ease; }
-        .stat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 24px -8px rgba(0,0,128,0.15); }
-        .toast { position: fixed; top: 20px; right: 20px; z-index: 9999; padding: 16px 24px; border-radius: 12px; font-size: 14px; font-weight: 600; transform: translateX(400px); transition: transform 0.4s ease; }
-        .toast.show { transform: translateX(0); }
-        .toast-success { background: #d1fae5; color: #065f46; border-left: 4px solid #10b981; }
-        .toast-error { background: #fee2e2; color: #991b1b; border-left: 4px solid #ef4444; }
-        .mobile-header { display: none; }
-        .mobile-sidebar { position: fixed; top: 0; left: -320px; width: 300px; height: 100vh; z-index: 100; transition: left 0.3s ease; overflow-y: auto; display: flex; flex-col; }
-        .mobile-sidebar.open { left: 0; }
-        .mobile-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 99; display: none; }
-        .mobile-overlay.active { display: block; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { overflow-x: hidden; width: 100%; min-height: 100vh; }
+        body {
+            padding-top: 0 !important;
+            background: #f0f2f8;
+            font-family: 'Inter', sans-serif;
+            color: #1e293b;
+        }
+        a { text-decoration: none; color: inherit; }
+
+        /* ===== LAYOUT ===== */
+        .app-shell { display: flex; height: 100vh; width: 100%; overflow: hidden; }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            width: 260px;
+            min-height: 100vh;
+            background: linear-gradient(180deg, #000080 0%, #06065c 40%, #1A1A2E 100%);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 10;
+        }
+        .sidebar::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.025'%3E%3Cpath d='M20 20h20v20H20zM0 0h20v20H0z'/%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+        .sidebar-logo {
+            display: flex; align-items: center; gap: 11px;
+            padding: 20px 18px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            position: relative; z-index: 1;
+        }
+        .sidebar-logo img {
+            width: 42px; height: 42px; object-fit: contain;
+            filter: brightness(1.2) drop-shadow(0 2px 8px rgba(255,153,51,0.5));
+        }
+        .sidebar-logo .brand-name {
+            font-family: 'Outfit', sans-serif; font-weight: 900;
+            font-size: 12.5px; color: #fff; text-transform: uppercase;
+            letter-spacing: 0.06em; line-height: 1.25;
+        }
+        .sidebar-logo .brand-sub {
+            font-size: 9px; font-weight: 700; color: #FF9933;
+            letter-spacing: 0.14em; text-transform: uppercase; margin-top: 2px;
+        }
+
+        .sidebar-nav { flex: 1; padding: 12px 10px; position: relative; z-index: 1; overflow-y: auto; }
+        .nav-sect-label {
+            font-size: 9px; font-weight: 700; color: rgba(255,255,255,0.3);
+            text-transform: uppercase; letter-spacing: 0.14em;
+            padding: 10px 12px 4px;
+        }
+        .nav-item {
+            display: flex; align-items: center; gap: 10px;
+            padding: 9px 12px; border-radius: 11px;
+            font-size: 13px; font-weight: 500;
+            color: rgba(255,255,255,0.55);
+            cursor: pointer; transition: all 0.2s; margin-bottom: 2px;
+            border: none; background: none; width: 100%; text-align: left;
+        }
+        .nav-item:hover { background: rgba(255,255,255,0.07); color: rgba(255,255,255,0.9); }
+        .nav-item.active {
+            background: linear-gradient(135deg, #FF9933 0%, #e67000 100%);
+            color: #fff; font-weight: 700;
+            box-shadow: 0 4px 14px rgba(255,153,51,0.35);
+        }
+        .nav-item .ni { font-size: 16px; width: 20px; text-align: center; flex-shrink: 0; }
+        .nav-badge {
+            margin-left: auto; background: #ef4444; color: #fff;
+            font-size: 9px; font-weight: 800;
+            min-width: 17px; height: 17px; border-radius: 9px;
+            display: inline-flex; align-items: center; justify-content: center; padding: 0 4px;
+        }
+        .nav-divider { height: 1px; background: rgba(255,255,255,0.06); margin: 8px 10px; }
+
+        .sidebar-user {
+            padding: 12px 14px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            position: relative; z-index: 1;
+        }
+        .user-mini-card {
+            display: flex; align-items: center; gap: 9px;
+            padding: 9px 11px; border-radius: 11px;
+            background: rgba(255,255,255,0.06); margin-bottom: 9px;
+        }
+        .user-avatar {
+            width: 34px; height: 34px; border-radius: 9px;
+            background: linear-gradient(135deg, #FF9933, #e67000);
+            color: #fff; font-weight: 800; font-size: 14px;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+        }
+        .btn-logout {
+            width: 100%; display: flex; align-items: center; justify-content: center; gap: 7px;
+            padding: 9px; border-radius: 10px;
+            background: rgba(239,68,68,0.1); color: #f87171;
+            font-weight: 700; font-size: 12px; border: none; cursor: pointer; transition: all 0.2s;
+        }
+        .btn-logout:hover { background: #ef4444; color: #fff; }
+
+        /* ===== MAIN ===== */
+        .main-content { flex: 1; display: flex; flex-direction: column; min-width: 0; overflow: hidden; }
+
+        /* ===== MOBILE HEADER ===== */
+        .mobile-header {
+            display: none; position: sticky; top: 0; z-index: 50;
+            background: #fff; box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            align-items: center; justify-content: space-between;
+            padding: 11px 14px;
+        }
+        .mh-logo { display: flex; align-items: center; gap: 8px; }
+        .mh-logo img { height: 32px; object-fit: contain; }
+        .mh-brand { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 12px; color: #000080; line-height: 1.2; }
+        .mh-sub { font-size: 8.5px; font-weight: 700; color: #FF9933; letter-spacing: 0.1em; text-transform: uppercase; }
+        .btn-hamburger { background: none; border: none; font-size: 20px; color: #000080; cursor: pointer; padding: 4px; }
+
+        /* ===== MOBILE OVERLAY + SIDEBAR ===== */
+        .mob-overlay {
+            display: none; position: fixed; inset: 0;
+            background: rgba(0,0,0,0.5); backdrop-filter: blur(3px);
+            z-index: 98;
+        }
+        .mob-overlay.show { display: block; }
+        .mob-sidebar {
+            position: fixed; top: 0; left: -280px; width: 270px; height: 100vh;
+            z-index: 99; transition: left 0.3s cubic-bezier(0.4,0,0.2,1);
+            overflow-y: auto;
+            /* inherits .sidebar gradient */
+            background: linear-gradient(180deg, #000080 0%, #06065c 40%, #1A1A2E 100%);
+            display: flex; flex-direction: column;
+        }
+        .mob-sidebar.open { left: 0; }
+        .mob-sidebar-head {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 16px 14px; border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .mob-close-btn {
+            background: none; border: none; color: rgba(255,255,255,0.6);
+            font-size: 22px; cursor: pointer;
+        }
+
+        /* Responsive */
         @media (max-width: 1024px) {
-            .sidebar:not(.mobile-sidebar) { display: none; }
+            .sidebar { display: none; }
             .mobile-header { display: flex; }
         }
-        @media (min-width: 1025px) {
-            .mobile-header { display: none; }
-            .mobile-sidebar, .mobile-overlay { display: none !important; }
-        }
-        .status-badge { padding: 4px 12px; border-radius: 20px; font-size: 10px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
-        .status-pending { background: #fef3c7; color: #92400e; }
-        .status-approved { background: #d1fae5; color: #065f46; }
-        .status-rejected { background: #fee2e2; color: #991b1b; }
-        .modal-overlay { background: rgba(0,0,128,0.6); backdrop-filter: blur(8px); }
-    </style>
 
-    <style>html, body { overflow-x: hidden; width: 100%; max-width: 100%; }</style>
+        /* ===== SECTIONS ===== */
+        .page-body { flex: 1; overflow-y: auto; overflow-x: hidden; }
+        .section { display: none; padding: 24px 20px; }
+        .section.active { display: block; }
+        @media (min-width: 640px) { .section { padding: 28px 28px; } }
+
+        /* ===== WELCOME BANNER ===== */
+        .welcome-banner {
+            background: linear-gradient(135deg, #000080 0%, #06065c 50%, #1A1A2E 100%);
+            border-radius: 22px; padding: 28px 28px 28px 28px;
+            color: #fff; position: relative; overflow: hidden;
+            box-shadow: 0 10px 36px rgba(0,0,128,0.22);
+            margin-bottom: 22px;
+        }
+        .welcome-banner::before {
+            content: '';position: absolute; top: -60px; right: -40px;
+            width: 220px; height: 220px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(255,153,51,0.15), transparent 70%);
+        }
+        .welcome-banner .label { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,153,51,0.9); margin-bottom: 5px; }
+        .welcome-banner h1 { font-family: 'Outfit', sans-serif; font-size: clamp(20px,3.5vw,30px); font-weight: 900; text-transform: uppercase; }
+        .welcome-banner h1 span { color: #FF9933; font-style: italic; }
+        .welcome-banner p { font-size: 13px; color: rgba(200,215,255,0.8); margin-top: 7px; line-height: 1.6; max-width: 480px; }
+        .wm-logo { position: absolute; right: -10px; bottom: -20px; opacity: 0.05; pointer-events: none; }
+        .wm-logo img { height: 140px; }
+
+        /* ===== STAT GRID ===== */
+        .stat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px,1fr)); gap: 14px; margin-bottom: 22px; }
+        .stat-card {
+            background: #fff; border-radius: 16px; padding: 18px 16px;
+            display: flex; align-items: center; gap: 14px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.04);
+            transition: all 0.22s; cursor: default;
+        }
+        .stat-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,128,0.1); }
+        .stat-card.clickable { cursor: pointer; }
+        .stat-icon { width: 46px; height: 46px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+        .stat-label { font-size: 9.5px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 3px; }
+        .stat-val { font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: 900; line-height: 1; }
+
+        /* ===== STATUS BADGES ===== */
+        .badge { display: inline-block; padding: 3px 9px; border-radius: 20px; font-size: 9.5px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+        .badge-pending  { background: #fef3c7; color: #92400e; }
+        .badge-approved { background: #d1fae5; color: #065f46; }
+        .badge-rejected { background: #fee2e2; color: #991b1b; }
+        .badge-info     { background: #dbeafe; color: #1e40af; }
+        .badge-high     { background: #fee2e2; color: #b91c1c; }
+        .badge-medium   { background: #fef3c7; color: #92400e; }
+        .badge-low      { background: #dbeafe; color: #1e40af; }
+
+        /* ===== QUICK ACTIONS ===== */
+        .action-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap: 14px; margin-bottom: 22px; }
+        .action-card {
+            border-radius: 16px; padding: 18px 16px;
+            color: #fff; cursor: pointer; transition: all 0.22s;
+            text-decoration: none; display: block; border: none; text-align: left;
+        }
+        .action-card:hover { transform: translateY(-3px) scale(1.01); }
+        .action-card .ac-icon { font-size: 24px; margin-bottom: 8px; }
+        .action-card .ac-title { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 14px; margin-bottom: 3px; }
+        .action-card .ac-sub { font-size: 11px; opacity: 0.8; }
+
+        /* ===== WHITE CARD ===== */
+        .card {
+            background: #fff; border-radius: 18px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid rgba(0,0,0,0.04); overflow: hidden;
+        }
+        .card-head {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 14px 20px; border-bottom: 1px solid #f1f5f9;
+        }
+        .card-title { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 11.5px; color: #000080; text-transform: uppercase; letter-spacing: 0.1em; }
+        .card-link { font-size: 10.5px; font-weight: 700; color: #FF9933; background: none; border: none; cursor: pointer; }
+        .card-link:hover { text-decoration: underline; }
+
+        /* ===== TABLE ===== */
+        .data-table { width: 100%; border-collapse: collapse; }
+        .data-table thead th { background: #f8fafc; font-size: 9.5px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.08em; padding: 12px 16px; text-align: left; white-space: nowrap; }
+        .data-table tbody tr { border-top: 1px solid #f1f5f9; transition: background 0.12s; }
+        .data-table tbody tr:hover { background: #f8fafc; }
+        .data-table tbody td { padding: 12px 16px; font-size: 13px; }
+        .table-wrap { overflow-x: auto; }
+
+        /* ===== ANNOUNCEMENT CARDS ===== */
+        .ann-card {
+            background: #fff; border-radius: 14px; padding: 18px 20px;
+            border: 1px solid rgba(0,0,0,0.05); border-left: 4px solid #e2e8f0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04); transition: all 0.2s; margin-bottom: 12px;
+        }
+        .ann-card:hover { box-shadow: 0 6px 18px rgba(0,0,0,0.08); transform: translateY(-1px); }
+        .ann-card.high   { border-left-color: #ef4444; background: linear-gradient(to right, #fff5f5 0%, #fff 40%); }
+        .ann-card.medium { border-left-color: #FF9933; background: linear-gradient(to right, #fffbf5 0%, #fff 40%); }
+        .ann-card.low    { border-left-color: #3b82f6; background: linear-gradient(to right, #eff6ff 0%, #fff 40%); }
+        .ann-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+        .ann-title { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 14px; color: #000080; }
+        .ann-meta { font-size: 11px; color: #94a3b8; }
+        .ann-body { font-size: 13px; color: #475569; line-height: 1.65; }
+        .pulse-dot { display: inline-block; width: 7px; height: 7px; background: #ef4444; border-radius: 50%; animation: blink 1.4s ease-in-out infinite; margin-right: 5px; }
+        @keyframes blink { 0%,100%{opacity:1}50%{opacity:0.3} }
+
+        /* ===== FORM ===== */
+        .form-group { margin-bottom: 16px; }
+        .form-label { display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #64748b; margin-bottom: 5px; }
+        .form-input {
+            width: 100%; padding: 12px 14px; border-radius: 11px;
+            border: 1.5px solid #e2e8f0; outline: none; font-size: 13.5px;
+            font-family: 'Inter', sans-serif; background: #fff;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        .form-input:focus { border-color: #FF9933; box-shadow: 0 0 0 3px rgba(255,153,51,0.1); }
+        .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        @media(max-width:640px) { .form-grid-2 { grid-template-columns: 1fr; } }
+
+        /* ===== BUTTONS ===== */
+        .btn-primary {
+            background: linear-gradient(135deg, #FF9933, #e67000);
+            color: #fff; border: none; padding: 12px 24px; border-radius: 11px;
+            font-weight: 800; font-size: 12px; text-transform: uppercase;
+            letter-spacing: 0.1em; cursor: pointer;
+            box-shadow: 0 5px 16px rgba(255,153,51,0.32); transition: all 0.2s;
+        }
+        .btn-primary:hover { background: linear-gradient(135deg, #000080, #06065c); box-shadow: 0 5px 16px rgba(0,0,128,0.3); }
+        .btn-sec {
+            background: #f1f5f9; color: #374151; border: none; padding: 10px 18px;
+            border-radius: 10px; font-weight: 700; font-size: 12px; cursor: pointer; transition: all 0.2s;
+        }
+        .btn-sec:hover { background: #e2e8f0; }
+
+        /* ===== PROFILE ===== */
+        .profile-avatar-lg {
+            width: 76px; height: 76px; border-radius: 20px;
+            background: linear-gradient(135deg, #FF9933, #e67000);
+            color: #fff; font-family: 'Outfit', sans-serif; font-size: 32px;
+            font-weight: 900; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 6px 18px rgba(255,153,51,0.3);
+        }
+        .info-row {
+            display: flex; align-items: center; gap: 14px;
+            padding: 13px 16px; background: #f8fafc; border-radius: 11px; margin-bottom: 9px;
+        }
+        .info-row .ir-icon { font-size: 18px; }
+        .info-row .ir-label { font-size: 9.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #94a3b8; }
+        .info-row .ir-val { font-size: 14px; font-weight: 600; color: #000080; }
+
+        /* ===== PROGRESS BARS ===== */
+        .progress-bar-wrap { background: #f1f5f9; border-radius: 100px; height: 8px; overflow: hidden; }
+        .progress-bar-fill { height: 100%; border-radius: 100px; background: linear-gradient(90deg, #FF9933, #e67000); transition: width 0.8s ease; }
+
+        /* ===== STUDY MATERIAL CARDS ===== */
+        .material-card {
+            background: #fff; border-radius: 14px; padding: 16px 18px;
+            border: 1px solid rgba(0,0,0,0.05); display: flex; align-items: center; gap: 14px;
+            transition: all 0.2s; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .material-card:hover { box-shadow: 0 6px 18px rgba(0,0,128,0.1); transform: translateY(-2px); }
+        .mat-icon { width: 44px; height: 44px; border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+
+        /* ===== EMPTY STATE ===== */
+        .empty { text-align: center; padding: 40px 20px; color: #94a3b8; font-size: 13px; }
+        .empty .e-icon { font-size: 36px; margin-bottom: 10px; }
+
+        /* ===== TOAST ===== */
+        #toast {
+            position: fixed; top: 18px; right: 18px; z-index: 9999;
+            padding: 13px 20px; border-radius: 11px; font-size: 13px; font-weight: 600;
+            transform: translateX(420px); transition: transform 0.38s cubic-bezier(0.4,0,0.2,1);
+            max-width: 340px; box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        }
+        #toast.show { transform: translateX(0); }
+        .toast-success { background: #d1fae5; color: #065f46; border-left: 4px solid #10b981; }
+        .toast-error   { background: #fee2e2; color: #991b1b; border-left: 4px solid #ef4444; }
+        .toast-info    { background: #dbeafe; color: #1e40af; border-left: 4px solid #3b82f6; }
+
+        /* ===== SECTION HEADER ===== */
+        .sec-head { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+        .sec-title { font-family: 'Outfit', sans-serif; font-weight: 900; font-size: 18px; color: #000080; text-transform: uppercase; letter-spacing: 0.03em; }
+        .sec-sub { font-size: 12px; color: #94a3b8; margin-top: 2px; }
+    </style>
 </head>
 <body>
-    <div id="toast" class="toast"></div>
+    <div id="toast"></div>
 
-    <div class="flex min-h-screen">
-        <!-- Sidebar -->
-        <aside class="sidebar w-64 flex-shrink-0 flex flex-col">
-            <div class="p-6 border-b border-white/10 text-center">
-                <img src="assets/images/logo.png" alt="Logo" class="h-10 mx-auto mb-2 brightness-110">
-                <p class="text-[10px] text-blue-300 font-bold uppercase tracking-widest">Student Portal</p>
-            </div>
-            <nav class="flex-1 p-4 space-y-2">
-                <a href="#" onclick="showSection('dashboard')" id="nav-dashboard" class="active flex items-center gap-3 p-3 rounded-xl font-bold text-sm tracking-wide transition-all">
-                    <span>🏠</span> Dashboard
-                </a>
-                <a href="#" onclick="showSection('applications')" id="nav-applications" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 text-gray-400 font-medium text-sm tracking-wide transition-all">
-                    <span>📋</span> My Applications
-                </a>
-                <a href="#" onclick="showSection('apply')" id="nav-apply" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 text-gray-400 font-medium text-sm tracking-wide transition-all">
-                    <span>📝</span> Apply for Course
-                </a>
-                <a href="#" onclick="showSection('profile')" id="nav-profile" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 text-gray-400 font-medium text-sm tracking-wide transition-all">
-                    <span>👤</span> My Profile
-                </a>
-                <a href="index.html" class="flex items-center gap-3 p-3 rounded-xl hover:bg-white/5 text-gray-400 font-medium text-sm tracking-wide transition-all">
-                    <span>🌐</span> Back to Website
-                </a>
-            </nav>
-            <div class="p-4 border-t border-white/10">
-                <div class="px-3 py-2 mb-3">
-                    <p id="sidebarName" class="text-white font-bold text-sm">Student</p>
-                    <p id="sidebarEmail" class="text-blue-300 text-xs truncate">email@example.com</p>
-                </div>
-                <button onclick="logout()" class="w-full flex items-center justify-center gap-3 p-3 rounded-xl bg-red-500/10 text-red-400 font-bold text-sm tracking-wide hover:bg-red-500 hover:text-white transition-all">
-                    <span>🚪</span> Logout
-                </button>
-            </div>
-        </aside>
+    <!-- Mobile Overlay -->
+    <div id="mobOverlay" class="mob-overlay" onclick="closeMobSidebar()"></div>
 
-        <!-- Main Content -->
-        <main class="flex-1 flex flex-col">
-            <!-- Mobile Header -->
-            <div class="mobile-header sticky top-0 z-50 items-center justify-between p-4 bg-white shadow-md">
-                <button onclick="toggleMobileSidebar()" class="text-2xl text-navy">☰</button>
-                <img src="assets/images/logo.png" alt="Logo" class="h-8">
-                <button onclick="logout()" class="text-sm font-bold text-red-500">Logout</button>
-            </div>
-
-            <!-- Dashboard Section -->
-            <div id="section-dashboard" class="section p-6 md:p-8 space-y-8 flex-1 overflow-y-auto">
-                <!-- Welcome Card -->
-                <div class="bg-gradient-to-r from-navy to-dark p-8 rounded-3xl text-white shadow-2xl relative overflow-hidden">
-                    <div class="relative z-10">
-                        <h1 class="text-2xl md:text-3xl font-heading font-extrabold uppercase mb-2">Jai Hind, <span id="welcomeName" class="text-primary italic">Cadet</span>!</h1>
-                        <p class="text-blue-200 leading-relaxed max-w-xl">Welcome to your dashboard. Track your preparation, applications, and stay updated with academy announcements.</p>
-                    </div>
-                    <div class="absolute right-[-20px] bottom-[-20px] opacity-10 blur-sm pointer-events-none">
-                        <img src="assets/images/logo.png" alt="Watermark" class="h-48">
-                    </div>
-                </div>
-
-                <!-- Stats Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="stat-card bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-5">
-                        <div class="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center text-2xl">📋</div>
-                        <div>
-                            <p class="text-[10px] uppercase font-bold text-gray-400 tracking-widest">Total Applications</p>
-                            <p id="totalApps" class="text-2xl font-bold font-heading text-navy">0</p>
-                        </div>
-                    </div>
-                    <div class="stat-card bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-5">
-                        <div class="w-14 h-14 bg-amber-100 rounded-xl flex items-center justify-center text-2xl">⏳</div>
-                        <div>
-                            <p class="text-[10px] uppercase font-bold text-gray-400 tracking-widest">Pending Review</p>
-                            <p id="pendingApps" class="text-2xl font-bold font-heading text-navy">0</p>
-                        </div>
-                    </div>
-                    <div class="stat-card bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-5">
-                        <div class="w-14 h-14 bg-emerald-100 rounded-xl flex items-center justify-center text-2xl">✅</div>
-                        <div>
-                            <p class="text-[10px] uppercase font-bold text-gray-400 tracking-widest">Approved</p>
-                            <p id="approvedApps" class="text-2xl font-bold font-heading text-navy">0</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Quick Actions -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div onclick="showSection('apply')" class="bg-gradient-to-br from-primary to-orange-600 p-6 rounded-2xl text-white cursor-pointer hover:scale-[1.02] transition-all shadow-lg">
-                        <h3 class="font-heading font-bold text-lg mb-1">📝 Apply for a Course</h3>
-                        <p class="text-white/80 text-sm">Submit a new application for any training program</p>
-                    </div>
-                    <a href="contact.html" class="bg-gradient-to-br from-navy to-blue-800 p-6 rounded-2xl text-white hover:scale-[1.02] transition-all shadow-lg block">
-                        <h3 class="font-heading font-bold text-lg mb-1">📞 Help & Support</h3>
-                        <p class="text-white/80 text-sm">Contact us for any queries or assistance</p>
-                    </a>
-                </div>
-
-                <!-- Recent Applications Table -->
-                <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
-                    <div class="p-6 border-b border-gray-50 flex items-center justify-between">
-                        <h3 class="font-heading font-bold text-navy uppercase tracking-widest text-sm">Recent Applications</h3>
-                        <button onclick="showSection('applications')" class="text-xs font-bold text-primary hover:underline">View All →</button>
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left">
-                            <thead class="bg-gray-50 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
-                                <tr>
-                                    <th class="px-6 py-4">Course Name</th>
-                                    <th class="px-6 py-4">Applied Date</th>
-                                    <th class="px-6 py-4">Status</th>
-                                </tr>
-                            </thead>
-                            <tbody id="recentAppsTable" class="text-sm font-medium">
-                                <tr><td colspan="3" class="px-6 py-12 text-center text-gray-400">Loading...</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
+    <!-- Mobile Sidebar -->
+    <aside id="mobSidebar" class="mob-sidebar">
+        <div class="mob-sidebar-head">
+            <div style="display:flex;align-items:center;gap:9px;">
+                <img src="assets/images/logo.png" alt="Logo" style="height:36px;object-fit:contain;filter:brightness(1.2) drop-shadow(0 2px 8px rgba(255,153,51,0.5));">
+                <div>
+                    <div class="brand-name" style="font-family:'Outfit',sans-serif;font-weight:900;font-size:12px;color:#fff;text-transform:uppercase;letter-spacing:0.06em;line-height:1.2;">Champions<br>Academy</div>
+                    <div style="font-size:8.5px;font-weight:700;color:#FF9933;letter-spacing:0.14em;text-transform:uppercase;">Student Portal</div>
                 </div>
             </div>
-
-            <!-- Applications Section -->
-            <div id="section-applications" class="section p-6 md:p-8 space-y-6 flex-1 overflow-y-auto hidden">
-                <div class="flex items-center justify-between">
-                    <h2 class="text-xl font-heading font-bold text-navy uppercase tracking-wider">All My Applications</h2>
-                    <button onclick="showSection('apply')" class="bg-primary text-white px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-widest hover:bg-navy transition">+ New Application</button>
-                </div>
-                <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left">
-                            <thead class="bg-gray-50 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
-                                <tr>
-                                    <th class="px-6 py-4">Course</th>
-                                    <th class="px-6 py-4">Name</th>
-                                    <th class="px-6 py-4">Education</th>
-                                    <th class="px-6 py-4">Applied</th>
-                                    <th class="px-6 py-4">Status</th>
-                                </tr>
-                            </thead>
-                            <tbody id="allAppsTable" class="text-sm font-medium">
-                                <tr><td colspan="5" class="px-6 py-12 text-center text-gray-400">Loading...</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Apply Section -->
-            <div id="section-apply" class="section p-6 md:p-8 flex-1 overflow-y-auto hidden">
-                <h2 class="text-xl font-heading font-bold text-navy uppercase tracking-wider mb-6">Apply for a Course</h2>
-                <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-8 max-w-2xl">
-                    <form id="applyForm" class="space-y-5">
-                        <div>
-                            <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Select Course</label>
-                            <select id="appCourse" required class="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none transition font-medium bg-white">
-                                <option value="">-- Choose a Course --</option>
-                                <option>Police Bharti Training</option>
-                                <option>Army Agniveer Preparation</option>
-                                <option>PSI Recruitment Batch</option>
-                                <option>STI Recruitment Batch</option>
-                                <option>ASO Recruitment Batch</option>
-                                <option>Talathi Training Program</option>
-                                <option>Gramsevak Recruitment</option>
-                                <option>RPF Recruitment Program</option>
-                                <option>SSC Recruitment Training</option>
-                                <option>Railway Recruitment Prep</option>
-                            </select>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                            <div>
-                                <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Full Name</label>
-                                <input type="text" id="appName" required class="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none transition font-medium">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Mobile Number</label>
-                                <input type="tel" id="appMobile" required class="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none transition font-medium">
-                            </div>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                            <div>
-                                <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Email</label>
-                                <input type="email" id="appEmail" required class="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none transition font-medium">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Education</label>
-                                <select id="appEdu" class="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none transition font-medium bg-white">
-                                    <option>10th Pass</option>
-                                    <option>12th Pass</option>
-                                    <option>Graduate</option>
-                                    <option>Post Graduate</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Address</label>
-                            <textarea id="appAddress" rows="3" class="w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-primary outline-none transition font-medium resize-none"></textarea>
-                        </div>
-                        <button type="submit" class="bg-primary text-white py-4 px-8 rounded-xl font-bold uppercase tracking-widest text-sm btn-glow transition-all">Submit Application</button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Profile Section -->
-            <div id="section-profile" class="section p-6 md:p-8 flex-1 overflow-y-auto hidden">
-                <h2 class="text-xl font-heading font-bold text-navy uppercase tracking-wider mb-6">My Profile</h2>
-                <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-8 max-w-2xl">
-                    <div class="flex items-center gap-6 mb-8 pb-8 border-b border-gray-100">
-                        <div class="w-20 h-20 bg-gradient-to-br from-primary to-orange-600 rounded-2xl flex items-center justify-center text-3xl text-white font-bold" id="profileAvatar">R</div>
-                        <div>
-                            <h3 id="profileName" class="text-xl font-heading font-bold text-navy">Name</h3>
-                            <p id="profileRole" class="text-sm text-primary font-bold uppercase tracking-widest">Student</p>
-                        </div>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-xl">
-                            <span class="text-lg">📧</span>
-                            <div>
-                                <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Email</p>
-                                <p id="profileEmail" class="font-medium text-navy">email@example.com</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-xl">
-                            <span class="text-lg">📱</span>
-                            <div>
-                                <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Phone</p>
-                                <p id="profilePhone" class="font-medium text-navy">+91 00000 00000</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-xl">
-                            <span class="text-lg">📅</span>
-                            <div>
-                                <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Member Since</p>
-                                <p id="profileDate" class="font-medium text-navy">-</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <!-- Mobile Sidebar Overlay -->
-    <div id="mobileOverlay" class="mobile-overlay" onclick="toggleMobileSidebar()"></div>
-    <aside id="mobileSidebar" class="mobile-sidebar sidebar">
-        <div class="p-6 border-b border-white/10 flex justify-between items-center">
-            <img src="assets/images/logo.png" alt="Logo" class="h-8">
-            <button onclick="toggleMobileSidebar()" class="text-white text-2xl">×</button>
+            <button class="mob-close-btn" onclick="closeMobSidebar()">×</button>
         </div>
-        <nav class="p-4 space-y-2">
-            <a href="#" onclick="showSection('dashboard');toggleMobileSidebar()" class="flex items-center gap-3 p-3 rounded-xl text-white font-bold text-sm">🏠 Dashboard</a>
-            <a href="#" onclick="showSection('applications');toggleMobileSidebar()" class="flex items-center gap-3 p-3 rounded-xl text-gray-400 font-medium text-sm">📋 Applications</a>
-            <a href="#" onclick="showSection('apply');toggleMobileSidebar()" class="flex items-center gap-3 p-3 rounded-xl text-gray-400 font-medium text-sm">📝 Apply</a>
-            <a href="#" onclick="showSection('profile');toggleMobileSidebar()" class="flex items-center gap-3 p-3 rounded-xl text-gray-400 font-medium text-sm">👤 Profile</a>
-            <a href="index.html" class="flex items-center gap-3 p-3 rounded-xl text-gray-400 font-medium text-sm">🌐 Website</a>
+        <nav style="flex:1;padding:10px 8px;overflow-y:auto;">
+            <button class="nav-item active" id="mn-dashboard"    onclick="nav('dashboard')">    <span class="ni">🏠</span> Dashboard</button>
+            <button class="nav-item"        id="mn-announcements" onclick="nav('announcements')"><span class="ni">📢</span> Announcements <span class="nav-badge" id="mAnnBadge" style="display:none">0</span></button>
+            <button class="nav-item"        id="mn-applications"  onclick="nav('applications')"> <span class="ni">📋</span> My Applications</button>
+            <button class="nav-item"        id="mn-apply"         onclick="nav('apply')">        <span class="ni">📝</span> Apply Now</button>
+            <button class="nav-item"        id="mn-materials"     onclick="nav('materials')">    <span class="ni">📚</span> Study Materials</button>
+            <button class="nav-item"        id="mn-schedule"      onclick="nav('schedule')">     <span class="ni">🗓️</span> Exam Schedule</button>
+            <button class="nav-item"        id="mn-profile"       onclick="nav('profile')">      <span class="ni">👤</span> My Profile</button>
+            <div class="nav-divider"></div>
+            <a href="index.html" class="nav-item"><span class="ni">🌐</span> Back to Website</a>
         </nav>
-        <div class="p-4 border-t border-white/10 mt-auto">
-            <button onclick="logout()" class="w-full p-3 rounded-xl bg-red-500/10 text-red-400 font-bold text-sm hover:bg-red-500 hover:text-white transition">🚪 Logout</button>
+        <div style="padding:12px 12px;border-top:1px solid rgba(255,255,255,0.08);">
+            <button class="btn-logout" onclick="logout()">🚪 Logout</button>
         </div>
     </aside>
 
+    <div class="app-shell">
+        <!-- Desktop Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-logo">
+                <img src="assets/images/logo.png" alt="Champions Academy Logo">
+                <div>
+                    <div class="brand-name">Champions<br>Academy</div>
+                    <div class="brand-sub">Student Portal</div>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <div class="nav-sect-label">Main</div>
+                <button class="nav-item active" id="d-dashboard"    onclick="nav('dashboard')">    <span class="ni">🏠</span> Dashboard</button>
+                <button class="nav-item"        id="d-announcements" onclick="nav('announcements')"><span class="ni">📢</span> Announcements <span class="nav-badge" id="dAnnBadge" style="display:none">0</span></button>
+                <button class="nav-item"        id="d-applications"  onclick="nav('applications')"> <span class="ni">📋</span> My Applications</button>
+                <button class="nav-item"        id="d-apply"         onclick="nav('apply')">        <span class="ni">📝</span> Apply Now</button>
+                <div class="nav-sect-label">Resources</div>
+                <button class="nav-item"        id="d-materials"     onclick="nav('materials')">    <span class="ni">📚</span> Study Materials</button>
+                <button class="nav-item"        id="d-schedule"      onclick="nav('schedule')">     <span class="ni">🗓️</span> Exam Schedule</button>
+                <div class="nav-sect-label">Account</div>
+                <button class="nav-item"        id="d-profile"       onclick="nav('profile')">      <span class="ni">👤</span> My Profile</button>
+                <div class="nav-divider"></div>
+                <a href="index.html" class="nav-item"><span class="ni">🌐</span> Back to Website</a>
+            </nav>
+            <div class="sidebar-user">
+                <div class="user-mini-card">
+                    <div class="user-avatar" id="sidebarAvatar">R</div>
+                    <div style="min-width:0;">
+                        <p id="sidebarName" style="font-weight:700;font-size:12px;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">Student</p>
+                        <p id="sidebarEmail" style="font-size:10px;color:rgba(255,255,255,0.4);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">email@example.com</p>
+                    </div>
+                </div>
+                <button class="btn-logout" onclick="logout()">🚪 Logout</button>
+            </div>
+        </aside>
+
+        <!-- Main -->
+        <div class="main-content">
+            <!-- Mobile Header -->
+            <header class="mobile-header">
+                <button class="btn-hamburger" id="hambBtn" onclick="openMobSidebar()">☰</button>
+                <div class="mh-logo">
+                    <img src="assets/images/logo.png" alt="Logo">
+                    <div>
+                        <div class="mh-brand">Champions Academy</div>
+                        <div class="mh-sub">Student Portal</div>
+                    </div>
+                </div>
+                <button onclick="logout()" style="background:none;border:none;font-size:12px;font-weight:700;color:#ef4444;cursor:pointer;">Logout</button>
+            </header>
+
+            <div class="page-body">
+
+                <!-- ========== DASHBOARD ========== -->
+                <section id="s-dashboard" class="section active">
+                    <div class="welcome-banner">
+                        <div style="position:relative;z-index:1;">
+                            <div class="label">Welcome Back</div>
+                            <h1>Jai Hind, <span id="welcomeName">Cadet</span>!</h1>
+                            <p>Track your training journey, view announcements, and manage your academy applications.</p>
+                        </div>
+                        <div class="wm-logo"><img src="assets/images/logo.png" alt=""></div>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="stat-grid">
+                        <div class="stat-card clickable" onclick="nav('applications')">
+                            <div class="stat-icon" style="background:#eff6ff;">📋</div>
+                            <div>
+                                <div class="stat-label">Applications</div>
+                                <div class="stat-val" id="st-total" style="color:#1e40af;">0</div>
+                            </div>
+                        </div>
+                        <div class="stat-card clickable" onclick="nav('applications')">
+                            <div class="stat-icon" style="background:#fffbeb;">⏳</div>
+                            <div>
+                                <div class="stat-label">Pending</div>
+                                <div class="stat-val" id="st-pending" style="color:#d97706;">0</div>
+                            </div>
+                        </div>
+                        <div class="stat-card clickable" onclick="nav('applications')">
+                            <div class="stat-icon" style="background:#f0fdf4;">✅</div>
+                            <div>
+                                <div class="stat-label">Approved</div>
+                                <div class="stat-val" id="st-approved" style="color:#16a34a;">0</div>
+                            </div>
+                        </div>
+                        <div class="stat-card clickable" onclick="nav('announcements')">
+                            <div class="stat-icon" style="background:#fff7ed;">📢</div>
+                            <div>
+                                <div class="stat-label">Notices</div>
+                                <div class="stat-val" id="st-anns" style="color:#ea580c;">0</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="action-grid" style="margin-bottom:22px;">
+                        <button class="action-card" onclick="nav('apply')" style="background:linear-gradient(135deg,#FF9933,#e67000);box-shadow:0 8px 22px rgba(255,153,51,0.3);">
+                            <div class="ac-icon">📝</div>
+                            <div class="ac-title">Apply for Course</div>
+                            <div class="ac-sub">Submit a new training application</div>
+                        </button>
+                        <button class="action-card" onclick="nav('announcements')" style="background:linear-gradient(135deg,#000080,#06065c);box-shadow:0 8px 22px rgba(0,0,128,0.25);">
+                            <div class="ac-icon">📢</div>
+                            <div class="ac-title">Announcements</div>
+                            <div class="ac-sub">View latest academy notices</div>
+                        </button>
+                        <button class="action-card" onclick="nav('materials')" style="background:linear-gradient(135deg,#138808,#0d6606);box-shadow:0 8px 22px rgba(19,136,8,0.25);">
+                            <div class="ac-icon">📚</div>
+                            <div class="ac-title">Study Materials</div>
+                            <div class="ac-sub">Download notes &amp; resources</div>
+                        </button>
+                        <a href="contact.html" class="action-card" style="background:linear-gradient(135deg,#7c3aed,#5b21b6);box-shadow:0 8px 22px rgba(124,58,237,0.25);">
+                            <div class="ac-icon">📞</div>
+                            <div class="ac-title">Help &amp; Support</div>
+                            <div class="ac-sub">Contact academy staff</div>
+                        </a>
+                    </div>
+
+                    <!-- Announcements preview + Recent apps side by side -->
+                    <div style="display:grid;grid-template-columns:1fr;gap:16px;" id="dashGrid">
+                        <div class="card" id="dashAnnCard">
+                            <div class="card-head">
+                                <span class="card-title">📢 Latest Announcements</span>
+                                <button class="card-link" onclick="nav('announcements')">See All →</button>
+                            </div>
+                            <div id="dashAnnList" style="padding:12px 14px;display:flex;flex-direction:column;gap:8px;">
+                                <div class="empty"><div class="e-icon">📢</div>Loading...</div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-head">
+                                <span class="card-title">📋 Recent Applications</span>
+                                <button class="card-link" onclick="nav('applications')">View All →</button>
+                            </div>
+                            <div class="table-wrap">
+                                <table class="data-table">
+                                    <thead><tr><th>Course</th><th>Date</th><th>Status</th></tr></thead>
+                                    <tbody id="recentAppsTable"><tr><td colspan="3"><div class="empty">Loading...</div></td></tr></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========== ANNOUNCEMENTS ========== -->
+                <section id="s-announcements" class="section">
+                    <div class="sec-head">
+                        <div>
+                            <div class="sec-title">📢 Announcements</div>
+                            <div class="sec-sub">Latest updates and notices from the academy</div>
+                        </div>
+                        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+                            <select id="annFilter" onchange="renderAnnouncements()" style="padding:8px 12px;border-radius:9px;border:1.5px solid #e2e8f0;font-size:12px;outline:none;background:#fff;font-weight:600;">
+                                <option value="all">All Priority</option>
+                                <option value="high">🔴 High</option>
+                                <option value="medium">🟠 Medium</option>
+                                <option value="low">🔵 Low</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="annList"></div>
+                </section>
+
+                <!-- ========== APPLICATIONS ========== -->
+                <section id="s-applications" class="section">
+                    <div class="sec-head">
+                        <div>
+                            <div class="sec-title">My Applications</div>
+                            <div class="sec-sub">Track all your submitted course applications</div>
+                        </div>
+                        <button class="btn-primary" onclick="nav('apply')">+ New Application</button>
+                    </div>
+                    <div class="card">
+                        <div class="table-wrap">
+                            <table class="data-table">
+                                <thead><tr><th>Course</th><th>Name</th><th>Education</th><th>Applied</th><th>Status</th><th>Action</th></tr></thead>
+                                <tbody id="allAppsTable"><tr><td colspan="6"><div class="empty">Loading...</div></td></tr></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========== APPLY ========== -->
+                <section id="s-apply" class="section">
+                    <div class="sec-head">
+                        <div>
+                            <div class="sec-title">Apply for a Course</div>
+                            <div class="sec-sub">Fill in your details to submit an application</div>
+                        </div>
+                    </div>
+                    <div class="card" style="max-width:660px;">
+                        <div style="padding:24px;">
+                            <form id="applyForm">
+                                <div class="form-group">
+                                    <label class="form-label">Select Course *</label>
+                                    <select id="appCourse" required class="form-input">
+                                        <option value="">-- Choose a Course --</option>
+                                        <option>Police Bharti Training</option>
+                                        <option>Army Agniveer Preparation</option>
+                                        <option>PSI Recruitment Batch</option>
+                                        <option>STI Recruitment Batch</option>
+                                        <option>ASO Recruitment Batch</option>
+                                        <option>Talathi Training Program</option>
+                                        <option>Gramsevak Recruitment</option>
+                                        <option>RPF Recruitment Program</option>
+                                        <option>SSC Recruitment Training</option>
+                                        <option>Railway Recruitment Prep</option>
+                                        <option>IBPS / Bank Exam Prep</option>
+                                        <option>NDA Preparation</option>
+                                    </select>
+                                </div>
+                                <div class="form-grid-2">
+                                    <div class="form-group">
+                                        <label class="form-label">Full Name *</label>
+                                        <input type="text" id="appName" required class="form-input" placeholder="Your full name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Mobile Number *</label>
+                                        <input type="tel" id="appMobile" required class="form-input" placeholder="+91 XXXXX XXXXX">
+                                    </div>
+                                </div>
+                                <div class="form-grid-2">
+                                    <div class="form-group">
+                                        <label class="form-label">Email *</label>
+                                        <input type="email" id="appEmail" required class="form-input" placeholder="you@example.com">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Education Qualification</label>
+                                        <select id="appEdu" class="form-input">
+                                            <option>10th Pass</option>
+                                            <option>12th Pass</option>
+                                            <option>Diploma</option>
+                                            <option>Graduate</option>
+                                            <option>Post Graduate</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-grid-2">
+                                    <div class="form-group">
+                                        <label class="form-label">Date of Birth</label>
+                                        <input type="date" id="appDob" class="form-input">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label">Gender</label>
+                                        <select id="appGender" class="form-input">
+                                            <option value="">Select</option>
+                                            <option>Male</option>
+                                            <option>Female</option>
+                                            <option>Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Address</label>
+                                    <textarea id="appAddress" rows="2" class="form-input" style="resize:none;" placeholder="Village / City, District, Maharashtra"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label">Special Message (optional)</label>
+                                    <textarea id="appMessage" rows="2" class="form-input" style="resize:none;" placeholder="Any specific requirements or questions..."></textarea>
+                                </div>
+                                <button type="submit" class="btn-primary" style="width:100%;padding:13px;">Submit Application</button>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ========== STUDY MATERIALS ========== -->
+                <section id="s-materials" class="section">
+                    <div class="sec-head">
+                        <div>
+                            <div class="sec-title">📚 Study Materials</div>
+                            <div class="sec-sub">Download notes, syllabus, and preparation resources</div>
+                        </div>
+                    </div>
+
+                    <!-- Category tabs -->
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;" id="matTabs">
+                        <button class="mat-tab active" data-cat="all" onclick="filterMaterials('all',this)">All</button>
+                        <button class="mat-tab" data-cat="police" onclick="filterMaterials('police',this)">🚔 Police</button>
+                        <button class="mat-tab" data-cat="army" onclick="filterMaterials('army',this)">⚔️ Army</button>
+                        <button class="mat-tab" data-cat="psi" onclick="filterMaterials('psi',this)">🏛️ PSI / STI</button>
+                        <button class="mat-tab" data-cat="general" onclick="filterMaterials('general',this)">📖 General</button>
+                    </div>
+                    <style>
+                        .mat-tab { padding:7px 14px;border-radius:20px;border:1.5px solid #e2e8f0;background:#fff;font-size:12px;font-weight:700;cursor:pointer;transition:all 0.2s;color:#475569; }
+                        .mat-tab.active,.mat-tab:hover { background:#000080;color:#fff;border-color:#000080; }
+                    </style>
+
+                    <div id="matGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px;"></div>
+                </section>
+
+                <!-- ========== EXAM SCHEDULE ========== -->
+                <section id="s-schedule" class="section">
+                    <div class="sec-head">
+                        <div>
+                            <div class="sec-title">🗓️ Exam Schedule</div>
+                            <div class="sec-sub">Upcoming government recruitment exams and important dates</div>
+                        </div>
+                    </div>
+                    <div id="scheduleList" style="display:flex;flex-direction:column;gap:12px;"></div>
+                </section>
+
+                <!-- ========== PROFILE ========== -->
+                <section id="s-profile" class="section">
+                    <div class="sec-head">
+                        <div>
+                            <div class="sec-title">My Profile</div>
+                            <div class="sec-sub">Your account details and progress</div>
+                        </div>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr;gap:16px;max-width:660px;">
+                        <!-- Profile card -->
+                        <div class="card" style="padding:24px;">
+                            <div style="display:flex;align-items:center;gap:18px;padding-bottom:20px;margin-bottom:20px;border-bottom:1px solid #f1f5f9;">
+                                <div class="profile-avatar-lg" id="profileAvt">R</div>
+                                <div>
+                                    <h3 id="profileName" style="font-family:'Outfit',sans-serif;font-weight:900;font-size:20px;color:#000080;">Student</h3>
+                                    <div style="font-size:11px;font-weight:700;color:#FF9933;text-transform:uppercase;letter-spacing:0.1em;margin-top:3px;">Student Member</div>
+                                </div>
+                            </div>
+                            <div class="info-row"><span class="ir-icon">📧</span><div><div class="ir-label">Email</div><div class="ir-val" id="profileEmail">-</div></div></div>
+                            <div class="info-row"><span class="ir-icon">📱</span><div><div class="ir-label">Phone</div><div class="ir-val" id="profilePhone">-</div></div></div>
+                            <div class="info-row"><span class="ir-icon">📅</span><div><div class="ir-label">Member Since</div><div class="ir-val" id="profileDate">-</div></div></div>
+                        </div>
+                        <!-- Progress card -->
+                        <div class="card" style="padding:24px;">
+                            <div class="card-title" style="margin-bottom:18px;">📊 Application Progress</div>
+                            <div style="margin-bottom:14px;">
+                                <div style="display:flex;justify-content:space-between;margin-bottom:5px;font-size:12px;font-weight:600;color:#64748b;">
+                                    <span>Applications Submitted</span>
+                                    <span id="prog-total">0</span>
+                                </div>
+                                <div class="progress-bar-wrap"><div class="progress-bar-fill" id="prog-bar" style="width:0%;background:linear-gradient(90deg,#FF9933,#e67000);"></div></div>
+                            </div>
+                            <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:16px;">
+                                <div style="text-align:center;padding:12px 8px;background:#f0fdf4;border-radius:12px;">
+                                    <div style="font-weight:900;font-size:22px;color:#16a34a;" id="prog-approved">0</div>
+                                    <div style="font-size:9px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.1em;margin-top:2px;">Approved</div>
+                                </div>
+                                <div style="text-align:center;padding:12px 8px;background:#fffbeb;border-radius:12px;">
+                                    <div style="font-weight:900;font-size:22px;color:#d97706;" id="prog-pending">0</div>
+                                    <div style="font-size:9px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.1em;margin-top:2px;">Pending</div>
+                                </div>
+                                <div style="text-align:center;padding:12px 8px;background:#fff5f5;border-radius:12px;">
+                                    <div style="font-weight:900;font-size:22px;color:#991b1b;" id="prog-rejected">0</div>
+                                    <div style="font-size:9px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:0.1em;margin-top:2px;">Rejected</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div><!-- /page-body -->
+        </div><!-- /main-content -->
+    </div><!-- /app-shell -->
+
     <script src="mock-auth.js"></script>
     <script>
-        let currentUser = null;
+    // ===== STATE =====
+    let currentUser = null;
+    let allAnns = [];
 
-        function showToast(msg, type) {
-            const t = document.getElementById('toast');
-            t.textContent = msg;
-            t.className = 'toast toast-' + type + ' show';
-            setTimeout(() => { t.classList.remove('show'); }, 3500);
-        }
+    // ===== TOAST =====
+    function toast(msg, type='success') {
+        const el = document.getElementById('toast');
+        el.textContent = msg;
+        el.className = `toast-${type} show`;
+        el.id = 'toast';
+        clearTimeout(el._t);
+        el._t = setTimeout(() => el.classList.remove('show'), 3500);
+    }
 
-        function toggleMobileSidebar() {
-            document.getElementById('mobileSidebar').classList.toggle('open');
-            document.getElementById('mobileOverlay').classList.toggle('active');
-        }
+    // ===== MOBILE SIDEBAR =====
+    function openMobSidebar() {
+        document.getElementById('mobSidebar').classList.add('open');
+        document.getElementById('mobOverlay').classList.add('show');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeMobSidebar() {
+        document.getElementById('mobSidebar').classList.remove('open');
+        document.getElementById('mobOverlay').classList.remove('show');
+        document.body.style.overflow = '';
+    }
 
-        function showSection(name) {
-            document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
-            document.getElementById('section-' + name).classList.remove('hidden');
-            // Update nav active state
-            document.querySelectorAll('.sidebar nav a').forEach(a => {
-                a.classList.remove('active', 'bg-primary', 'text-white');
-                a.classList.add('hover:bg-white/5', 'text-gray-400');
-            });
-            const activeNav = document.getElementById('nav-' + name);
-            if (activeNav) {
-                activeNav.classList.add('active');
-                activeNav.classList.remove('text-gray-400');
-            }
-            if (name === 'applications') loadApplications();
-            if (name === 'apply') prefillForm();
-        }
+    // ===== NAVIGATION =====
+    const SECTIONS = ['dashboard','announcements','applications','apply','materials','schedule','profile'];
 
-        async function loadDashboard() {
-            const res = await fetch('/api/auth/profile');
-            if (!res.ok) { window.location.href = 'login.html'; return; }
-            currentUser = await res.json();
-            
-            // Redirect admin to admin dashboard
-            if (currentUser.role === 'admin') {
-                window.location.href = 'admin-dashboard.html';
-                return;
-            }
+    function nav(name) {
+        // Close mobile sidebar
+        closeMobSidebar();
 
-            // Update UI
-            document.getElementById('welcomeName').textContent = currentUser.fullName.split(' ')[0];
-            document.getElementById('sidebarName').textContent = currentUser.fullName;
-            document.getElementById('sidebarEmail').textContent = currentUser.email;
-
-            // Profile
-            document.getElementById('profileName').textContent = currentUser.fullName;
-            document.getElementById('profileEmail').textContent = currentUser.email;
-            document.getElementById('profilePhone').textContent = currentUser.phone || 'Not provided';
-            document.getElementById('profileDate').textContent = new Date(currentUser.createdAt).toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' });
-            document.getElementById('profileAvatar').textContent = currentUser.fullName.charAt(0).toUpperCase();
-
-            // Load applications
-            const appRes = await fetch('/api/applications/my-applications');
-            const apps = await appRes.json();
-
-            document.getElementById('totalApps').textContent = apps.length;
-            document.getElementById('pendingApps').textContent = apps.filter(a => a.status === 'pending').length;
-            document.getElementById('approvedApps').textContent = apps.filter(a => a.status === 'approved').length;
-
-            renderAppsTable('recentAppsTable', apps.slice(-3).reverse(), true);
-        }
-
-        async function loadApplications() {
-            const res = await fetch('/api/applications/my-applications');
-            const apps = await res.json();
-            renderAppsTable('allAppsTable', apps, false);
-        }
-
-        function renderAppsTable(tableId, apps, isRecent) {
-            const tbody = document.getElementById(tableId);
-            if (apps.length === 0) {
-                const cols = isRecent ? 3 : 5;
-                tbody.innerHTML = `<tr><td colspan="${cols}" class="px-6 py-12 text-center text-gray-400">No applications found. <button onclick="showSection('apply')" class="text-primary font-bold hover:underline">Apply Now →</button></td></tr>`;
-                return;
-            }
-            tbody.innerHTML = apps.map(app => {
-                const statusClass = app.status === 'pending' ? 'status-pending' : app.status === 'approved' ? 'status-approved' : 'status-rejected';
-                const date = new Date(app.createdAt).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
-
-                if (isRecent) {
-                    return `<tr class="border-t border-gray-50 hover:bg-gray-50 transition-colors">
-                        <td class="px-6 py-4 font-bold text-navy">${app.courseName}</td>
-                        <td class="px-6 py-4 text-gray-500">${date}</td>
-                        <td class="px-6 py-4"><span class="status-badge ${statusClass}">${app.status}</span></td>
-                    </tr>`;
-                }
-                return `<tr class="border-t border-gray-50 hover:bg-gray-50 transition-colors">
-                    <td class="px-6 py-4 font-bold text-navy">${app.courseName}</td>
-                    <td class="px-6 py-4 text-gray-500">${app.fullName}</td>
-                    <td class="px-6 py-4 text-gray-500">${app.education || '-'}</td>
-                    <td class="px-6 py-4 text-gray-500">${date}</td>
-                    <td class="px-6 py-4"><span class="status-badge ${statusClass}">${app.status}</span></td>
-                </tr>`;
-            }).join('');
-        }
-
-        function prefillForm() {
-            if (!currentUser) return;
-            document.getElementById('appName').value = currentUser.fullName;
-            document.getElementById('appEmail').value = currentUser.email;
-            document.getElementById('appMobile').value = currentUser.phone || '';
-        }
-
-        document.getElementById('applyForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const res = await fetch('/api/applications/submit', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    course: document.getElementById('appCourse').value,
-                    fullName: document.getElementById('appName').value,
-                    mobile: document.getElementById('appMobile').value,
-                    email: document.getElementById('appEmail').value,
-                    education: document.getElementById('appEdu').value,
-                    address: document.getElementById('appAddress').value
-                })
-            });
-            const data = await res.json();
-            if (res.ok) {
-                showToast('✅ ' + data.message, 'success');
-                document.getElementById('applyForm').reset();
-                setTimeout(() => { showSection('dashboard'); loadDashboard(); }, 1000);
-            } else {
-                showToast('❌ ' + data.message, 'error');
-            }
+        // Hide all sections
+        SECTIONS.forEach(s => {
+            const el = document.getElementById('s-' + s);
+            if (el) { el.classList.remove('active'); el.style.display = 'none'; }
         });
+        const target = document.getElementById('s-' + name);
+        if (target) { target.classList.add('active'); target.style.display = 'block'; }
 
-        async function logout() {
-            await fetch('/api/auth/logout', { method: 'POST' });
-            window.location.href = 'login.html';
+        // Update nav active states
+        SECTIONS.forEach(s => {
+            ['d-','mn-'].forEach(p => {
+                const btn = document.getElementById(p + s);
+                if (btn) btn.classList.remove('active');
+            });
+        });
+        const d = document.getElementById('d-' + name);
+        const m = document.getElementById('mn-' + name);
+        if (d) d.classList.add('active');
+        if (m) m.classList.add('active');
+
+        // Lazy load
+        if (name === 'applications') loadAllApps();
+        if (name === 'apply') prefillForm();
+        if (name === 'announcements') renderAnnouncements();
+        if (name === 'materials') renderMaterials();
+        if (name === 'schedule') renderSchedule();
+    }
+
+    // ===== INIT =====
+    async function init() {
+        const res = await fetch('/api/auth/profile');
+        if (!res.ok) { location.href = 'login.html'; return; }
+        currentUser = await res.json();
+        if (currentUser.role === 'admin') { location.href = 'admin-dashboard.html'; return; }
+
+        // Populate sidebar
+        const first = currentUser.fullName.split(' ')[0];
+        document.getElementById('welcomeName').textContent = first;
+        document.getElementById('sidebarName').textContent = currentUser.fullName;
+        document.getElementById('sidebarEmail').textContent = currentUser.email;
+        document.getElementById('sidebarAvatar').textContent = currentUser.fullName.charAt(0).toUpperCase();
+
+        // Profile section
+        document.getElementById('profileName').textContent = currentUser.fullName;
+        document.getElementById('profileEmail').textContent = currentUser.email;
+        document.getElementById('profilePhone').textContent = currentUser.phone || 'Not provided';
+        document.getElementById('profileDate').textContent = new Date(currentUser.createdAt).toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric' });
+        document.getElementById('profileAvt').textContent = currentUser.fullName.charAt(0).toUpperCase();
+
+        // Load apps stats
+        const appRes = await fetch('/api/applications/my-applications');
+        const apps = await appRes.json();
+        document.getElementById('st-total').textContent    = apps.length;
+        document.getElementById('st-pending').textContent  = apps.filter(a=>a.status==='pending').length;
+        document.getElementById('st-approved').textContent = apps.filter(a=>a.status==='approved').length;
+        // Profile progress
+        document.getElementById('prog-total').textContent    = apps.length;
+        document.getElementById('prog-approved').textContent = apps.filter(a=>a.status==='approved').length;
+        document.getElementById('prog-pending').textContent  = apps.filter(a=>a.status==='pending').length;
+        document.getElementById('prog-rejected').textContent = apps.filter(a=>a.status==='rejected').length;
+        const pct = apps.length ? Math.round((apps.filter(a=>a.status==='approved').length / apps.length)*100) : 0;
+        document.getElementById('prog-bar').style.width = pct + '%';
+
+        // Recent apps table on dashboard
+        renderRecentApps(apps.slice(-5).reverse());
+
+        // Load announcements
+        const annRes = await fetch('/api/announcements');
+        if (annRes.ok) {
+            allAnns = await annRes.json();
         }
+        document.getElementById('st-anns').textContent = allAnns.length;
+        if (allAnns.length) {
+            ['dAnnBadge','mAnnBadge'].forEach(id => {
+                const el = document.getElementById(id);
+                el.textContent = allAnns.length; el.style.display = 'inline-flex';
+            });
+        }
+        renderDashAnn();
+    }
 
-        // Initialize
-        loadDashboard();
+    // ===== RENDER RECENT APPS =====
+    function renderRecentApps(apps) {
+        const tb = document.getElementById('recentAppsTable');
+        if (!apps.length) {
+            tb.innerHTML = `<tr><td colspan="3"><div class="empty"><div class="e-icon">📋</div>No applications yet. <button onclick="nav('apply')" style="color:#FF9933;font-weight:700;background:none;border:none;cursor:pointer;">Apply Now →</button></div></td></tr>`;
+            return;
+        }
+        tb.innerHTML = apps.map(a => {
+            const d = fmt(a.createdAt);
+            return `<tr>
+                <td style="font-weight:700;color:#000080;max-width:160px;">${a.courseName}</td>
+                <td style="color:#64748b;">${d}</td>
+                <td><span class="badge badge-${a.status}">${a.status}</span></td>
+            </tr>`;
+        }).join('');
+    }
+
+    // ===== LOAD ALL APPS =====
+    async function loadAllApps() {
+        const res = await fetch('/api/applications/my-applications');
+        const apps = await res.json();
+        const tb = document.getElementById('allAppsTable');
+        if (!apps.length) {
+            tb.innerHTML = `<tr><td colspan="6"><div class="empty"><div class="e-icon">📋</div>No applications. <button onclick="nav('apply')" style="color:#FF9933;font-weight:700;background:none;border:none;cursor:pointer;">Apply Now →</button></div></td></tr>`;
+            return;
+        }
+        tb.innerHTML = [...apps].reverse().map(a => {
+            const d = fmt(a.createdAt);
+            return `<tr>
+                <td style="font-weight:700;color:#000080;">${a.courseName}</td>
+                <td style="color:#64748b;">${a.fullName}</td>
+                <td style="color:#64748b;">${a.education||'-'}</td>
+                <td style="color:#64748b;white-space:nowrap;">${d}</td>
+                <td><span class="badge badge-${a.status}">${a.status}</span></td>
+                <td>
+                  ${a.status==='approved'?`<span style="color:#16a34a;font-size:11px;font-weight:700;">✅ Approved</span>`:''}
+                  ${a.status==='rejected'?`<span style="color:#991b1b;font-size:11px;font-weight:700;">❌ Rejected</span>`:''}
+                  ${a.status==='pending'?`<span style="color:#92400e;font-size:11px;font-weight:700;">⏳ Under Review</span>`:''}
+                </td>
+            </tr>`;
+        }).join('');
+    }
+
+    // ===== PREFILL FORM =====
+    function prefillForm() {
+        if (!currentUser) return;
+        document.getElementById('appName').value  = currentUser.fullName;
+        document.getElementById('appEmail').value = currentUser.email;
+        document.getElementById('appMobile').value = currentUser.phone || '';
+    }
+
+    // ===== APPLY FORM SUBMIT =====
+    document.getElementById('applyForm').addEventListener('submit', async e => {
+        e.preventDefault();
+        const btn = e.target.querySelector('button[type=submit]');
+        btn.textContent = 'Submitting...'; btn.disabled = true;
+        const res = await fetch('/api/applications/submit', {
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({
+                course:    document.getElementById('appCourse').value,
+                fullName:  document.getElementById('appName').value,
+                mobile:    document.getElementById('appMobile').value,
+                email:     document.getElementById('appEmail').value,
+                education: document.getElementById('appEdu').value,
+                dob:       document.getElementById('appDob').value,
+                gender:    document.getElementById('appGender').value,
+                address:   document.getElementById('appAddress').value,
+                message:   document.getElementById('appMessage').value
+            })
+        });
+        const d = await res.json();
+        btn.textContent = 'Submit Application'; btn.disabled = false;
+        if (res.ok) {
+            toast('✅ ' + d.message, 'success');
+            e.target.reset();
+            setTimeout(() => nav('applications'), 900);
+        } else {
+            toast('❌ ' + d.message, 'error');
+        }
+    });
+
+    // ===== ANNOUNCEMENTS =====
+    function renderDashAnn() {
+        const el = document.getElementById('dashAnnList');
+        if (!allAnns.length) {
+            el.innerHTML = '<div class="empty"><div class="e-icon">📢</div>No announcements yet.</div>';
+            return;
+        }
+        const latest = [...allAnns].reverse().slice(0,3);
+        el.innerHTML = latest.map(a => {
+            const d = fmtShort(a.createdAt);
+            const bg = a.priority==='high'?'#fff5f5':a.priority==='low'?'#eff6ff':'#fffbf5';
+            const em = a.priority==='high'?'🔴':a.priority==='low'?'🔵':'🟠';
+            return `<div style="display:flex;align-items:flex-start;gap:10px;padding:11px 12px;border-radius:11px;background:${bg};cursor:pointer;" onclick="nav('announcements')">
+                <span style="font-size:16px;margin-top:1px;">${em}</span>
+                <div style="flex:1;min-width:0;">
+                    <div style="font-weight:700;font-size:12.5px;color:#000080;margin-bottom:2px;">${a.title}</div>
+                    <div style="font-size:11px;color:#64748b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${a.content}</div>
+                </div>
+                <span style="font-size:10px;color:#94a3b8;white-space:nowrap;">${d}</span>
+            </div>`;
+        }).join('');
+    }
+
+    function renderAnnouncements() {
+        const filter = document.getElementById('annFilter').value;
+        const list = filter==='all' ? allAnns : allAnns.filter(a=>a.priority===filter);
+        const el = document.getElementById('annList');
+        if (!list.length) {
+            el.innerHTML = '<div class="empty"><div class="e-icon">📢</div>No announcements for this filter.</div>';
+            return;
+        }
+        el.innerHTML = [...list].reverse().map(a => {
+            const d = fmt(a.createdAt);
+            const pulse = a.priority==='high' ? '<span class="pulse-dot"></span>' : '';
+            return `<div class="ann-card ${a.priority}">
+                <div class="ann-header">
+                    <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap;">
+                        ${pulse}
+                        <span class="ann-title">${a.title}</span>
+                        <span class="badge badge-${a.priority}">${a.priority}</span>
+                    </div>
+                    <span class="ann-meta">${d}</span>
+                </div>
+                <div class="ann-body">${a.content}</div>
+            </div>`;
+        }).join('');
+    }
+
+    // ===== STUDY MATERIALS =====
+    const MATERIALS = [
+        { id:1, title:'Police Bharti Physical Guide', size:'2.4 MB', type:'PDF', cat:'police', icon:'📋', color:'#eff6ff' },
+        { id:2, title:'Maharashtra Police Syllabus 2026', size:'1.1 MB', type:'PDF', cat:'police', icon:'📜', color:'#eff6ff' },
+        { id:3, title:'Police Bharti Running Tips', size:'0.8 MB', type:'PDF', cat:'police', icon:'🏃', color:'#eff6ff' },
+        { id:4, title:'Army Agniveer Full Syllabus', size:'3.2 MB', type:'PDF', cat:'army', icon:'⚔️', color:'#f0fdf4' },
+        { id:5, title:'Physical Standards - Army Recruitment', size:'1.5 MB', type:'PDF', cat:'army', icon:'💪', color:'#f0fdf4' },
+        { id:6, title:'NDA Entrance Exam Guide', size:'4.1 MB', type:'PDF', cat:'army', icon:'🎯', color:'#f0fdf4' },
+        { id:7, title:'PSI Prelim Question Bank', size:'5.3 MB', type:'PDF', cat:'psi', icon:'🏛️', color:'#faf5ff' },
+        { id:8, title:'STI Subject Notes - Marathi', size:'2.8 MB', type:'PDF', cat:'psi', icon:'📝', color:'#faf5ff' },
+        { id:9, title:'General Knowledge 2026', size:'6.2 MB', type:'PDF', cat:'general', icon:'📖', color:'#fff7ed' },
+        { id:10, title:'Current Affairs - April 2026', size:'1.9 MB', type:'PDF', cat:'general', icon:'📰', color:'#fff7ed' },
+        { id:11, title:'Marathi Grammar Notes', size:'2.1 MB', type:'PDF', cat:'general', icon:'🔡', color:'#fff7ed' },
+        { id:12, title:'Maths Shortcuts for Competitive Exams', size:'3.0 MB', type:'PDF', cat:'general', icon:'➕', color:'#fff7ed' },
+    ];
+    let activeCat = 'all';
+    function filterMaterials(cat, btn) {
+        activeCat = cat;
+        document.querySelectorAll('.mat-tab').forEach(b => b.classList.remove('active'));
+        if(btn) btn.classList.add('active');
+        renderMaterials();
+    }
+    function renderMaterials() {
+        const list = activeCat==='all' ? MATERIALS : MATERIALS.filter(m=>m.cat===activeCat);
+        document.getElementById('matGrid').innerHTML = list.map(m => `
+            <div class="material-card" onclick="downloadMaterial(${m.id},'${m.title}')">
+                <div class="mat-icon" style="background:${m.color};">${m.icon}</div>
+                <div style="flex:1;min-width:0;">
+                    <div style="font-weight:700;font-size:13px;color:#000080;margin-bottom:3px;">${m.title}</div>
+                    <div style="font-size:11px;color:#94a3b8;">${m.type} • ${m.size}</div>
+                </div>
+                <span style="font-size:20px;color:#94a3b8;">⬇️</span>
+            </div>
+        `).join('');
+    }
+    function downloadMaterial(id, title) {
+        toast(`📥 Downloading "${title}"...`, 'info');
+        // Simulated download notification (no real file in demo)
+        setTimeout(() => toast(`✅ "${title}" is ready!`, 'success'), 1800);
+    }
+
+    // ===== EXAM SCHEDULE =====
+    const EXAMS = [
+        { name:'Maharashtra Police Bharti 2026', date:'2026-05-15', status:'upcoming', dept:'Maharashtra Police', seats:'8,000+', cat:'police' },
+        { name:'Army Agniveer Rally - Pune', date:'2026-05-22', status:'upcoming', dept:'Indian Army', seats:'200+', cat:'army' },
+        { name:'PSI Direct Recruitment 2026', date:'2026-06-10', status:'upcoming', dept:'MPSC', seats:'330', cat:'psi' },
+        { name:'STI Exam 2026', date:'2026-06-28', status:'upcoming', dept:'MPSC', seats:'125', cat:'psi' },
+        { name:'Talathi Bharti 2026', date:'2026-07-05', status:'upcoming', dept:'Revenue Dept.', seats:'4,000+', cat:'talathi' },
+        { name:'RPF Constable Recruitment', date:'2026-07-20', status:'upcoming', dept:'Railway', seats:'4,660', cat:'railway' },
+        { name:'SSC GD Constable 2026', date:'2026-08-12', status:'upcoming', dept:'SSC', seats:'26,146', cat:'ssc' },
+        { name:'IBPS PO 2026', date:'2026-09-06', status:'upcoming', dept:'IBPS', seats:'2,000+', cat:'bank' },
+    ];
+    function renderSchedule() {
+        const now = new Date();
+        document.getElementById('scheduleList').innerHTML = EXAMS.map(ex => {
+            const d = new Date(ex.date);
+            const days = Math.ceil((d - now) / 86400000);
+            const label = days < 0 ? 'Past' : days === 0 ? 'Today!' : `${days} days left`;
+            const color = days < 0 ? '#94a3b8' : days <= 15 ? '#ef4444' : days <= 30 ? '#d97706' : '#16a34a';
+            return `<div class="card" style="padding:18px 22px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">
+                    <div style="flex:1;min-width:0;">
+                        <div style="font-family:'Outfit',sans-serif;font-weight:800;font-size:15px;color:#000080;margin-bottom:4px;">${ex.name}</div>
+                        <div style="font-size:12px;color:#64748b;">
+                            🏛️ ${ex.dept} &nbsp;&nbsp; 🎯 Seats: <b>${ex.seats}</b>
+                        </div>
+                    </div>
+                    <div style="text-align:right;">
+                        <div style="font-family:'Outfit',sans-serif;font-weight:900;font-size:18px;color:${color};">${label}</div>
+                        <div style="font-size:11px;color:#94a3b8;">${d.toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'})}</div>
+                    </div>
+                </div>
+                <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+                    <button onclick="applyForExam('${ex.name}')" style="padding:7px 14px;border-radius:8px;border:none;background:linear-gradient(135deg,#FF9933,#e67000);color:#fff;font-size:11px;font-weight:700;cursor:pointer;">Apply Now</button>
+                    <button onclick="toast('🔔 Reminder set for ${ex.name}!','info')" style="padding:7px 14px;border-radius:8px;border:1.5px solid #e2e8f0;background:#fff;color:#475569;font-size:11px;font-weight:700;cursor:pointer;">Set Reminder</button>
+                </div>
+            </div>`;
+        }).join('');
+    }
+    function applyForExam(name) {
+        nav('apply');
+        setTimeout(() => {
+            document.getElementById('appCourse').value = name.split(' - ')[0].split(' R')[0];
+        }, 100);
+    }
+
+    // ===== LOGOUT =====
+    async function logout() {
+        await fetch('/api/auth/logout', { method:'POST' });
+        location.href = 'login.html';
+    }
+
+    // ===== UTILS =====
+    function fmt(dt) { return new Date(dt).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}); }
+    function fmtShort(dt) { return new Date(dt).toLocaleDateString('en-IN',{day:'2-digit',month:'short'}); }
+
+    // Init
+    init();
     </script>
 </body>
 </html>
-

@@ -1990,6 +1990,86 @@
             }
         });
     </script>
+
+
+    <!-- ===== CALLBACK REQUEST MODAL ===== -->
+    <div id="callbackOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,128,0.6);backdrop-filter:blur(6px);z-index:9990;align-items:center;justify-content:center;padding:16px;">
+        <div style="background:#fff;border-radius:22px;box-shadow:0 24px 60px rgba(0,0,0,0.25);max-width:440px;width:100%;padding:0;position:relative;overflow:hidden;">
+            <div style="background:linear-gradient(135deg,#000080,#1A1A2E);padding:28px 28px 22px;text-align:center;">
+                <div style="font-size:36px;margin-bottom:8px;">📞</div>
+                <h3 style="font-family:'Outfit',sans-serif;font-weight:900;font-size:18px;color:#fff;text-transform:uppercase;letter-spacing:0.05em;">Request a Callback</h3>
+                <p style="font-size:12px;color:rgba(200,215,255,0.7);margin-top:5px;">We'll call you back within 2 hours</p>
+            </div>
+            <button onclick="closeCallbackModal()" style="position:absolute;top:14px;right:16px;background:none;border:none;color:rgba(255,255,255,0.6);font-size:24px;cursor:pointer;">×</button>
+            <form id="callbackForm" style="padding:24px 28px 28px;">
+                <div style="margin-bottom:14px;">
+                    <label style="display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#64748b;margin-bottom:5px;">Your Name *</label>
+                    <input type="text" id="cbName" required placeholder="e.g. Rahul Sharma" style="width:100%;padding:12px 14px;border-radius:11px;border:1.5px solid #e2e8f0;outline:none;font-size:14px;font-family:'Inter',sans-serif;transition:border-color 0.2s;" onfocus="this.style.borderColor='#FF9933'" onblur="this.style.borderColor='#e2e8f0'">
+                </div>
+                <div style="margin-bottom:14px;">
+                    <label style="display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#64748b;margin-bottom:5px;">Phone Number *</label>
+                    <input type="tel" id="cbPhone" required placeholder="+91 00000 00000" style="width:100%;padding:12px 14px;border-radius:11px;border:1.5px solid #e2e8f0;outline:none;font-size:14px;font-family:'Inter',sans-serif;transition:border-color 0.2s;" onfocus="this.style.borderColor='#FF9933'" onblur="this.style.borderColor='#e2e8f0'">
+                </div>
+                <div style="margin-bottom:18px;">
+                    <label style="display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#64748b;margin-bottom:5px;">Course Interest</label>
+                    <select id="cbCourse" style="width:100%;padding:12px 14px;border-radius:11px;border:1.5px solid #e2e8f0;outline:none;font-size:14px;font-family:'Inter',sans-serif;background:#fff;">
+                        <option value="">Select a course</option>
+                        <option>Police Bharti</option>
+                        <option>Army Bharti</option>
+                        <option>Vansevak / Vanrakshak</option>
+                        <option>Talathi</option>
+                        <option>SSC CGL</option>
+                        <option>UPSC Foundation</option>
+                        <option>MPSC Foundation</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <button type="submit" style="width:100%;padding:14px;border-radius:11px;border:none;background:linear-gradient(135deg,#FF9933,#e67000);color:#fff;font-family:'Outfit',sans-serif;font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:0.08em;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='linear-gradient(135deg,#000080,#06065c)'" onmouseout="this.style.background='linear-gradient(135deg,#FF9933,#e67000)'">📞 Request Callback</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function openCallbackModal() {
+            const ov = document.getElementById('callbackOverlay');
+            ov.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        function closeCallbackModal() {
+            const ov = document.getElementById('callbackOverlay');
+            ov.style.display = 'none';
+            document.body.style.overflow = '';
+        }
+        document.getElementById('callbackOverlay').addEventListener('click', function(e) {
+            if (e.target === this) closeCallbackModal();
+        });
+        document.getElementById('callbackForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const btn = this.querySelector('button[type=submit]');
+            btn.textContent = '⏳ Sending...';
+            btn.disabled = true;
+            try {
+                const res = await fetch('/api/callback', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        name: document.getElementById('cbName').value,
+                        phone: document.getElementById('cbPhone').value,
+                        course: document.getElementById('cbCourse').value
+                    })
+                });
+                if (res.ok) {
+                    this.innerHTML = '<div style="text-align:center;padding:20px;"><div style="font-size:48px;margin-bottom:12px;">✅</div><h3 style="font-family:Outfit,sans-serif;font-weight:900;font-size:17px;color:#000080;margin-bottom:6px;">Request Submitted!</h3><p style="font-size:13px;color:#64748b;">We will call you back shortly.</p></div>';
+                    setTimeout(closeCallbackModal, 3000);
+                }
+            } catch(err) {
+                alert('Error submitting request. Please try again.');
+            } finally {
+                btn.textContent = '📞 Request Callback';
+                btn.disabled = false;
+            }
+        });
+    </script>
 </body>
 
 </html>
