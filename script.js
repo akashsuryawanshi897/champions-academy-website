@@ -123,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }, { threshold: 0.1 });
 
-    const animateElements = document.querySelectorAll('.course-card, .stat-card, h3, h2, .about-text, .reveal, .reveal-left, .reveal-right, .reveal-scale, .stagger-children');
+    const animateElements = document.querySelectorAll('.course-card, .stat-card, h3, h2, .about-text, .reveal, .reveal-left, .reveal-right, .reveal-scale, .stagger-children, .result-item');
     animateElements.forEach(el => observer.observe(el));
 
     // 6. Animated Counters

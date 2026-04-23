@@ -466,7 +466,14 @@
         }
     </style>
 
-    <style>html, body { overflow-x: hidden; width: 100%; max-width: 100%; }</style>
+    <style>
+        html,
+        body {
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100%;
+        }
+    </style>
 </head>
 
 <body class="text-gray-800 font-body bg-[#FAFAFA] min-h-screen pt-[140px] overflow-x-hidden">
@@ -501,10 +508,13 @@
                             <span class="text-[8px]">▼</span></button>
                         <div
                             class="absolute left-0 top-full bg-white shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-400 border-t-4 border-primary transform translate-y-4 group-hover:translate-y-0 py-2 uppercase tracking-wide w-48">
-                            <a href="about.html" class="dropdown-link text-sm font-semibold text-gray-700">About Academy</a>
-                            <a href="facilities.html" class="dropdown-link text-sm font-semibold text-gray-700">Facilities</a>
+                            <a href="about.html" class="dropdown-link text-sm font-semibold text-gray-700">About
+                                Academy</a>
+                            <a href="facilities.html"
+                                class="dropdown-link text-sm font-semibold text-gray-700">Facilities</a>
                             <a href="gallery.html" class="dropdown-link text-sm font-semibold text-gray-700">Gallery</a>
-                            <a href="eligibility-criteria.html" class="dropdown-link text-sm font-semibold text-gray-700">Eligibility</a>
+                            <a href="eligibility-criteria.html"
+                                class="dropdown-link text-sm font-semibold text-gray-700">Eligibility</a>
                         </div>
                     </div>
                     <div class="relative group">
@@ -626,8 +636,10 @@
                     <a href="sti.html" class="py-1 hover:text-primary">MPSC Foundation</a>
                 </div>
             </div>
-            <a href="admission.html" class="border-b border-gray-100 py-3 hover:text-primary transition uppercase">Admission</a>
-            <a href="contact.html" class="border-b border-gray-100 py-3 hover:text-primary transition uppercase">Contact Us</a>
+            <a href="admission.html"
+                class="border-b border-gray-100 py-3 hover:text-primary transition uppercase">Admission</a>
+            <a href="contact.html" class="border-b border-gray-100 py-3 hover:text-primary transition uppercase">Contact
+                Us</a>
             <div id="mobile-auth-links" class="flex flex-col gap-3 mt-6">
                 <a href="login.html"
                     class="text-center py-4 bg-navy text-white rounded-xl text-sm tracking-widest font-bold uppercase shadow-xl hover:bg-primary transition-all duration-300 flex items-center justify-center gap-2">
@@ -932,38 +944,85 @@
                 </div>
 
                 <!-- Text Results Summary -->
-                <div class="mt-16 max-w-4xl mx-auto reveal">
-                    <div class="bg-white rounded-3xl p-8 md:p-12 shadow-2xl border border-gray-100 relative overflow-hidden">
-                        <div class="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10"></div>
-                        <h3 class="font-heading font-black text-2xl md:text-3xl text-navy mb-8 text-center flex items-center justify-center gap-3">
-                            <span class="text-3xl">📊</span> OUR RESULTS
-                        </h3>
-                        <ul class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <li class="flex items-start gap-4 bg-gray-50 p-6 rounded-2xl border border-gray-100 hover:border-primary/30 hover:shadow-lg transition-all group">
-                                <div class="w-12 h-12 bg-primary/10 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-white transition-colors text-primary">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                <div class="mt-16 max-w-6xl mx-auto reveal">
+                    <div class="bg-white rounded-[2rem] p-8 md:p-12 shadow-2xl border border-gray-100 relative overflow-hidden">
+                        <!-- Decorative Background Elements -->
+                        <div class="absolute -top-24 -right-24 w-96 h-96 bg-primary/10 rounded-full blur-[100px] -z-10"></div>
+                        <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-navy/10 rounded-full blur-[100px] -z-10"></div>
+                        
+                        <div class="grid lg:grid-cols-2 gap-12 items-center">
+                            <!-- Left Content: Result List -->
+                            <div class="order-2 lg:order-1">
+                                <h3 class="font-heading font-black text-2xl md:text-3xl text-navy mb-6 flex items-center gap-3">
+                                    <span class="text-3xl animate-bounce">📊</span> 
+                                    <span>OUR <span class="text-primary">RESULTS</span></span>
+                                </h3>
+                                
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="result-item bg-gradient-to-br from-gray-50 to-white p-5 rounded-2xl border border-gray-100 hover:border-primary/30 hover:shadow-lg transition-all duration-300 group">
+                                        <div class="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:text-white transition-all duration-500 text-primary shadow-sm mb-3">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path>
+                                            </svg>
+                                        </div>
+                                        <p class="text-gray-700 font-bold text-xs md:text-sm leading-relaxed">Hundreds of students successfully selected in Police Bharti</p>
+                                    </div>
+                                    
+                                    <div class="result-item bg-gradient-to-br from-gray-50 to-white p-5 rounded-2xl border border-gray-100 hover:border-secondary/30 hover:shadow-lg transition-all duration-300 group">
+                                        <div class="w-10 h-10 bg-secondary/10 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-secondary group-hover:text-white transition-all duration-500 text-secondary shadow-sm mb-3">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                        </div>
+                                        <p class="text-gray-700 font-bold text-xs md:text-sm leading-relaxed">100% physical test success rate (for trained students)</p>
+                                    </div>
+                                    
+                                    <div class="result-item bg-gradient-to-br from-gray-50 to-white p-5 rounded-2xl border border-gray-100 hover:border-navy/30 hover:shadow-lg transition-all duration-300 group">
+                                        <div class="w-10 h-10 bg-navy/10 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-navy group-hover:text-white transition-all duration-500 text-navy shadow-sm mb-3">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                            </svg>
+                                        </div>
+                                        <p class="text-gray-700 font-bold text-xs md:text-sm leading-relaxed">Strong track record of discipline and performance</p>
+                                    </div>
+
+                                    <div class="result-item bg-gradient-to-br from-gray-50 to-white p-5 rounded-2xl border border-gray-100 hover:border-purple-300 hover:shadow-lg transition-all duration-300 group">
+                                        <div class="w-10 h-10 bg-purple-500/10 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-purple-500 group-hover:text-white transition-all duration-500 text-purple-500 shadow-sm mb-3">
+                                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                        </div>
+                                        <p class="text-gray-700 font-bold text-xs md:text-sm leading-relaxed">Continuous success year after year</p>
+                                    </div>
                                 </div>
-                                <span class="text-gray-700 font-semibold md:text-lg leading-tight mt-1">Hundreds of students successfully selected in Police Bharti</span>
-                            </li>
-                            <li class="flex items-start gap-4 bg-gray-50 p-6 rounded-2xl border border-gray-100 hover:border-primary/30 hover:shadow-lg transition-all group">
-                                <div class="w-12 h-12 bg-secondary/10 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-secondary group-hover:text-white transition-colors text-secondary">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                
+                                <div class="mt-6 p-4 bg-orange-50 rounded-2xl border border-orange-100 flex items-center gap-3 animate-pulse">
+                                    <span class="text-xl">📢</span>
+                                    <p class="text-primary font-bold text-xs md:text-sm uppercase tracking-wider">New Batch Starting from Next Monday! Join Now.</p>
                                 </div>
-                                <span class="text-gray-700 font-semibold md:text-lg leading-tight mt-1">100% physical test success rate (for trained students)</span>
-                            </li>
-                            <li class="flex items-start gap-4 bg-gray-50 p-6 rounded-2xl border border-gray-100 hover:border-navy/30 hover:shadow-lg transition-all group">
-                                <div class="w-12 h-12 bg-navy/10 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-navy group-hover:text-white transition-colors text-navy">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                            </div>
+                            
+                            <!-- Right Content: Result Poster Image -->
+                            <div class="order-1 lg:order-2 flex justify-center">
+                                <div class="relative group">
+                                    <!-- Decorative Ring -->
+                                    <div class="absolute -inset-4 bg-gradient-to-tr from-primary/20 to-secondary/20 rounded-3xl blur-xl group-hover:blur-2xl transition-all duration-500 opacity-70"></div>
+                                    
+                                    <!-- Image Container -->
+                                    <div class="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white transform transition-all duration-700 group-hover:scale-[1.02] group-hover:rotate-1 animate-float">
+                                        <img src="assets/images/results-new.jpg" alt="Champions Academy Results Poster" class="w-full max-w-[450px] object-cover rounded-lg">
+                                        
+                                        <!-- Overlay Shine Effect -->
+                                        <div class="absolute inset-0 bg-gradient-to-tr from-white/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                                    </div>
+                                    
+                
+                                           
+                                        </div>
+                                    </div>
                                 </div>
-                                <span class="text-gray-700 font-semibold md:text-lg leading-tight mt-1">Strong track record of discipline and performance</span>
-                            </li>
-                            <li class="flex items-start gap-4 bg-gray-50 p-6 rounded-2xl border border-gray-100 hover:border-purple-300 hover:shadow-lg transition-all group">
-                                <div class="w-12 h-12 bg-purple-500/10 rounded-xl flex items-center justify-center shrink-0 group-hover:bg-purple-500 group-hover:text-white transition-colors text-purple-500">
-                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                                </div>
-                                <span class="text-gray-700 font-semibold md:text-lg leading-tight mt-1">Continuous success year after year</span>
-                            </li>
-                        </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1024,7 +1083,8 @@
                     <!-- Vansevak -->
                     <div class="course-card bg-white group relative">
                         <div class="h-48 relative overflow-hidden">
-                            <img src="assets/images/obstacle-course.png" alt="Maharashtra Vansevak Forest Service Training"
+                            <img src="assets/images/obstacle-course.png"
+                                alt="Maharashtra Vansevak Forest Service Training"
                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                             <div
                                 class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent">
@@ -1063,7 +1123,8 @@
                     <!-- Darubandi Police -->
                     <div class="course-card bg-white group relative">
                         <div class="h-48 relative overflow-hidden">
-                            <img src="assets/images/fitness-test.jpg" alt="Maharashtra Darubandi Police Prohibition Squad Training"
+                            <img src="assets/images/fitness-test.jpg"
+                                alt="Maharashtra Darubandi Police Prohibition Squad Training"
                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                             <div
                                 class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent">
@@ -1082,7 +1143,8 @@
                     <!-- Talathi -->
                     <div class="course-card bg-white group relative">
                         <div class="h-48 relative overflow-hidden">
-                            <img src="assets/images/talathi.jpg" alt="Maharashtra Talathi Revenue Officer Exam Preparation"
+                            <img src="assets/images/talathi.jpg"
+                                alt="Maharashtra Talathi Revenue Officer Exam Preparation"
                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                             <div
                                 class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent">
@@ -1120,7 +1182,8 @@
                     <!-- Mahanagar Palika -->
                     <div class="course-card bg-white group relative">
                         <div class="h-48 relative overflow-hidden">
-                            <img src="assets/images/gramsevak.jpg" alt="Maharashtra Mahanagar Palika Municipal Corporation Job Training"
+                            <img src="assets/images/gramsevak.jpg"
+                                alt="Maharashtra Mahanagar Palika Municipal Corporation Job Training"
                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                             <div
                                 class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent">
@@ -1139,7 +1202,8 @@
                     <!-- SSC CGL -->
                     <div class="course-card bg-white group relative">
                         <div class="h-48 relative overflow-hidden">
-                            <img src="assets/images/os-44.jpg" alt="SSC CGL Exam Preparation for Maharashtra Government Jobs"
+                            <img src="assets/images/os-44.jpg"
+                                alt="SSC CGL Exam Preparation for Maharashtra Government Jobs"
                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                             <div
                                 class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent">
@@ -1158,7 +1222,8 @@
                     <!-- UPSC Foundation -->
                     <div class="course-card bg-white group relative">
                         <div class="h-48 relative overflow-hidden">
-                            <img src="assets/images/os-66.webp" alt="UPSC Foundation Course for Maharashtra IAS IPS Officers"
+                            <img src="assets/images/os-66.webp"
+                                alt="UPSC Foundation Course for Maharashtra IAS IPS Officers"
                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                             <div
                                 class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent">
@@ -1177,7 +1242,8 @@
                     <!-- MPSC Foundation -->
                     <div class="course-card bg-white group relative">
                         <div class="h-48 relative overflow-hidden">
-                            <img src="assets/images/g5.jpg" alt="MPSC Foundation Maharashtra State Service Officers Preparation"
+                            <img src="assets/images/g5.jpg"
+                                alt="MPSC Foundation Maharashtra State Service Officers Preparation"
                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                             <div
                                 class="absolute inset-0 bg-gradient-to-t from-[#1A1A2E] via-transparent to-transparent">
@@ -1419,7 +1485,8 @@
                     </div>
                 </div>
                 <div class="reveal-right relative">
-                    <img src="assets/images/os-44.jpg" alt="Why Choose Champions Academy - Maharashtra Police & Army Officers Training"
+                    <img src="assets/images/os-44.jpg"
+                        alt="Why Choose Champions Academy - Maharashtra Police & Army Officers Training"
                         class="rounded-2xl shadow-2xl w-full relative z-10">
                     <div class="absolute -bottom-3 -right-3 w-full h-full border-2 border-primary/15 rounded-2xl -z-10">
                     </div>
@@ -1488,7 +1555,8 @@
                     </h3>
                 </div>
 
-                <div id="trainingActionGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 px-2 md:px-10 stagger-children">
+                <div id="trainingActionGrid"
+                    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 px-2 md:px-10 stagger-children">
                     <!-- Reels will be injected here by JS -->
                 </div>
                 <div class="text-center mt-12">
@@ -1845,11 +1913,11 @@
             const authLinks = document.getElementById('auth-links');
             const userInfo = document.getElementById('user-info');
             const mobileAuthLinks = document.getElementById('mobile-auth-links');
-            
+
             if (user) {
                 if (authLinks) authLinks.classList.add('hidden');
                 if (userInfo) userInfo.classList.remove('hidden');
-                
+
                 // Update dashboard link based on role
                 const dashUrl = (user.role === 'admin') ? 'admin-dashboard.html' : 'dashboard.html';
                 const dashLink = document.getElementById('dash-link');
@@ -1923,16 +1991,16 @@
                 if (!media || media.length === 0) {
                     // Default demo data containing 5 items for testing
                     media = [
-                        { id:'demota1', type:'YouTube', embed: '<iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/ScMzIvxBSi4?rel=0" frameborder="0" allowfullscreen></iframe>' },
-                        { id:'demota2', type:'Instagram', embed: '<iframe class="absolute inset-0 w-full h-full" src="https://www.instagram.com/p/CuWx8b2oZ0z/embed" frameborder="0" allowfullscreen></iframe>' },
-                        { id:'demota3', type:'YouTube', embed: '<iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/M7lc1UVf-VE?rel=0" frameborder="0" allowfullscreen></iframe>' },
-                        { id:'demota4', type:'Instagram', embed: '<iframe class="absolute inset-0 w-full h-full" src="https://www.instagram.com/p/CQe_Qd0hQ-7/embed" frameborder="0" allowfullscreen></iframe>' },
-                        { id:'demota5', type:'YouTube', embed: '<iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/9bZkp7q19f0?rel=0" frameborder="0" allowfullscreen></iframe>' }
+                        { id: 'demota1', type: 'YouTube', embed: '<iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/ScMzIvxBSi4?rel=0" frameborder="0" allowfullscreen></iframe>' },
+                        { id: 'demota2', type: 'Instagram', embed: '<iframe class="absolute inset-0 w-full h-full" src="https://www.instagram.com/p/CuWx8b2oZ0z/embed" frameborder="0" allowfullscreen></iframe>' },
+                        { id: 'demota3', type: 'YouTube', embed: '<iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/M7lc1UVf-VE?rel=0" frameborder="0" allowfullscreen></iframe>' },
+                        { id: 'demota4', type: 'Instagram', embed: '<iframe class="absolute inset-0 w-full h-full" src="https://www.instagram.com/p/CQe_Qd0hQ-7/embed" frameborder="0" allowfullscreen></iframe>' },
+                        { id: 'demota5', type: 'YouTube', embed: '<iframe class="absolute inset-0 w-full h-full" src="https://www.youtube.com/embed/9bZkp7q19f0?rel=0" frameborder="0" allowfullscreen></iframe>' }
                     ];
                     // Save to local storage automatically so the admin dashboard gets populated for direct testing!
                     localStorage.setItem('ca_training_action_media', JSON.stringify(media));
                 }
-                
+
                 let html = '';
                 media.slice(0, 7).forEach(m => {
                     html += `
@@ -1952,7 +2020,7 @@
                         <span
                             class="px-4 py-2 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-white font-bold text-[10px] uppercase tracking-widest rounded-full">@champions.academy</span>
                     </a>`;
-                
+
                 grid.innerHTML = html;
             }
 
@@ -1963,10 +2031,10 @@
                 testimonials.forEach(t => {
                     const tCard = document.createElement('div');
                     tCard.className = 'testimonial-card bg-white p-10 relative group reveal';
-                    
+
                     // Generate initials
                     const initials = t.name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2);
-                    
+
                     tCard.innerHTML = `
                         <div class="flex items-center gap-3 mb-6">
                             <div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary font-heading font-bold text-lg">
@@ -1983,7 +2051,7 @@
                         <p class="text-gray-500 text-sm leading-relaxed">"${t.text}"</p>
                     `;
                     tGrid.appendChild(tCard);
-                    
+
                     // Observe new element
                     if (revealObserver) revealObserver.observe(tCard);
                 });
@@ -1993,26 +2061,43 @@
 
 
     <!-- ===== CALLBACK REQUEST MODAL ===== -->
-    <div id="callbackOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,128,0.6);backdrop-filter:blur(6px);z-index:9990;align-items:center;justify-content:center;padding:16px;">
-        <div style="background:#fff;border-radius:22px;box-shadow:0 24px 60px rgba(0,0,0,0.25);max-width:440px;width:100%;padding:0;position:relative;overflow:hidden;">
+    <div id="callbackOverlay"
+        style="display:none;position:fixed;inset:0;background:rgba(0,0,128,0.6);backdrop-filter:blur(6px);z-index:9990;align-items:center;justify-content:center;padding:16px;">
+        <div
+            style="background:#fff;border-radius:22px;box-shadow:0 24px 60px rgba(0,0,0,0.25);max-width:440px;width:100%;padding:0;position:relative;overflow:hidden;">
             <div style="background:linear-gradient(135deg,#000080,#1A1A2E);padding:28px 28px 22px;text-align:center;">
                 <div style="font-size:36px;margin-bottom:8px;">📞</div>
-                <h3 style="font-family:'Outfit',sans-serif;font-weight:900;font-size:18px;color:#fff;text-transform:uppercase;letter-spacing:0.05em;">Request a Callback</h3>
-                <p style="font-size:12px;color:rgba(200,215,255,0.7);margin-top:5px;">We'll call you back within 2 hours</p>
+                <h3
+                    style="font-family:'Outfit',sans-serif;font-weight:900;font-size:18px;color:#fff;text-transform:uppercase;letter-spacing:0.05em;">
+                    Request a Callback</h3>
+                <p style="font-size:12px;color:rgba(200,215,255,0.7);margin-top:5px;">We'll call you back within 2 hours
+                </p>
             </div>
-            <button onclick="closeCallbackModal()" style="position:absolute;top:14px;right:16px;background:none;border:none;color:rgba(255,255,255,0.6);font-size:24px;cursor:pointer;">×</button>
+            <button onclick="closeCallbackModal()"
+                style="position:absolute;top:14px;right:16px;background:none;border:none;color:rgba(255,255,255,0.6);font-size:24px;cursor:pointer;">×</button>
             <form id="callbackForm" style="padding:24px 28px 28px;">
                 <div style="margin-bottom:14px;">
-                    <label style="display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#64748b;margin-bottom:5px;">Your Name *</label>
-                    <input type="text" id="cbName" required placeholder="e.g. Rahul Sharma" style="width:100%;padding:12px 14px;border-radius:11px;border:1.5px solid #e2e8f0;outline:none;font-size:14px;font-family:'Inter',sans-serif;transition:border-color 0.2s;" onfocus="this.style.borderColor='#FF9933'" onblur="this.style.borderColor='#e2e8f0'">
+                    <label
+                        style="display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#64748b;margin-bottom:5px;">Your
+                        Name *</label>
+                    <input type="text" id="cbName" required placeholder="e.g. Rahul Sharma"
+                        style="width:100%;padding:12px 14px;border-radius:11px;border:1.5px solid #e2e8f0;outline:none;font-size:14px;font-family:'Inter',sans-serif;transition:border-color 0.2s;"
+                        onfocus="this.style.borderColor='#FF9933'" onblur="this.style.borderColor='#e2e8f0'">
                 </div>
                 <div style="margin-bottom:14px;">
-                    <label style="display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#64748b;margin-bottom:5px;">Phone Number *</label>
-                    <input type="tel" id="cbPhone" required placeholder="+91 00000 00000" style="width:100%;padding:12px 14px;border-radius:11px;border:1.5px solid #e2e8f0;outline:none;font-size:14px;font-family:'Inter',sans-serif;transition:border-color 0.2s;" onfocus="this.style.borderColor='#FF9933'" onblur="this.style.borderColor='#e2e8f0'">
+                    <label
+                        style="display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#64748b;margin-bottom:5px;">Phone
+                        Number *</label>
+                    <input type="tel" id="cbPhone" required placeholder="+91 00000 00000"
+                        style="width:100%;padding:12px 14px;border-radius:11px;border:1.5px solid #e2e8f0;outline:none;font-size:14px;font-family:'Inter',sans-serif;transition:border-color 0.2s;"
+                        onfocus="this.style.borderColor='#FF9933'" onblur="this.style.borderColor='#e2e8f0'">
                 </div>
                 <div style="margin-bottom:18px;">
-                    <label style="display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#64748b;margin-bottom:5px;">Course Interest</label>
-                    <select id="cbCourse" style="width:100%;padding:12px 14px;border-radius:11px;border:1.5px solid #e2e8f0;outline:none;font-size:14px;font-family:'Inter',sans-serif;background:#fff;">
+                    <label
+                        style="display:block;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#64748b;margin-bottom:5px;">Course
+                        Interest</label>
+                    <select id="cbCourse"
+                        style="width:100%;padding:12px 14px;border-radius:11px;border:1.5px solid #e2e8f0;outline:none;font-size:14px;font-family:'Inter',sans-serif;background:#fff;">
                         <option value="">Select a course</option>
                         <option>Police Bharti</option>
                         <option>Army Bharti</option>
@@ -2024,7 +2109,11 @@
                         <option>Other</option>
                     </select>
                 </div>
-                <button type="submit" style="width:100%;padding:14px;border-radius:11px;border:none;background:linear-gradient(135deg,#FF9933,#e67000);color:#fff;font-family:'Outfit',sans-serif;font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:0.08em;cursor:pointer;transition:all 0.2s;" onmouseover="this.style.background='linear-gradient(135deg,#000080,#06065c)'" onmouseout="this.style.background='linear-gradient(135deg,#FF9933,#e67000)'">📞 Request Callback</button>
+                <button type="submit"
+                    style="width:100%;padding:14px;border-radius:11px;border:none;background:linear-gradient(135deg,#FF9933,#e67000);color:#fff;font-family:'Outfit',sans-serif;font-weight:800;font-size:13px;text-transform:uppercase;letter-spacing:0.08em;cursor:pointer;transition:all 0.2s;"
+                    onmouseover="this.style.background='linear-gradient(135deg,#000080,#06065c)'"
+                    onmouseout="this.style.background='linear-gradient(135deg,#FF9933,#e67000)'">📞 Request
+                    Callback</button>
             </form>
         </div>
     </div>
@@ -2040,10 +2129,10 @@
             ov.style.display = 'none';
             document.body.style.overflow = '';
         }
-        document.getElementById('callbackOverlay').addEventListener('click', function(e) {
+        document.getElementById('callbackOverlay').addEventListener('click', function (e) {
             if (e.target === this) closeCallbackModal();
         });
-        document.getElementById('callbackForm').addEventListener('submit', async function(e) {
+        document.getElementById('callbackForm').addEventListener('submit', async function (e) {
             e.preventDefault();
             const btn = this.querySelector('button[type=submit]');
             btn.textContent = '⏳ Sending...';
@@ -2062,7 +2151,7 @@
                     this.innerHTML = '<div style="text-align:center;padding:20px;"><div style="font-size:48px;margin-bottom:12px;">✅</div><h3 style="font-family:Outfit,sans-serif;font-weight:900;font-size:17px;color:#000080;margin-bottom:6px;">Request Submitted!</h3><p style="font-size:13px;color:#64748b;">We will call you back shortly.</p></div>';
                     setTimeout(closeCallbackModal, 3000);
                 }
-            } catch(err) {
+            } catch (err) {
                 alert('Error submitting request. Please try again.');
             } finally {
                 btn.textContent = '📞 Request Callback';
