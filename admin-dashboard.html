@@ -170,7 +170,7 @@
 
         /* ===== GALLERY GRID ===== */
         .gal-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px,1fr)); gap: 14px; }
-        .gal-item { border-radius: 13px; overflow: hidden; position: relative; group; background: #f1f5f9; }
+        .gal-item { border-radius: 13px; overflow: hidden; position: relative; background: #f1f5f9; }
         .gal-item img { width: 100%; height: 170px; object-fit: cover; display: block; }
         .gal-item-body { padding: 12px; }
         .gal-del-btn { position: absolute; top: 8px; right: 8px; width: 30px; height: 30px; border-radius: 50%; background: rgba(239,68,68,0.9); color: #fff; border: none; font-size: 16px; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.2s; }
@@ -224,6 +224,7 @@
             <div class="nav-cat">Resources</div>
             <button class="nav-item"        id="mn-materials"     onclick="showSection('materials')">     <span class="ni">📚</span> Study Materials</button>
             <button class="nav-item"        id="mn-exams"         onclick="showSection('exams')">         <span class="ni">🗓️</span> Exam Schedule</button>
+            <button class="nav-item"        id="mn-results"       onclick="showSection('results')">       <span class="ni">🏆</span> Results</button>
             <div class="nav-div"></div>
             <button class="nav-item"        id="mn-settings"      onclick="showSection('settings')">      <span class="ni">⚙️</span> Settings</button>
             <a href="index.html" class="nav-item"><span class="ni">🌐</span> View Website</a>
@@ -261,6 +262,7 @@
                 <div class="nav-cat">Resources</div>
                 <button class="nav-item"        id="d-materials"     onclick="showSection('materials')">     <span class="ni">📚</span> Study Materials</button>
                 <button class="nav-item"        id="d-exams"         onclick="showSection('exams')">         <span class="ni">🗓️</span> Exam Schedule</button>
+                <button class="nav-item"        id="d-results"       onclick="showSection('results')">       <span class="ni">🏆</span> Results</button>
                 <div class="nav-div"></div>
                 <button class="nav-item"        id="d-settings"      onclick="showSection('settings')">      <span class="ni">⚙️</span> Settings</button>
                 <a href="index.html" class="nav-item"><span class="ni">🌐</span> View Website</a>
@@ -555,6 +557,18 @@
                     <div class="gal-grid" id="trainingGrid"></div>
                 </section>
 
+                <!-- ========== RESULTS ========== -->
+                <section id="s-results" class="section">
+                    <div class="sec-head">
+                        <div>
+                            <div class="sec-title">🏆 Our Results</div>
+                            <div class="sec-sub">Manage student achievements on the Results page</div>
+                        </div>
+                        <button class="btn-primary" onclick="openModal('resultModal')">+ Add Result</button>
+                    </div>
+                    <div class="gal-grid" id="resultsGrid"></div>
+                </section>
+
                 <!-- ========== SETTINGS ========== -->
                 <section id="s-settings" class="section">
                     <div class="sec-head">
@@ -767,6 +781,10 @@
                         <input type="text" id="matIcon" class="form-input" placeholder="e.g. 📋">
                     </div>
                 </div>
+                <div class="form-group">
+                    <label class="form-label">PDF Link / File URL</label>
+                    <input type="url" id="matUrl" class="form-input" placeholder="e.g. https://drive.google.com/...">
+                </div>
                 <button type="submit" class="btn-primary" style="width:100%;padding:13px;">Add Material</button>
             </form>
         </div>
@@ -810,6 +828,39 @@
                     </div>
                 </div>
                 <button type="submit" class="btn-primary" style="width:100%;padding:13px;">Schedule Exam</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Result Modal -->
+    <div id="resultModal" class="modal-overlay">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('resultModal')">×</button>
+            <div class="modal-title">🏆 Add Student Result</div>
+            <form id="resultForm">
+                <div class="form-group">
+                    <label class="form-label">Student Name *</label>
+                    <input type="text" id="resName" required class="form-input" placeholder="e.g. Ramesh Patil">
+                </div>
+                <div class="form-grid-2">
+                    <div class="form-group">
+                        <label class="form-label">Exam Cleared *</label>
+                        <input type="text" id="resExam" required class="form-input" placeholder="e.g. Police Bharti">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Batch *</label>
+                        <input type="text" id="resBatch" required class="form-input" placeholder="e.g. Batch 2023-24">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Image URL *</label>
+                    <input type="url" id="resImg" required class="form-input" placeholder="https://...">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Short Description</label>
+                    <input type="text" id="resDesc" class="form-input" placeholder="e.g. Cleared physical and written exams with top scores.">
+                </div>
+                <button type="submit" class="btn-primary" style="width:100%;padding:13px;">Add Result</button>
             </form>
         </div>
     </div>
@@ -866,7 +917,7 @@
     function closeMobSidebar() { document.getElementById('mobSidebar').classList.remove('open'); document.getElementById('mobOverlay').classList.remove('show'); document.body.style.overflow=''; }
 
     // ===== SECTION SWITCHING =====
-    const SECTIONS = ['overview','students','applications','contacts','callbacks','announcements','gallery','testimonials','training','materials','exams','settings'];
+    const SECTIONS = ['overview','students','applications','contacts','callbacks','announcements','gallery','testimonials','training','materials','exams','results','settings'];
     function showSection(name) {
         closeMobSidebar();
         SECTIONS.forEach(s => {
@@ -892,6 +943,7 @@
         if(name==='announcements') loadAnnouncements();
         if(name==='materials')     loadMaterials();
         if(name==='exams')         loadExams();
+        if(name==='results')       loadResults();
         if(name==='gallery')       loadGallery();
         if(name==='testimonials')  loadTestimonials();
         if(name==='training')      loadTraining();
@@ -1263,7 +1315,8 @@
             type:  document.getElementById('matType').value,
             size:  document.getElementById('matSize').value || '1.0 MB',
             icon:  document.getElementById('matIcon').value || '📄',
-            color: colors[cat] || '#eff6ff'
+            color: colors[cat] || '#eff6ff',
+            url:   document.getElementById('matUrl').value
         };
         await fetch('/api/admin/materials', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) });
         toast('✅ Material added','success'); closeModal('matModal'); e.target.reset(); loadMaterials();
@@ -1312,6 +1365,47 @@
         showConfirm('Delete Exam','Remove this exam from schedule?', async () => {
             await fetch('/api/admin/exams', { method:'DELETE', headers:{'Content-Type':'application/json'}, body:JSON.stringify({examId:id}) });
             toast('🗑️ Removed','success'); loadExams();
+        });
+    }
+
+    // ===== RESULTS =====
+    async function loadResults() {
+        const res = await fetch('/api/admin/results');
+        const results = await res.json();
+        const el = document.getElementById('resultsGrid');
+        if(!results.length) { el.innerHTML='<div style="grid-column:1/-1;" class="empty"><div class="ei">🏆</div>No results added yet.</div>'; return; }
+        el.innerHTML = [...results].reverse().map(r=>`
+            <div class="card gal-item">
+                <img src="${r.imgUrl}" alt="${r.name}" onerror="this.src='https://placehold.co/400x250?text=Image+Not+Found'">
+                <div class="gal-item-body">
+                    <div style="font-size:11px;font-weight:700;color:${r.color||'#FF9933'};text-transform:uppercase;margin-bottom:3px;">${r.exam}</div>
+                    <div style="font-size:14px;font-weight:800;color:#000080;">${r.name}</div>
+                    <div style="font-size:11px;color:#475569;margin-top:2px;font-weight:600;">${r.batch}</div>
+                    <div style="font-size:11px;color:#475569;margin-top:4px;line-height:1.4;max-height:45px;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;">${r.desc || 'No description'}</div>
+                    <div style="font-size:10px;color:#94a3b8;margin-top:6px;">${fmt(r.createdAt)}</div>
+                </div>
+                <button class="gal-del-btn" onclick="deleteResult('${r.id}')">×</button>
+            </div>
+        `).join('');
+    }
+
+    document.getElementById('resultForm').addEventListener('submit', async e => {
+        e.preventDefault();
+        const body = {
+            name: document.getElementById('resName').value,
+            exam: document.getElementById('resExam').value,
+            batch: document.getElementById('resBatch').value,
+            imgUrl: document.getElementById('resImg').value,
+            desc: document.getElementById('resDesc').value
+        };
+        await fetch('/api/admin/results', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) });
+        toast('✅ Result added','success'); closeModal('resultModal'); e.target.reset(); loadResults();
+    });
+
+    async function deleteResult(id) {
+        showConfirm('Delete Result','Remove this result?', async () => {
+            await fetch('/api/admin/results', { method:'DELETE', headers:{'Content-Type':'application/json'}, body:JSON.stringify({resultId:id}) });
+            toast('🗑️ Deleted','success'); loadResults();
         });
     }
 
@@ -1463,6 +1557,7 @@
             announcements: JSON.parse(localStorage.getItem('ca_announcements')||'[]'),
             materials:     JSON.parse(localStorage.getItem('ca_materials')||'[]'),
             exams:         JSON.parse(localStorage.getItem('ca_exams')||'[]'),
+            results:       JSON.parse(localStorage.getItem('ca_results')||'[]'),
             gallery:       JSON.parse(localStorage.getItem('ca_custom_gallery')||'[]'),
             testimonials:  JSON.parse(localStorage.getItem('ca_testimonials')||'[]'),
             exportedAt:    new Date().toISOString()

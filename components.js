@@ -29,6 +29,7 @@ const SHARED_NAV = `
                         <a href="facilities.html" class="dropdown-link group/item">Facilities <span class="float-right opacity-0 group-hover/item:opacity-100 transition">→</span></a>
                         <a href="gallery.html" class="dropdown-link group/item">Gallery <span class="float-right opacity-0 group-hover/item:opacity-100 transition">→</span></a>
                         <a href="eligibility-criteria.html" class="dropdown-link group/item">Eligibility Criteria <span class="float-right opacity-0 group-hover/item:opacity-100 transition">→</span></a>
+                        <a href="our-results.html" class="dropdown-link group/item">Our Results <span class="float-right opacity-0 group-hover/item:opacity-100 transition">→</span></a>
                     </div>
                 </div>
                 <div class="relative group">
@@ -97,6 +98,7 @@ const SHARED_NAV = `
                     <a href="facilities.html" class="hover:text-[#FF9933]">Facilities</a>
                     <a href="gallery.html" class="hover:text-[#FF9933]">Gallery</a>
                     <a href="eligibility-criteria.html" class="hover:text-[#FF9933]">Eligibility</a>
+                    <a href="our-results.html" class="hover:text-[#FF9933]">Our Results</a>
                 </div>
             </div>
             <div class="py-4 border-b border-gray-50 text-[#000080]">
@@ -180,10 +182,53 @@ const SHARED_FOOTER = `
             <div class="space-y-8">
                 <img src="assets/images/logo.png" alt="Logo" class="h-12 drop-shadow-xl">
                 <p class="text-gray-400 text-sm leading-relaxed">At The Champions Academy, we don't just prepare you for exams—we prepare you for life. 10+ years of dedicated training.</p>
-                <div class="flex gap-3">
-                    <a href="#" class="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-[#FF9933] hover:border-[#FF9933] transition-all">IG</a>
-                    <a href="#" class="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-red-600 hover:border-red-600 transition-all">YT</a>
-                    <a href="https://wa.me/918484400114" class="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-green-500 hover:border-green-500 transition-all">WA</a>
+                                <div class="flex flex-wrap gap-3 ">
+                    <a href="https://www.facebook.com/share/1ChwYmTpd3/?mibextid=wwXIfr" target="_blank"
+                        class="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-white/10 hover:scale-110 transition-all duration-300">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" fill="#1877F2"/>
+                            <path d="M16.671 15.542l.532-3.469h-3.328v-2.25c0-.949.465-1.874 1.956-1.874h1.514V5.011s-1.374-.235-2.686-.235c-2.741 0-4.533 1.662-4.533 4.669v2.644H7.078v3.469h3.047v8.385a12.09 12.09 0 003.75 0v-8.385h2.796z" fill="white"/>
+                        </svg>
+                    </a>
+                    <a href="https://www.instagram.com/thechampions_academy?igsh=enJvaHBhbXBibW5y&utm_source=qr" target="_blank"
+                        class="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-white/10 hover:scale-110 transition-all duration-300">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <rect width="24" height="24" rx="6" fill="url(#ig-grad-new)"/>
+                            <path d="M16.5 7.5C16.5 8.05228 16.0523 8.5 15.5 8.5C14.9477 8.5 14.5 8.05228 14.5 7.5C14.5 6.94772 14.9477 6.5 15.5 6.5C16.0523 6.5 16.5 6.94772 16.5 7.5Z" fill="white"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16ZM12 14.5C13.3807 14.5 14.5 13.3807 14.5 12C14.5 10.6193 13.3807 9.5 12 9.5C10.6193 9.5 9.5 10.6193 9.5 12C9.5 13.3807 10.6193 14.5 12 14.5Z" fill="white"/>
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M4 12C4 7.58172 7.58172 4 12 4C16.4183 4 20 7.58172 20 12C20 16.4183 16.4183 20 12 20C7.58172 20 4 16.4183 4 12ZM12 5.5C8.41015 5.5 5.5 8.41015 5.5 12C5.5 15.5899 8.41015 18.5 12 18.5C15.5899 18.5 18.5 15.5899 18.5 12C18.5 8.41015 15.5899 5.5 12 5.5Z" fill="white"/>
+                            <defs>
+                                <linearGradient id="ig-grad-new" x1="2" y1="22" x2="22" y2="2" gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#f09433"/>
+                                    <stop offset="0.25" stop-color="#e6683c"/>
+                                    <stop offset="0.5" stop-color="#dc2743"/>
+                                    <stop offset="0.75" stop-color="#cc2366"/>
+                                    <stop offset="1" stop-color="#bc1888"/>
+                                </linearGradient>
+                            </defs>
+                        </svg>
+                    </a>
+                    <a href="https://youtube.com/@thechampionsacademypcmc?si=SxRJeifEQ8ltnPL2" target="_blank"
+                        class="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-white/10 hover:scale-110 transition-all duration-300">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.5 12 3.5 12 3.5s-7.505 0-9.377.55a3.016 3.016 0 0 0-2.122 2.136C0 8.135 0 12 0 12s0 3.865.501 5.814a3.016 3.016 0 0 0 2.122 2.136c1.872.55 9.377.55 9.377.55s7.505 0 9.377-.55a3.016 3.016 0 0 0 2.122-2.136C24 15.865 24 12 24 12s0-3.865-.502-5.814z" fill="#FF0000"/>
+                            <path d="M9.545 15.568V8.432L15.818 12l-6.273 3.568z" fill="white"/>
+                        </svg>
+                    </a>
+                    <a href="https://t.me/thechampionsacademy" target="_blank"
+                        class="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-white/10 hover:scale-110 transition-all duration-300">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37258 18.6274 0 12 0C5.37258 0 0 5.37258 0 12C0 18.6274 5.37258 24 12 24Z" fill="#2AABEE"/>
+                            <path d="M5.42221 11.8344L17.2023 7.33233C17.7479 7.13256 18.2361 7.45875 18.068 8.16335L15.9322 18.4908C15.7725 19.2458 15.3051 19.4587 14.6738 19.1132L11.1963 16.5878L9.5186 18.2435C9.33303 18.4332 9.1764 18.5929 8.81056 18.5929L9.06079 15.0116L15.4851 9.11718C15.7646 8.86311 15.4243 8.72145 15.053 8.97017L7.11342 14.0772L3.59371 12.949C2.82737 12.7051 2.81232 12.1643 3.75338 11.7853L5.42221 11.8344Z" fill="white"/>
+                        </svg>
+                    </a>
+                    <a href="https://wa.me/919527043827" target="_blank"
+                        class="w-10 h-10 bg-white/5 border border-white/10 rounded-xl flex items-center justify-center hover:bg-white/10 hover:scale-110 transition-all duration-300">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12.004 23.996h-.006a11.895 11.895 0 0 1-6.06-1.654L.044 23.996l1.693-6.257A11.854 11.854 0 0 1 .158 12 11.906 11.906 0 0 1 12 0c6.627 0 12 5.373 12 12s-5.373 12-11.996 11.996z" fill="#25D366"/>
+                            <path d="M17.476 17.382c-.298.867-1.758 1.585-2.46 1.685-.701.1-1.57.297-4.54-1.026-3.57-1.593-5.834-5.328-6.006-5.559-.174-.231-1.436-1.91-1.436-3.642 0-1.731.902-2.585 1.223-2.93.32-.346.697-.433.928-.433.23 0 .46.002.666.012.217.01.507-.083.792.605.297.715 1.015 2.474 1.104 2.656.09.182.15.394.035.626-.114.231-.173.376-.346.577-.173.2-.361.433-.52.577-.173.162-.36.342-.15.703.21.36 1.015 1.672 2.2 2.723 1.528 1.355 2.82 1.776 3.18 1.938.36.162.57.145.782-.095.212-.24.91-1.055 1.155-1.417.245-.362.49-.303.82-.18.33.12 2.096 1 2.456 1.18.36.18.6.27.69.42.09.15.09.865-.207 1.73z" fill="white"/>
+                        </svg>
+                    </a>
                 </div>
             </div>
             <div>
@@ -205,7 +250,7 @@ const SHARED_FOOTER = `
             <div>
                 <h4 class="font-black uppercase text-[10px] tracking-[0.2em] mb-10 text-[#FF9933] border-b border-white/5 pb-4">Contact Info</h4>
                 <p class="text-white text-sm mb-4">Jay Ganesh Apartment, Near Vrushali Hotel, Opp. Nav Maharashtra College, Pimpri Gaon, Pune – 411018</p>
-                <p class="text-[#FF9933] font-black text-base mb-2">+91 84844 00114 / +91 84848 42737</p>
+                <p class="text-[#FF9933] font-black text-base mb-2">+91 95270 43827 / +91 84848 42737</p>
                 <p class="text-gray-500 text-[10px] uppercase tracking-widest font-bold">info@championsacademy.in</p>
             </div>
         </div>
@@ -215,7 +260,7 @@ const SHARED_FOOTER = `
     </footer>
 
     <!-- WhatsApp Floating Button -->
-    <a href="https://wa.me/918484400114" target="_blank" style="position:fixed;bottom:24px;left:24px;z-index:999;width:60px;height:60px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 30px rgba(37,211,102,0.4);transition:all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'" aria-label="Chat on WhatsApp">
+    <a href="https://wa.me/919527043827" target="_blank" style="position:fixed;bottom:24px;left:24px;z-index:999;width:60px;height:60px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 30px rgba(37,211,102,0.4);transition:all 0.3s ease;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1)'" aria-label="Chat on WhatsApp">
         <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
     </a>
 `;

@@ -267,6 +267,14 @@
         ];
         DB.set('exams', exams);
 
+        // Seed Results
+        const results = [
+            { id: 'res_001', name: 'Ramesh Patil', exam: 'Police Bharti', batch: 'Batch 2023-24', imgUrl: 'https://placehold.co/600x600?text=Result+1', desc: 'Cleared physical and written exams with top scores.', color: '#FF9933', icon: '🎖️', createdAt: '2026-04-01T10:00:00Z' },
+            { id: 'res_002', name: 'Sanjay Yadav', exam: 'Army Agniveer', batch: 'Agniveer Batch', imgUrl: 'https://placehold.co/600x600?text=Result+2', desc: 'Showed exceptional physical endurance and stamina.', color: '#138808', icon: '⚔️', createdAt: '2026-04-02T10:00:00Z' },
+            { id: 'res_003', name: 'Kiran Desai', exam: 'Vanrakshak Bharti', batch: 'Forest Dept.', imgUrl: 'https://placehold.co/600x600?text=Result+3', desc: 'Successfully cleared the rigorous selection process.', color: '#000080', icon: '🌲', createdAt: '2026-04-03T10:00:00Z' }
+        ];
+        DB.set('results', results);
+
         DB.setOne('db_seeded', true);
         console.log('✅ Mock database seeded successfully');
     }
@@ -609,6 +617,7 @@
                 cat: body.cat || 'general',
                 icon: body.icon || '📄',
                 color: body.color || '#eff6ff',
+                url: body.url || '',
                 createdAt: new Date().toISOString()
             };
             const mats = DB.get('materials');
@@ -676,6 +685,49 @@
             const session = getSession();
             if (!session || session.role !== 'admin') return { status: 403, data: { message: 'Admin access required' } };
             return { status: 200, data: DB.get('exams') };
+        },
+
+        // Public: Get results
+        'GET /api/results': function() {
+            return { status: 200, data: DB.get('results') };
+        },
+
+        // Admin: Create result
+        'POST /api/admin/results': function(body) {
+            const session = getSession();
+            if (!session || session.role !== 'admin') return { status: 403, data: { message: 'Admin access required' } };
+            const resData = {
+                id: genId('res'),
+                name: body.name,
+                exam: body.exam,
+                batch: body.batch,
+                desc: body.desc,
+                imgUrl: body.imgUrl,
+                color: body.color || '#FF9933',
+                icon: body.icon || '🎖️',
+                createdAt: new Date().toISOString()
+            };
+            const results = DB.get('results');
+            results.push(resData);
+            DB.set('results', results);
+            return { status: 201, data: { message: 'Result added', result: resData } };
+        },
+
+        // Admin: Delete result
+        'DELETE /api/admin/results': function(body) {
+            const session = getSession();
+            if (!session || session.role !== 'admin') return { status: 403, data: { message: 'Admin access required' } };
+            let results = DB.get('results');
+            results = results.filter(r => r.id !== body.resultId);
+            DB.set('results', results);
+            return { status: 200, data: { message: 'Result deleted' } };
+        },
+
+        // Admin: Get all results
+        'GET /api/admin/results': function() {
+            const session = getSession();
+            if (!session || session.role !== 'admin') return { status: 403, data: { message: 'Admin access required' } };
+            return { status: 200, data: DB.get('results') };
         },
 
         // Admin: Dashboard stats
@@ -785,6 +837,7 @@
             localStorage.removeItem('ca_contacts');
             localStorage.removeItem('ca_callbacks');
             localStorage.removeItem('ca_announcements');
+            localStorage.removeItem('ca_results');
             seedDatabase();
             return { status: 200, data: { message: 'Database reset to defaults' } };
         }

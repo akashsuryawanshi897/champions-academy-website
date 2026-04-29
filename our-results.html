@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Results | THE CHAMPIONS ACADEMY</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="View the incredible results and success stories of our students at The Champions Academy. 100% physical test success rate.">
+    <meta name="keywords" content="The Champions Academy, Our Results, Success Stories, Police Bharti Results, Defense Training Results">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#FF9933',
+                        secondary: '#138808',
+                        navy: '#000080',
+                        dark: '#1A1A2E',
+                        slate: '#0F172A',
+                        'off-white': '#FAFAFA',
+                    },
+                    fontFamily: {
+                        heading: ['Outfit', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                        mono: ['Space Grotesk', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    
+    <link href="index.css" rel="stylesheet">
+    <style>
+        .glass-box { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; backdrop-filter: blur(10px); }
+        .page-header { background: linear-gradient(135deg, #1A1A2E 0%, #000080 100%); padding: 180px 0 60px; }
+        .whatsapp-float { position: fixed; bottom: 24px; left: 24px; z-index: 999; width: 60px; height: 60px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 30px rgba(37, 211, 102, 0.4); transition: all 0.3s ease; animation: whatsapp-pulse 2s infinite; }
+        .whatsapp-float:hover { transform: scale(1.1); }
+        @keyframes whatsapp-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4); } 50% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } }
+        
+        .result-card { transition: all 0.3s ease; }
+        .result-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px -10px rgba(0,0,0,0.1); }
+    </style>
+
+    <style>html, body { overflow-x: hidden; width: 100%; max-width: 100%; }</style>
+</head>
+<body class="text-gray-800 font-body bg-[#FAFAFA] min-h-screen overflow-x-hidden">
+
+    <div id="header-placeholder"></div>
+
+    <!-- Page Header -->
+    <section class="page-header text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h1 class="text-3xl md:text-4xl font-heading font-black uppercase mb-4 reveal">Our <span class="text-primary">Results</span></h1>
+            <p class="text-gray-300 font-medium tracking-widest uppercase text-xs reveal">Home / Our Results</p>
+        </div>
+    </section>
+
+    <main>
+        <!-- Proud Stats Overview -->
+        <section class="py-16 bg-white overflow-hidden border-b border-gray-100">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-12 reveal">
+                    <span class="section-label">Success Stories</span>
+                    <h2 class="section-title text-2xl md:text-3xl text-gray-900 mb-4">A Legacy of <span class="text-primary">Champions</span></h2>
+                    <div class="tiranga-divider w-24 mx-auto mt-4"></div>
+                    <p class="mt-6 text-gray-500 max-w-3xl mx-auto text-sm leading-relaxed">Our students have achieved remarkable success in Police Bharti, Army Bharti, and various competitive exams. <strong>We are proud of our 100% success rate in physical tests.</strong></p>
+                </div>
+            </div>
+        </section>
+        <!-- Achievers Gallery - Direct Images -->
+        <section class="py-16 bg-[#FAFAFA] overflow-hidden">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-10 reveal">
+                    <h3 class="font-heading font-bold text-2xl text-navy uppercase mb-2">Our Achievers Gallery</h3>
+                    <p class="text-gray-500 text-sm">Browse our latest successful candidates and training highlights</p>
+                </div>
+
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4 max-w-7xl mx-auto stagger-children" id="driveGallery">
+                </div>
+            </div>
+        </section>
+
+        <!-- Lightbox Modal -->
+        <div id="lightbox" class="fixed inset-0 z-[9999] bg-black/90 hidden items-center justify-center p-4" onclick="closeLightbox()">
+            <button onclick="closeLightbox()" class="absolute top-4 right-4 text-white text-4xl font-bold z-10 hover:text-primary transition-colors">&times;</button>
+            <button onclick="event.stopPropagation(); prevImg()" class="absolute left-4 top-1/2 -translate-y-1/2 text-white text-4xl font-bold z-10 hover:text-primary transition-colors">&#8249;</button>
+            <button onclick="event.stopPropagation(); nextImg()" class="absolute right-4 top-1/2 -translate-y-1/2 text-white text-4xl font-bold z-10 hover:text-primary transition-colors">&#8250;</button>
+            <div onclick="event.stopPropagation()" class="max-w-4xl max-h-[90vh] flex flex-col items-center">
+                <img id="lightboxImg" src="" alt="" class="max-w-full max-h-[80vh] object-contain rounded-xl shadow-2xl">
+                <p id="lightboxCaption" class="text-white text-sm mt-4 font-heading font-bold uppercase tracking-wider text-center"></p>
+            </div>
+        </div>
+
+        <script>
+        // All Google Drive images with file IDs and student names
+        const driveImages = [
+            { id: '1H5b42Qo79iXL1vAHhGRDSKqs8PoFrpZa', name: 'Selected Student' },
+            { id: '1IS0pZmongQOaYnth00l7V8L34KUDZH1c', name: 'Ajit Lonakar - SRPF' },
+            { id: '1W3_D4FEC43KlTVXUtF-NUcwQhMvQ7WhJ', name: 'Ajit Gondake - PCMC Police' },
+            { id: '1RrflW4a9KDbkWI0jpRfBT-y41mD0b5gQ', name: 'Aniket Ovhal - Solapur SRPF' },
+            { id: '1xQYieVGByRWCHS8NvfZ9i8au4S51ywvt', name: 'Arjun Shendage - Palghar Police' },
+            { id: '1-fDj6cIz2WrkWSK64k9q-9rY4KdM124O', name: 'Atish Dherange - Pune Gramin Police' },
+            { id: '1JeQZ3iJs6ik34GDf4iieiUelkOsV4YD0', name: 'Avinash Mane - PCMC Police' },
+            { id: '1eRE0UdUxgmJLWf5KZhsp896ycFfdemO4', name: 'Selected Student' },
+            { id: '1fQ8GBSqC_mMHri6DUYD6w4B02xZ43woF', name: 'Selected Student' },
+            { id: '1n_8yPkTGtuiVHCnTwfC4U2hodJ7GRvDA', name: 'Dipak Bhosale - Pune Gramin Police' },
+            { id: '1uKfiyaoF9CmbeyJZkpF9LIxQv_pfKo0F', name: 'Ganesh Jaybhay - Indian Army' },
+            { id: '1bnDIZMeivMMpyCHwC2AEUoJR0Ft4MTi5', name: 'Govind Shivakar - SRPF' },
+            { id: '1YdRIc2SHEN-BRYm3EXTXpIItjflT-PRF', name: 'Govind Shivakar' },
+            { id: '1h7oA8RerwT3rwHpNVqeB-GYgvJ-bS2Hk', name: 'Selected Student' },
+            { id: '1V-iuojQyBsZI400-OekfMsgXK3d0GkX0', name: 'Indian Army' },
+            { id: '1hGfpkknZHXcLwvyBbpM9hrdPTR46dAhM', name: 'Indian Army' },
+            { id: '1paLeohZMLfIe1op8iy_5fgx8fNj_ciyE', name: 'Indian Army' },
+            { id: '1diPnWV_frpaIr1UZ0lYxWROnapDAUQMB', name: 'Kiran Gaikawad - Pune Police' },
+            { id: '1wsYdpBztG69wVdRmHI_5trhdQBCNWHs7', name: 'Komal Giri - Mumbai Chalak' },
+            { id: '1cszTNT9-gwCQ4heq_DMapp_WPZPn7Wd_', name: 'Lakhan Garad - Mumbai Police' },
+            { id: '1vuoEsRk4e-t70etSN8GAEEl6JvQFgdSc', name: 'Mithali More - Pune Gramin Chalak Police' },
+            { id: '1uyshIURziK5TdtNZOOk1_ZKSneno7Jt6', name: 'Namrata Shinde - Mumbai Police' },
+            { id: '1CgJKtuIVxdTZrXx8EaEQukQdOYWKxwXY', name: 'Nitin Suranar - SRPF Group 2' },
+            { id: '1CneLNUZDtmvtlpGzbqNS_nEbBJr0GKbf', name: 'Pragati Pawar - Palghar Police' },
+            { id: '1Pr5idUGWe6Yk36_2rA7PjNYdFEE3O1uU', name: 'Prashant Bansode - Mumbai Fire Brigade' },
+            { id: '1dJaGkCsPUt4aRhNZaWVbT15tZkwveiDc', name: 'Priyanka Pote - Pune Police Chalak' },
+            { id: '1hpXCKJwima21puNYHel1P7VjLIQ0Ev3q', name: 'Puja Goplghare - Mira Bhainder Police' },
+            { id: '1DLyPa6CdsS9nZlZnoWtgWsAO0TSz1I24', name: 'Rama Gaikawad - First Women Driver' },
+            { id: '1rIPq5apSLoiMlYnq9XnKCHsmdDMbMBfT', name: 'Rohit Shedage - SRPF' },
+            { id: '1iY5Njma1OhwbjOfkKxs5GQZaBwO3tpVL', name: 'Rushikesh Kambale - Indian Army' },
+            { id: '1jD220oAn-38KqFVep1r2H0D2HXh73EYy', name: 'Rutuja Kotaval - Palghar Police' },
+            { id: '1vOIO86fQeNvJ1q0foNSbXo8VkYnAv--L', name: 'Sagar Bhandari - SRPF Police' },
+            { id: '1GRzitA2EsRfH17L_wEfq9tpL_D90c2CD', name: 'Sagar Solankar - Mumbai Driver Police' },
+            { id: '1j1wIYdWDmIBT2l5-fhnBg5EXn9AwEZ-8', name: 'Sagar Solankar - Mumbai Driver' },
+            { id: '1DczM9iL-AvXdwKS2vhzGM0n9hFH8C0-Y', name: 'Sandesh Pawar - PCMC Police' },
+            { id: '1tB5IN29Nau7CfsL2I7S5XC8KCT2U5m-O', name: 'Siddhi Sonavane' },
+            { id: '1entcbxXTki6BazkEr-Yexxz1RXD9qb11', name: 'Sourabh' },
+            { id: '1DWRL0aP3LZR0i64-Fl6YOzundLBlTfvJ', name: 'Subhash Dighe - Palghar' },
+            { id: '14l3jh4V63rr6VRCpZNaKyrG8RoK1viTP', name: 'Sujit Sarjare - Mumbai Driver Police' },
+            { id: '1msWCNS_fozuucNrP3LLRcEhzDrJgxB6S', name: 'Umesh Gosavi - SRPF' },
+            { id: '1Ikj8ZmoAxI2hKtyuUWRuhoKPwmf9v_k0', name: 'Umesh Kambale - Mumbai Police' },
+            { id: '1gtde6e4i_Tv5hnFivMFkHn1R3G3ut5HH', name: 'Vinod Maidand - Dharashive Police' },
+            { id: '1QAm9QiYdvqvSVJOLp5Fz1b0oO4vcsXGD', name: 'Selected Student' },
+        ];
+
+        let currentLightboxIdx = 0;
+
+        function getThumbUrl(fileId) {
+            return `https://drive.google.com/thumbnail?id=${fileId}&sz=w400`;
+        }
+        function getFullUrl(fileId) {
+            return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1200`;
+        }
+
+        function renderDriveGallery() {
+            const grid = document.getElementById('driveGallery');
+            grid.innerHTML = driveImages.map((img, i) => `
+                <div class="group relative rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300 cursor-pointer hover:-translate-y-1" onclick="openLightbox(${i})">
+                    <div class="aspect-[3/4] overflow-hidden">
+                        <img src="${getThumbUrl(img.id)}" alt="${img.name}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy" onerror="this.src='https://placehold.co/400x500/1A1A2E/FF9933?text=Image'">
+                    </div>
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-3 pt-8">
+                        <p class="text-white text-[11px] md:text-xs font-bold uppercase tracking-wider leading-tight drop-shadow-lg">${img.name}</p>
+                    </div>
+                    <div class="absolute top-2 right-2 bg-primary text-white text-[8px] md:text-[9px] uppercase font-bold px-2 py-0.5 rounded-full tracking-widest opacity-0 group-hover:opacity-100 transition-opacity">Selected ✓</div>
+                </div>
+            `).join('');
+        }
+
+        function openLightbox(idx) {
+            currentLightboxIdx = idx;
+            const lb = document.getElementById('lightbox');
+            document.getElementById('lightboxImg').src = getFullUrl(driveImages[idx].id);
+            document.getElementById('lightboxCaption').textContent = driveImages[idx].name;
+            lb.classList.remove('hidden');
+            lb.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeLightbox() {
+            const lb = document.getElementById('lightbox');
+            lb.classList.add('hidden');
+            lb.classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+        function nextImg() {
+            currentLightboxIdx = (currentLightboxIdx + 1) % driveImages.length;
+            document.getElementById('lightboxImg').src = getFullUrl(driveImages[currentLightboxIdx].id);
+            document.getElementById('lightboxCaption').textContent = driveImages[currentLightboxIdx].name;
+        }
+        function prevImg() {
+            currentLightboxIdx = (currentLightboxIdx - 1 + driveImages.length) % driveImages.length;
+            document.getElementById('lightboxImg').src = getFullUrl(driveImages[currentLightboxIdx].id);
+            document.getElementById('lightboxCaption').textContent = driveImages[currentLightboxIdx].name;
+        }
+        document.addEventListener('keydown', e => {
+            const lb = document.getElementById('lightbox');
+            if (lb.classList.contains('hidden')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowRight') nextImg();
+            if (e.key === 'ArrowLeft') prevImg();
+        });
+
+        renderDriveGallery();
+        </script>
+
+
+        <!-- Example Grid Section (Placeholders for individual focus if needed) -->
+        <section class="py-20 bg-white overflow-hidden">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16 reveal">
+                    <span class="section-label">Top Performers</span>
+                    <h2 class="section-title text-2xl md:text-3xl text-gray-900 mb-4">Meet Our <span class="text-primary">Stars</span></h2>
+                    <div class="tiranga-divider w-24 mx-auto mt-4"></div>
+                </div>
+
+                <div id="resultsDataGrid" class="stagger-children grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Dynamic cards will be injected here -->
+                </div>
+
+                <div class="mt-12 text-center">
+                    <p class="text-sm text-gray-500 mb-6 font-medium italic">*Images above are to be linked manually from the provided Drive folder.</p>
+                    <a href="admission.html" class="bg-navy text-white px-10 py-4 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-primary transition-all duration-300 shadow-xl inline-block">Join The Next Batch</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/919527043827" target="_blank" class="whatsapp-float" aria-label="Chat on WhatsApp">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="white">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.890-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+        </svg>
+    </a>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        const revealElements = document.querySelectorAll('.reveal, .stagger-children');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.15 });
+        revealElements.forEach(el => revealObserver.observe(el));
+        
+        const header = document.getElementById('main-header');
+        if (header) {
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 80) header.classList.add('scrolled');
+                else header.classList.remove('scrolled');
+                const scrollTop = document.getElementById('scroll-top');
+                if (scrollTop) {
+                    if (window.scrollY > 500) { scrollTop.classList.remove('hidden'); scrollTop.classList.add('flex'); }
+                    else { scrollTop.classList.add('hidden'); }
+                }
+            });
+        }
+
+        // Fetch dynamic results
+        try {
+            const res = await fetch('/api/results');
+            const data = await res.json();
+            const grid = document.getElementById('resultsDataGrid');
+            if(data && data.length > 0) {
+                grid.innerHTML = data.reverse().map((r, i) => `
+                    <div class="result-card bg-white border border-gray-100 rounded-3xl overflow-hidden ${i < 3 ? 'reveal' : ''}" style="animation-delay: ${i*0.1}s;">
+                        <div class="h-80 bg-gray-200 relative">
+                            <img src="${r.imgUrl}" alt="${r.name}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x600?text=Result+Image'">
+                            <div class="absolute top-4 right-4 bg-[${r.color||'#FF9933'}] text-white text-[10px] uppercase font-bold px-3 py-1 rounded-full tracking-widest" style="background:${r.color||'#FF9933'}">Selected</div>
+                        </div>
+                        <div class="p-8">
+                            <h4 class="font-heading font-bold text-xl text-navy mb-1 uppercase">${r.name}</h4>
+                            <p class="text-sm font-bold mb-4 uppercase tracking-wider" style="color:${r.color||'#FF9933'}">${r.batch}</p>
+                            <p class="text-gray-500 text-sm leading-relaxed mb-6">${r.desc || 'Successfully cleared the exams.'}</p>
+                            <div class="pt-4 border-t border-gray-100 flex items-center gap-3">
+                                <span class="text-2xl">${r.icon || '🎖️'}</span>
+                                <div>
+                                    <p class="text-xs text-gray-400 uppercase font-bold tracking-wider">Exam Passed</p>
+                                    <p class="text-sm font-bold text-gray-800">${r.exam}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+                // re-observe newly added reveal elements
+                document.querySelectorAll('#resultsDataGrid .reveal').forEach(el => revealObserver.observe(el));
+            } else {
+                grid.innerHTML = '<p class="text-center text-gray-500 col-span-full">More results coming soon.</p>';
+            }
+        } catch(e) {
+            console.error('Error fetching results:', e);
+        }
+    });
+    </script>
+
+    <script src="mock-auth.js"></script>
+    <script src="components.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

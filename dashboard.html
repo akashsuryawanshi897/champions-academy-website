@@ -1002,7 +1002,7 @@
             return;
         }
         grid.innerHTML = list.map(m => `
-            <div class="material-card" onclick="downloadMaterial('${m.id}','${m.title}')">
+            <div class="material-card" onclick="downloadMaterial('${m.id}', '${m.title.replace(/'/g, "\\'")}', ${m.url ? `'${m.url.replace(/'/g, "\\'")}'` : 'null'})">
                 <div class="mat-icon" style="background:${m.color || '#eff6ff'};">${m.icon || '📄'}</div>
                 <div style="flex:1;min-width:0;">
                     <div style="font-weight:700;font-size:13px;color:#000080;margin-bottom:3px;">${m.title}</div>
@@ -1012,10 +1012,15 @@
             </div>
         `).join('');
     }
-    function downloadMaterial(id, title) {
-        toast(`📥 Downloading "${title}"...`, 'info');
-        // Simulated download notification (no real file in demo)
-        setTimeout(() => toast(`✅ "${title}" is ready!`, 'success'), 1800);
+    function downloadMaterial(id, title, url) {
+        if (url) {
+            toast(`📥 Opening "${title}"...`, 'info');
+            window.open(url, '_blank');
+        } else {
+            toast(`📥 Downloading "${title}"...`, 'info');
+            // Simulated download notification (no real file in demo)
+            setTimeout(() => toast(`✅ "${title}" is ready!`, 'success'), 1800);
+        }
     }
 
     let allExams = [];
