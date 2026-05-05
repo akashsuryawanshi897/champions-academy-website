@@ -6,6 +6,8 @@
     <title>Login | THE CHAMPIONS ACADEMY</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Identity Services SDK -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
         tailwind.config = {
             theme: {
@@ -33,8 +35,13 @@
         .toast-success { background: #d1fae5; color: #065f46; border-left: 4px solid #10b981; }
         .toast-error { background: #fee2e2; color: #991b1b; border-left: 4px solid #ef4444; }
         .input-field:focus { box-shadow: 0 0 0 3px rgba(255,153,51,0.15); }
-        .demo-badge { background: linear-gradient(135deg, #FF9933, #FF6600); animation: pulse-glow 2s infinite; }
-        @keyframes pulse-glow { 0%,100% { box-shadow: 0 0 10px rgba(255,153,51,0.3); } 50% { box-shadow: 0 0 25px rgba(255,153,51,0.6); } }
+        .google-btn { display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 10px; border-radius: 10px; border: 2px solid #e5e7eb; background: white; font-weight: 600; font-size: 13px; color: #374151; cursor: pointer; transition: all 0.3s ease; }
+        .google-btn:hover { border-color: #4285F4; background: #f8faff; box-shadow: 0 4px 12px rgba(66,133,244,0.15); }
+        .google-btn svg { flex-shrink: 0; width: 18px; height: 18px; }
+        .divider { display: flex; align-items: center; gap: 12px; margin: 16px 0; }
+        .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: #e5e7eb; }
+        .divider span { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #9ca3af; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     </style>
 
     <style>html, body { overflow-x: hidden; width: 100%; max-width: 100%; }</style>
@@ -43,48 +50,57 @@
     <!-- Toast Container -->
     <div id="toast" class="toast"></div>
 
-    <div class="max-w-md w-full">
-        <!-- Demo Credentials Badge -->
-        <div class="demo-badge text-white text-center p-4 rounded-2xl mb-6 shadow-xl">
-            <p class="text-xs font-bold uppercase tracking-widest mb-1">🔑 Demo Credentials</p>
-            <p class="text-sm opacity-90">Admin: <b>admin@champions.com</b> / <b>admin123</b></p>
-            <p class="text-sm opacity-90">Student: <b>student@champions.com</b> / <b>student123</b></p>
-        </div>
+    <div class="max-w-sm w-full">
+
 
         <div class="login-card rounded-3xl shadow-2xl overflow-hidden">
-            <div class="bg-navy p-8 text-center relative overflow-hidden">
+            <div class="bg-navy p-6 text-center relative overflow-hidden">
                 <div class="absolute inset-0 opacity-10">
                     <div class="absolute w-40 h-40 rounded-full bg-primary -top-10 -right-10"></div>
                     <div class="absolute w-24 h-24 rounded-full bg-secondary -bottom-6 -left-6"></div>
                 </div>
-                <a href="index.html"><img src="assets/images/logo.png" alt="Logo" class="h-14 mx-auto mb-4 relative z-10"></a>
-                <h1 class="text-2xl font-heading font-bold text-white uppercase tracking-wider relative z-10">Login</h1>
-                <p class="text-blue-200 text-sm mt-2 relative z-10">Welcome back to the academy</p>
+                <a href="index.html"><img src="assets/images/logo.png" alt="Logo" class="h-10 mx-auto mb-2 relative z-10"></a>
+                <h1 class="text-xl font-heading font-bold text-white uppercase tracking-wider relative z-10">Login</h1>
+                <p class="text-blue-200 text-xs mt-1 relative z-10">Welcome back to the academy</p>
             </div>
 
             <!-- Role Toggle -->
-            <div class="flex bg-gray-50 p-1 m-6 mb-0 rounded-xl">
-                <button id="studentTab" onclick="setRole('student')" class="flex-1 py-3 rounded-lg text-xs font-bold uppercase tracking-widest transition-all bg-navy text-white shadow">🎓 Student</button>
-                <button id="adminTab" onclick="setRole('admin')" class="flex-1 py-3 rounded-lg text-xs font-bold uppercase tracking-widest transition-all text-gray-500 hover:bg-gray-100">🛡️ Admin</button>
+            <!-- Role Toggle -->
+            <div class="flex bg-gray-50 p-1 m-4 mb-0 rounded-xl">
+                <button id="studentTab" onclick="setRole('student')" class="flex-1 py-2 rounded-lg text-xs font-bold uppercase tracking-widest transition-all bg-navy text-white shadow">🎓 Student</button>
+                <button id="adminTab" onclick="setRole('admin')" class="flex-1 py-2 rounded-lg text-xs font-bold uppercase tracking-widest transition-all text-gray-500 hover:bg-gray-100">🛡️ Admin</button>
             </div>
 
-            <form id="loginForm" class="p-8 pt-6 space-y-5">
+            <form id="loginForm" class="p-6 pt-4 space-y-4">
                 <div>
-                    <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Email Address</label>
-                    <input type="email" id="email" required class="input-field w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:border-primary outline-none transition font-medium" placeholder="john@example.com">
+                    <label class="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-1.5">Email Address</label>
+                    <input type="email" id="email" required class="input-field w-full px-4 py-2.5 text-sm rounded-xl border border-gray-200 focus:border-primary outline-none transition font-medium" placeholder="john@example.com">
                 </div>
                 <div>
-                    <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Password</label>
+                    <label class="block text-[10px] font-bold uppercase tracking-widest text-gray-500 mb-1.5">Password</label>
                     <div class="relative">
-                        <input type="password" id="password" required class="input-field w-full px-4 py-3.5 rounded-xl border border-gray-200 focus:border-primary outline-none transition font-medium pr-12" placeholder="••••••••">
+                        <input type="password" id="password" required class="input-field w-full px-4 py-2.5 text-sm rounded-xl border border-gray-200 focus:border-primary outline-none transition font-medium pr-12" placeholder="••••••••">
                         <button type="button" onclick="togglePassword()" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-navy transition">👁️</button>
                     </div>
                 </div>
-                <button type="submit" id="loginBtn" class="w-full bg-primary text-white py-4 rounded-xl font-bold uppercase tracking-widest text-sm btn-glow transition-all duration-300 mt-4 flex items-center justify-center gap-2">
+                <button type="submit" id="loginBtn" class="w-full bg-primary text-white py-3 rounded-xl font-bold uppercase tracking-widest text-sm btn-glow transition-all duration-300 mt-4 flex items-center justify-center gap-2">
                     <span id="loginBtnText">Login Now</span>
                     <span id="loginSpinner" class="hidden">⏳</span>
                 </button>
-                <p class="text-center text-sm text-gray-500 mt-6">Don't have an account? <a href="register.html" class="text-primary font-bold hover:underline">Register Here</a></p>
+
+                <div class="divider"><span>or</span></div>
+
+                <button type="button" id="googleSignInBtn" onclick="handleGoogleSignIn()" class="google-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24">
+                        <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
+                        <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                        <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                        <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                    </svg>
+                    Continue with Google
+                </button>
+
+                <p class="text-center text-xs text-gray-500 mt-4">Don't have an account? <a href="register.html" class="text-primary font-bold hover:underline">Register Here</a></p>
             </form>
         </div>
     </div>
@@ -99,13 +115,11 @@
             const sTab = document.getElementById('studentTab');
             const aTab = document.getElementById('adminTab');
             if (role === 'admin') {
-                aTab.className = 'flex-1 py-3 rounded-lg text-xs font-bold uppercase tracking-widest transition-all bg-navy text-white shadow';
-                sTab.className = 'flex-1 py-3 rounded-lg text-xs font-bold uppercase tracking-widest transition-all text-gray-500 hover:bg-gray-100';
-                document.getElementById('email').value = 'admin@champions.com';
-                document.getElementById('password').value = 'admin123';
+                aTab.className = 'flex-1 py-2 rounded-lg text-xs font-bold uppercase tracking-widest transition-all bg-navy text-white shadow';
+                sTab.className = 'flex-1 py-2 rounded-lg text-xs font-bold uppercase tracking-widest transition-all text-gray-500 hover:bg-gray-100';
             } else {
-                sTab.className = 'flex-1 py-3 rounded-lg text-xs font-bold uppercase tracking-widest transition-all bg-navy text-white shadow';
-                aTab.className = 'flex-1 py-3 rounded-lg text-xs font-bold uppercase tracking-widest transition-all text-gray-500 hover:bg-gray-100';
+                sTab.className = 'flex-1 py-2 rounded-lg text-xs font-bold uppercase tracking-widest transition-all bg-navy text-white shadow';
+                aTab.className = 'flex-1 py-2 rounded-lg text-xs font-bold uppercase tracking-widest transition-all text-gray-500 hover:bg-gray-100';
                 document.getElementById('email').value = '';
                 document.getElementById('password').value = '';
             }
@@ -168,6 +182,173 @@
                 document.getElementById('loginSpinner').classList.add('hidden');
             }
         });
+
+        // ==================== GOOGLE SIGN-IN ====================
+        // 🔧 REPLACE THIS WITH YOUR GOOGLE CLIENT ID FROM GOOGLE CLOUD CONSOLE
+        const GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID_HERE';
+
+        let googleClient = null;
+
+        // Initialize Google Sign-In when GIS library loads
+        function initGoogleSignIn() {
+            if (typeof google === 'undefined' || !google.accounts) {
+                // GIS library not loaded yet, retry in 500ms
+                setTimeout(initGoogleSignIn, 500);
+                return;
+            }
+
+            googleClient = google.accounts.oauth2.initCodeClient({
+                client_id: GOOGLE_CLIENT_ID,
+                scope: 'email profile openid',
+                ux_mode: 'popup',
+                callback: () => {} // Not used for ID token flow
+            });
+
+            // Also initialize the ID token (One Tap) client
+            google.accounts.id.initialize({
+                client_id: GOOGLE_CLIENT_ID,
+                callback: handleGoogleCredentialResponse,
+                auto_select: false
+            });
+        }
+
+        // Decode JWT payload from Google credential
+        function decodeJwtPayload(token) {
+            try {
+                const base64Url = token.split('.')[1];
+                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+                const jsonPayload = decodeURIComponent(
+                    atob(base64).split('').map(c => 
+                        '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+                    ).join('')
+                );
+                return JSON.parse(jsonPayload);
+            } catch (e) {
+                console.error('Failed to decode JWT:', e);
+                return null;
+            }
+        }
+
+        // Handle the credential response from Google
+        function handleGoogleCredentialResponse(response) {
+            const btn = document.getElementById('googleSignInBtn');
+
+            if (!response.credential) {
+                showToast('❌ Google Sign-In failed. Please try again.', 'error');
+                resetGoogleBtn(btn);
+                return;
+            }
+
+            const userData = decodeJwtPayload(response.credential);
+            if (!userData || !userData.email) {
+                showToast('❌ Could not retrieve account info.', 'error');
+                resetGoogleBtn(btn);
+                return;
+            }
+
+            // Create or find user in mock database
+            const users = JSON.parse(localStorage.getItem('ca_users') || '[]');
+            let existingUser = users.find(u => u.email === userData.email);
+
+            if (!existingUser) {
+                // Create new user from Google account
+                existingUser = {
+                    id: 'google_' + Date.now(),
+                    fullName: userData.name || userData.email.split('@')[0],
+                    email: userData.email,
+                    password: '__google_auth__',
+                    phone: '',
+                    role: 'user',
+                    profilePicture: userData.picture || '',
+                    authProvider: 'google',
+                    createdAt: new Date().toISOString()
+                };
+                users.push(existingUser);
+                localStorage.setItem('ca_users', JSON.stringify(users));
+            }
+
+            // Set session
+            const session = {
+                id: existingUser.id,
+                fullName: existingUser.fullName,
+                email: existingUser.email,
+                phone: existingUser.phone || '',
+                role: existingUser.role,
+                profilePicture: userData.picture || '',
+                createdAt: existingUser.createdAt
+            };
+            localStorage.setItem('ca_session', JSON.stringify(session));
+
+            showToast('✅ Welcome, ' + (userData.name || userData.email) + '!', 'success');
+
+            setTimeout(() => {
+                if (existingUser.role === 'admin') {
+                    window.location.href = 'admin-dashboard.html';
+                } else {
+                    window.location.href = 'dashboard.html';
+                }
+            }, 800);
+        }
+
+        function resetGoogleBtn(btn) {
+            btn.disabled = false;
+            btn.style.opacity = '1';
+            btn.innerHTML = `
+                <svg width="20" height="20" viewBox="0 0 24 24">
+                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
+                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                </svg>
+                Continue with Google
+            `;
+        }
+
+        // Called when user clicks the Google button
+        function handleGoogleSignIn() {
+            const btn = document.getElementById('googleSignInBtn');
+
+            // Check if Client ID is configured
+            if (GOOGLE_CLIENT_ID === 'YOUR_GOOGLE_CLIENT_ID_HERE') {
+                showToast('⚠️ Google Client ID not configured. Please set up Google Cloud Console first.', 'error');
+                return;
+            }
+
+            // Check if GIS library loaded
+            if (typeof google === 'undefined' || !google.accounts) {
+                showToast('❌ Google Sign-In library failed to load. Check your internet connection.', 'error');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.style.opacity = '0.7';
+            btn.innerHTML = `
+                <svg width="20" height="20" viewBox="0 0 24 24" style="animation: spin 1s linear infinite">
+                    <circle cx="12" cy="12" r="10" stroke="#4285F4" stroke-width="3" fill="none" stroke-dasharray="31.4 31.4"/>
+                </svg>
+                Connecting to Google...
+            `;
+
+            // Trigger Google Sign-In popup
+            google.accounts.id.prompt((notification) => {
+                if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+                    // One Tap not available, fall back to button-based flow
+                    google.accounts.id.renderButton(
+                        document.createElement('div'),
+                        { theme: 'outline', size: 'large' }
+                    );
+                    // Use popup directly
+                    google.accounts.id.prompt();
+                    // If still not working, reset the button
+                    setTimeout(() => {
+                        if (btn.disabled) resetGoogleBtn(btn);
+                    }, 5000);
+                }
+            });
+        }
+
+        // Initialize when page loads
+        window.addEventListener('load', initGoogleSignIn);
     </script>
 </body>
 </html>
